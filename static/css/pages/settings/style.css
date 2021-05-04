@@ -143,7 +143,7 @@ button:focus {
   padding-bottom: 12px;
   display: flex;
   padding-left: 36px;
-  border-left: #f6a solid 0;
+  border-left: #48AAAD solid 0;
   align-items: center;
 }
 .left-selector {
@@ -353,7 +353,7 @@ input::placeholder {
 }
 .bootstrap-select.btn-group .dropdown-menu li.selected,
 .bootstrap-select.btn-group .dropdown-menu li:hover {
-  background-color: #f6a;
+  background-color: #48AAAD;
   color: #fff;
 }
 .btn {
@@ -383,7 +383,7 @@ input::placeholder {
 .bootstrap-select .dropdown-toggle:focus {
   outline: 0 !important;
   box-shadow: none;
-  border: 2px #f6a solid;
+  border: 2px #48AAAD solid;
 }
 .bootstrap-select > .dropdown-toggle {
   padding-right: 14px !important;
@@ -412,7 +412,7 @@ input::placeholder {
   align-items: center;
 }
 .btn-group.bootstrap-select.show .btn {
-  border: 2px solid #f6a;
+  border: 2px solid #48AAAD;
 }
 .bootstrap-select.btn-group .dropdown-menu li.selected a:after {
   content: "\f00c";
@@ -424,11 +424,11 @@ input::placeholder {
   padding-right: 10px;
 }
 .pink-bold {
-  color: #f6a;
+  color: #48AAAD;
   font-weight: 700;
 }
 .settings-btn {
-  color: #f6a;
+  color: #48AAAD;
   border-radius: 8px;
   padding: 8px;
   font-size: 14px;
@@ -438,7 +438,7 @@ input::placeholder {
   padding-right: 24px;
   transition: 0.2s background-color, 0.2s color, 0.2s border;
   cursor: pointer;
-  border: #f6a solid 2px;
+  border: #48AAAD solid 2px;
   margin-top: 12px;
   text-align: center;
   min-width: 204px;
@@ -460,8 +460,8 @@ input::placeholder {
 .settings-btn:hover:not(.disabled) {
   outline: 0;
   color: #fff;
-  background-color: #f6a;
-  border: #f6a solid 2px;
+  background-color: #48AAAD;
+  border: #48AAAD solid 2px;
   text-decoration: none;
 }
 .left-header {
@@ -642,10 +642,10 @@ label.checkbox {
   color: #fff !important;
 }
 .device-input:checked + label:hover {
-  background-color: #f6a;
+  background-color: #48AAAD;
 }
 .device-input:checked + label {
-  border-color: #f6a;
+  border-color: #48AAAD;
 }
 @media (max-width: 992px) {
   .default-input {
@@ -657,7 +657,7 @@ label.checkbox {
   font-family: Font Awesome\5 Pro;
   font-weight: 700;
   font-size: 9px;
-  color: #f6a;
+  color: #48AAAD;
   transition: 0.2s color;
   position: absolute;
 }
@@ -665,10 +665,10 @@ label.checkbox {
   display: none;
 }
 label.checkbox:hover {
-  border-color: #f6a;
+  border-color: #48AAAD;
 }
 input:checked + label.checkbox:hover {
-  background-color: #f6a;
+  background-color: #48AAAD;
   border-color: transparent;
 }
 label.user-avatar:hover {
@@ -757,11 +757,11 @@ i.loadspin {
 }
 .pretty.p-default.p-round:hover label.checkbox,
 label.checkbox:hover {
-  border-color: #f6a;
+  border-color: #48AAAD;
 }
 .pretty.p-default.p-round:hover input:checked + label.checkbox,
 input:checked + label.checkbox:hover {
-  background-color: #f6a;
+  background-color: #48AAAD;
 }
 .vk-avatar:before {
   content: "";
