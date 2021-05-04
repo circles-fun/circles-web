@@ -509,17 +509,3 @@ async def github_redirect():
 @frontend.route('/discord')
 async def discord_redirect():
     return redirect(glob.config.discord_server)
-
-@frontend.route('/youtube')
-@frontend.route('/yt')
-async def youtube_redirect():
-    return redirect(glob.config.youtube)
-
-@frontend.route('/twitter')
-async def twitter_redirect():
-    return redirect(glob.config.twitter)
-
-@frontend.route('/instagram')
-@frontend.route('/ig')
-async def instagram_redirect():
-    return redirect(glob.config.instagram)
