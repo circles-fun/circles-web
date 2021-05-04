@@ -31,7 +31,7 @@ It's in quite the usuable state. We now have a fully implemented session authent
 to have a more interpersonal experience, leaderboards supported all mods and modes available within the gulag
 stack, a automated documentation system featuring markdown support, user profiles featuring every single statistic
 a player would need from score UR to rank graphs*, and a admin panel allowing for easy management of the gulag instance
-and it's users*. If you are curious on how far we have gotten, check out our [projects](https://github.com/Yo-ru/gulag-web/projects),
+and it's users*. If you are curious on how far we have gotten, check out our [projects](https://github.com/circles-osu/circles-web/projects),
 you can see what we have done and what we are about to complete.
 
 `* a feature that is in development or coming soon.`
@@ -65,7 +65,7 @@ python3.9 get-pip.py && rm get-pip.py
 sudo apt install mysql-server nginx
 
 # Clone gulag-web from GitHub.
-git clone https://github.com/yo-ru/gulag-web.git
+git clone https://github.com/circles-osu/circles-web.git
 cd gulag-web
 
 # Initialize and update the submodules.

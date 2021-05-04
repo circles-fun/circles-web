@@ -42,7 +42,7 @@ disallowed_passwords = {
 registration = True
 
 # social links (used throughout gulag-web)
-github = 'https://github.com/Yo-ru/gulag-web'
+github = 'https://github.com/circles-osu/circles-web'
 discord_server = 'https://discord.com/invite/Y5uPvcNpD9'
 youtube = 'https://youtube.com/'
 twitter = 'https://twitter.com/'
