@@ -100,6 +100,7 @@ html {
 
 a.foot-link {
   margin: 8px;
+  color: hsl(215, 40%, 35%) !important;
 }
 
 .container {
@@ -672,6 +673,7 @@ a.foot-link {
 .infoitem .button.is-primary {
   font-size: 14px;
   margin-left: 12px;
+  background: hsl(215, 40%, 35%);
 }
 
 .modal-close {

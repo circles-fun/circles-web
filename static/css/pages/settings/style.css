@@ -403,7 +403,7 @@ input::placeholder {
   border-radius: 4px;
   font-size: 13px;
   transition: 0.2s background-color, 0.2s color;
-  color: #333;
+  color: rgb(51, 51, 51);
   cursor: pointer;
 }
 .bootstrap-select.btn-group .dropdown-toggle .filter-option {
