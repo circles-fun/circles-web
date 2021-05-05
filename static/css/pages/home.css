@@ -59,7 +59,7 @@
 }
 
 .splash {
-  background: hsl(var(--info), 40%, 40%);
+  background: hsl(var(--main), 40%, 40%);
 }
 
 .footer {
