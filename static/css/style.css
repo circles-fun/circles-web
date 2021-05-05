@@ -173,6 +173,7 @@ a.foot-link {
   width: 100%;
   transition: 0.2s ease;
   min-height: 0rem;
+  background-color: hsl(215, 50%, 50%);
 }
 
 .navbar-logo {
@@ -249,7 +250,7 @@ a.foot-link {
 }
 
 .navbar.is-primary .navbar-brand > a.navbar-item:hover {
-  background-color: hsl(215, 50%, 50%);
+  background-color: transparent;
   color: #fff;
 }
 
