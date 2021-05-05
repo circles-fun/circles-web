@@ -100,7 +100,7 @@ html {
 
 a.foot-link {
   margin: 8px;
-  color: hsl(202, 69%, 56%) !important;
+  color: hsl(202, 57%, 44%) !important;
 }
 
 .container {
@@ -219,6 +219,7 @@ a.foot-link {
   font-weight: 430;
   position: relative;
   transition: 0.3s ease;
+  background-color: hsl(215, 53%, 37%) !important;
 }
 
 .navbar-start:hover .navbar-item {
@@ -675,7 +676,7 @@ a.foot-link {
 .infoitem .button.is-primary {
   font-size: 14px;
   margin-left: 12px;
-  background: hsl(202, 69%, 56%) !important;
+  background: hsl(202, 63%, 34%) !important;
 }
 
 .modal-close {

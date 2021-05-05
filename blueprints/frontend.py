@@ -129,7 +129,7 @@ async def settings_avatar_post():
         return await flash('error', 'You must be logged in to access avatar settings!', 'login')
 
     # constants
-    AVATARS_PATH = f'{glob.config.path_to_gulag}/.data/avatars'
+    AVATARS_PATH = f'{glob.config.path_to_gulag}.data/avatars'
     ALLOWED_EXTENSIONS = ['.jpeg', '.jpg', '.png']
 
     avatar = (await request.files).get('avatar')
