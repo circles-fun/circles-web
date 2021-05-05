@@ -554,7 +554,7 @@ html {
 .beatmap-link {
   width: 400px;
   overflow: hidden;
-  color: hsl(215, 55%, 58%) important;
+  color: hsl(215, 55%, 58%);
 }
 
 span.beatmap-mapper {
