@@ -209,14 +209,14 @@ html {
 }
 
 .level-bar {
-  background: #413030;
+  background: #304141;
   border-radius: 12px;
   margin-right: 8px;
   overflow: hidden;
 }
 
 .level-num {
-  background: #413030;
+  background: #304140;
   border-radius: 12px;
 }
 
@@ -226,7 +226,7 @@ html {
   left: 0;
   width: var(-progress);
   height: 100%;
-  background: #a65973;
+  background: rgb(89, 163, 166);
   -webkit-transition: all 0.5s ease;
   transition: all 0.5s ease;
 }
@@ -235,7 +235,7 @@ html {
   font-size: 20px;
   padding: 5px;
   font-weight: 500;
-  background: #a65973;
+  background: rgb(89, 163, 166);
 }
 
 .column.is-1,
@@ -352,7 +352,7 @@ html {
 }
 
 .map-mod {
-  color: #cc5288;
+  color: #1085e5;
   font-size: 16px;
   font-weight: 600;
   margin-left: 6px;
