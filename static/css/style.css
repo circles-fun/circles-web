@@ -675,7 +675,7 @@ a.foot-link {
 .infoitem .button.is-primary {
   font-size: 14px;
   margin-left: 12px;
-  background-color: hsl(202, 69%, 56%) !important;
+  background: hsl(202, 69%, 56%) !important;
 }
 
 .modal-close {
