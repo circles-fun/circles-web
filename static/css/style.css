@@ -173,7 +173,7 @@ a.foot-link {
   width: 100%;
   transition: 0.2s ease;
   min-height: 0rem;
-  background-color: hsl(215, 50%, 50%);
+  background-color: hsl(215, 50%, 50%) !important;
 }
 
 .navbar-logo {
