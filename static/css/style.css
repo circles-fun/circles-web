@@ -229,6 +229,7 @@ a.foot-link {
 .navbar-item:hover,
 .navbar-item.navbar-dropdown:hover .navbar-item {
   opacity: 1 !important;
+  background-color: hsl(215, 53%, 37%) !important;
 }
 
 .navbar.is-primary .navbar-end .navbar-link.is-active,
