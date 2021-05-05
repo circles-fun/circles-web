@@ -1,5 +1,5 @@
 .main-block {
-    background-color: hsl(var(--main), 10%, 15%);
+    background-color: hsl(var(--info), 10%, 15%);
     color: #fff;
     padding: 20px;
 }
@@ -34,7 +34,7 @@
     margin: 5;
     border-radius: 7px;
     transition: 0.2s ease;
-    background: hsl(var(--main), 10%, 25%);
+    background: hsl(var(--info), 10%, 25%);
 }
 
 .selection-block:hover {
@@ -107,7 +107,7 @@ button:focus {
 }
 
 .bordertitle {
-    border-left: 6px solid hsl(var(--main), 30%, 50%);
+    border-left: 6px solid hsl(var(--info), 30%, 50%);
 }
 
 .bordertitle .title {
@@ -141,7 +141,7 @@ button:focus {
     width: 39px;
     min-width: 39px;
     height: 39px;
-    background: hsl(var(--main), 30%, 50%);
+    background: hsl(var(--info), 30%, 50%);
     border-radius: 6px;
 }
 
@@ -187,7 +187,7 @@ button:focus {
 }
 
 .is-waiting {
-    background: hsl(var(--main), 15%, 12%);
+    background: hsl(var(--info), 15%, 12%);
     border-radius: 0px;
     padding: 6px 20px !important;
 }

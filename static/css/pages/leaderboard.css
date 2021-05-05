@@ -10,13 +10,13 @@ a:hover {
 }
 
 .main-block {
-  background-color: hsl(var(--main), 10%, 15%);
+  background-color: hsl(var(--info), 10%, 15%);
   margin-top: 0;
   width: auto;
 }
 
 .leaderboard-banner {
-  background-color: hsl(var(--main), 30%, 50%);
+  background-color: hsl(var(--info), 30%, 50%);
   height: 194px;
   border-radius: 0;
   border-top-right-radius: 8px;
@@ -28,7 +28,7 @@ a:hover {
   color: #222;
   height: 38px;
   font-size: 12px;
-  background-color: hsl(var(--main), 15%, 25%);
+  background-color: hsl(var(--info), 15%, 25%);
 }
 
 .leaderboard-main-bg {
@@ -53,7 +53,7 @@ tr td {
 .column-player-rank {
   padding: 0 10px;
   text-align: center;
-  background-color: hsl(var(--main), 15%, 27%) !important;
+  background-color: hsl(var(--info), 15%, 27%) !important;
   min-width: 44px;
   font-weight: 600;
   font-size: 13px;
@@ -80,7 +80,7 @@ tr td {
   font-size: 12px;
 }
 
-.t-heading--main {
+.t-heading--info {
   width: 100%;
 }
 
@@ -96,7 +96,7 @@ tr td {
 
 tr.leaderboard-column td {
   font-weight: 600;
-  border-bottom: hsl(var(--main), 20%, 30%);
+  border-bottom: hsl(var(--info), 20%, 30%);
   transition: 0.1s background-color;
   color: #fff !important;
   text-align: center;
@@ -108,7 +108,7 @@ table th {
 }
 
 .leaderboard-column:hover td:not(:first-child) {
-  background-color: hsl(var(--main), 20%, 30%);
+  background-color: hsl(var(--info), 20%, 30%);
 }
 
 .main-banner {

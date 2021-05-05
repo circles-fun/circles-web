@@ -1,5 +1,5 @@
 .main-block {
-  background-color: hsl(var(--main), 10%, 15%);
+  background-color: hsl(var(--info), 10%, 15%);
   color: #fff;
   width: 1155px;
 }
@@ -13,7 +13,7 @@
   height: auto;
   width: auto;
   padding: 60px 22px 20px 22px;
-  background-color: hsl(var(--main), 30%, 50%);
+  background-color: hsl(var(--info), 30%, 50%);
   border-top-left-radius: 16px;
   border-top-right-radius: 16px;
 }
@@ -80,7 +80,7 @@ ul {
   background-size: cover;
   margin: 5;
   border-radius: 7px;
-  background: hsl(var(--main), 10%, 25%);
+  background: hsl(var(--info), 10%, 25%);
 }
 .selection-block:hover {
   box-shadow: 1px 1px 13px -5px #000;
@@ -622,7 +622,7 @@ input::placeholder {
     min-height: auto;
   }
 }
-.help-text--main {
+.help-text--info {
   font-weight: 700;
   font-size: 14px;
 }
@@ -793,34 +793,34 @@ input:checked + label.checkbox:hover {
   color: #fff;
 }
 .left-header {
-  border-bottom-color: hsl(var(--main), 100%, 70%);
+  border-bottom-color: hsl(var(--info), 100%, 70%);
 }
 .block-content.left {
-  background-color: hsl(var(--main), 10%, 11%);
+  background-color: hsl(var(--info), 10%, 11%);
   height: auto;
 }
 .block-content.right,
 .left-header {
-  background-color: hsl(var(--main), 10%, 15%);
+  background-color: hsl(var(--info), 10%, 15%);
 }
 .right-block-header,
 .right-header {
   color: #fff;
   border-bottom: none;
-  background-color: hsl(var(--main), 10%, 25%);
+  background-color: hsl(var(--info), 10%, 25%);
 }
 .settings-btn {
-  background-color: hsl(var(--main), 15%, 25%);
-  border-color: hsl(var(--main), 100%, 70%);
+  background-color: hsl(var(--info), 15%, 25%);
+  border-color: hsl(var(--info), 100%, 70%);
   color: #fff;
 }
 .settings-btn:hover:not(.disabled) {
-  background-color: hsl(var(--main), 100%, 70%);
-  border-color: hsl(var(--main), 100%, 70%);
+  background-color: hsl(var(--info), 100%, 70%);
+  border-color: hsl(var(--info), 100%, 70%);
 }
 button.disabled.settings-btn {
-  border-color: hsl(var(--main), 30%, 70%);
-  background-color: hsl(var(--main), 10%, 25%);
+  border-color: hsl(var(--info), 30%, 70%);
+  background-color: hsl(var(--info), 10%, 25%);
 }
 .block-content--left,
 .block-content--right {
@@ -828,7 +828,7 @@ button.disabled.settings-btn {
 }
 .btn.dropdown-toggle,
 .default-input {
-  background-color: hsl(var(--main), 10%, 10%);
+  background-color: hsl(var(--info), 10%, 10%);
   border-color: transparent;
   color: #fff;
 }
@@ -838,20 +838,20 @@ button.disabled.settings-btn {
 .device-input:checked + label,
 .pretty.p-default.p-round:hover label.checkbox,
 label.checkbox:hover {
-  border-color: hsl(var(--main), 100%, 70%);
+  border-color: hsl(var(--info), 100%, 70%);
 }
 .mobile-menu .btn-group.bootstrap-select.show .btn,
 .mobile-menu .btn.dropdown-toggle:focus {
   border-color: transparent;
-  border-bottom-color: hsl(var(--main), 100%, 70%);
+  border-bottom-color: hsl(var(--info), 100%, 70%);
 }
 .pretty.p-default.p-round:hover input:checked + label.checkbox,
 input:checked + label.checkbox:hover {
-  background-color: hsl(var(--main), 100%, 70%);
-  border-color: hsl(var(--main), 100%, 70%);
+  background-color: hsl(var(--info), 100%, 70%);
+  border-color: hsl(var(--info), 100%, 70%);
 }
 .device-input:checked + label:after {
-  color: hsl(var(--main), 100%, 70%);
+  color: hsl(var(--info), 100%, 70%);
 }
 .dropdown-menu {
   border: none;

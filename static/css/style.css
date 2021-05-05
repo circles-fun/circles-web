@@ -26,7 +26,7 @@ html {
 
 .main-block {
   width: inherit;
-  background: hsl(var(--main), 10%, 15%);
+  background: hsl(var(--info), 10%, 15%);
 }
 
 /* stuffs */
@@ -81,7 +81,7 @@ html {
 }
 
 .is-weeb {
-  background: hsl(var(--main), 30%, 50%);
+  background: hsl(var(--info), 30%, 50%);
   border-top-right-radius: 16px;
   border-top-left-radius: 16px;
 }
@@ -188,7 +188,7 @@ a.foot-link {
   width: 100%;
   top: 0;
   backdrop-filter: blur(4px);
-  background-color: hsla(var(--main), 50%, 50%, 0.7) !important;
+  background-color: hsla(var(--info), 50%, 50%, 0.7) !important;
 }
 
 .minimized.navbar {
@@ -280,15 +280,15 @@ a.foot-link {
 .input,
 .select select,
 .textarea {
-  background-color: hsl(var(--main), 12%, 18%);
+  background-color: hsl(var(--info), 12%, 18%);
 }
 
 .bg-accent {
-  background-color: hsl(var(--main), 30%, 50%);
+  background-color: hsl(var(--info), 30%, 50%);
 }
 
 .bg-seccond {
-  background-color: hsl(var(--main),10%,15%);
+  background-color: hsl(var(--info),10%,15%);
 }
 
 /* auth notification */
@@ -318,7 +318,7 @@ a.foot-link {
   padding: 8px;
   font-size: 12px;
   color: #fff;
-  background-color: hsl(var(--main), 40%, 35%);
+  background-color: hsl(var(--info), 40%, 35%);
   z-index: 1;
   flex-direction: column;
   text-align: center;
@@ -386,7 +386,7 @@ a.foot-link {
   position: absolute;
   content: "";
   height: 3px;
-  background-color: hsl(var(--main), 50%, 50%);
+  background-color: hsl(var(--info), 50%, 50%);
   border-radius: 10px;
   left: 0;
   bottom: 0;
@@ -474,7 +474,7 @@ a.foot-link {
 
 .score-beatmap {
   padding: 20px;
-  background-color: hsla(var(--main), 50%, 50%, 0.7) !important;
+  background-color: hsla(var(--info), 50%, 50%, 0.7) !important;
   border-top-left-radius: 16px;
   border-top-right-radius: 16px;
 }
@@ -524,7 +524,7 @@ a.foot-link {
   justify-content: center;
   align-items: center;
   font-size: 125px;
-  text-shadow: 0 0 10px hsl(var(--main));
+  text-shadow: 0 0 10px hsl(var(--info));
   padding-top: 0.15em;
 }
 
@@ -554,7 +554,7 @@ a.foot-link {
   height: 100%;
   width: 100%;
   content: "";
-  background-color: hsla(var(--main), 40%, 40%, 0.7) !important;
+  background-color: hsla(var(--info), 40%, 40%, 0.7) !important;
 }
 
 @media (min-width: 900px) {
@@ -638,7 +638,7 @@ a.foot-link {
   display: flex;
   flex-direction: column;
   text-align: center;
-  background: hsl(var(--main), 25%, 20%);
+  background: hsl(var(--info), 25%, 20%);
   padding: 10px;
   border-radius: 8px;
 }
@@ -657,13 +657,13 @@ a.foot-link {
 }
 
 .modaldata {
-  background-color: hsl(var(--main), 27%, 18%);
+  background-color: hsl(var(--info), 27%, 18%);
   border-radius: 15px !important;
 }
 
 .is-disabled {
   opacity: 0.7;
-  background: hsl(var(--main), 30%, 45%) !important;
+  background: hsl(var(--info), 30%, 45%) !important;
   cursor: not-allowed;
   pointer-events: none;
 }
@@ -719,10 +719,10 @@ a.foot-link {
 
 body::-webkit-scrollbar {
   width: 12px;
-  background-color: hsl(var(--main), 10%, 25%);
+  background-color: hsl(var(--info), 10%, 25%);
   border-bottom-right-radius: 8px;
 }
 body::-webkit-scrollbar-thumb {
   border-radius: 10px;
-  background-color: hsl(var(--main), 15%, 40%);
+  background-color: hsl(var(--info), 15%, 40%);
 }

@@ -3,7 +3,7 @@
 }
 
 .sidebar {
-    background: hsl(var(--main), 10%, 15%);
+    background: hsl(var(--info), 10%, 15%);
     width: 230px;
     top: 0;
     left: 0;
@@ -112,7 +112,7 @@
     position: relative;
     padding: .5rem .7rem;
     z-index: 4;
-    background: hsl(var(--main),37%,50%);
+    background: hsl(var(--info),37%,50%);
 }
 
 .sidebar .logo a.logo-normal {
@@ -232,7 +232,7 @@ li {
     padding: 10px;
     position: relative;
     border: 0;
-    background: hsl(var(--main),15%,25%);
+    background: hsl(var(--info),15%,25%);
 }
 
 .card .stat {
