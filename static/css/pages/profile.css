@@ -4,12 +4,12 @@
 }
 
 .second-block {
-  background: hsl(var(--main), 12%, 15%);
+  background: hsl(215, 12%, 15%);
 }
 
 .stats-block {
   width: 100%;
-  background: hsl(var(--main), 25%, 25%);
+  background: hsl(215, 25%, 25%);
   border-radius: 16px;
   padding: 9.5px;
   margin-bottom: 9.5px !important;
@@ -31,7 +31,7 @@
   align-items: flex-end;
   border-top-right-radius: 20px;
   border-top-left-radius: 20px;
-  background: hsl(var(--main), 30%, 50%);
+  background: hsl(215, 30%, 50%);
   position: relative;
   overflow: hidden;
 }
@@ -98,11 +98,11 @@
 }
 
 .mode-selects {
-  background: hsl(var(--main), 25%, 22%);
+  background: hsl(215, 25%, 22%);
 }
 
 .badge-selects {
-  background: hsl(var(--main), 16%, 20%);
+  background: hsl(215, 16%, 20%);
 }
 
 .select-left {
@@ -255,7 +255,7 @@ html {
 
 .header {
   padding: 10px 10px;
-  background: hsl(var(--main), 30%, 50%);
+  background: hsl(215, 30%, 50%);
   border-radius: 16px;
   margin-bottom: 7px;
 }
@@ -280,7 +280,7 @@ html {
   justify-content: space-between;
   border-radius: 10px;
   overflow: hidden;
-  background: hsl(var(--main), 25%, 25%);
+  background: hsl(215, 25%, 25%);
   transition: 0.2s ease;
   cursor: pointer;
 }
@@ -305,7 +305,7 @@ html {
   transform: translateY(-1px);
   box-shadow: 0 0 1px rgba(0, 0, 0, 0.04), 0 4px 8px rgba(0, 0, 0, 0.04),
     0 16px 24px rgba(0, 0, 0, 0.04), 0 24px 32px rgba(0, 0, 0, 0.04);
-  background: hsl(var(--main), 30%, 30%);
+  background: hsl(215, 30%, 30%);
 }
 
 .map-single:first-child {
@@ -370,7 +370,7 @@ html {
 
 .map-pp {
   font-weight: 700;
-  color: hsl(var(--main), 30%, 55%);
+  color: hsl(215, 30%, 55%);
   font-size: 20px;
 }
 
@@ -489,7 +489,7 @@ html {
 }
 
 .beatmap-block {
-  background-color: hsl(var(--main), 25%, 25%);
+  background-color: hsl(215, 25%, 25%);
   color: #fff;
 }
 
@@ -526,13 +526,13 @@ html {
 }
 
 .beatmap-footer .target-button {
-  background-color: hsl(var(--main), 25%, 30%);
+  background-color: hsl(215, 25%, 30%);
   border-radius: 6px;
   padding: 4.5px 7px;
   font-size: 12px;
   margin-left: 10px;
   transition: 0.2s background-color;
-  color: hsl(var(--main), 65%, 75%);
+  color: hsl(215, 65%, 75%);
 }
 
 .beatmap-preview {
@@ -572,7 +572,7 @@ span.beatmap-mapper {
 
 .show-button {
   padding: 3px 42px;
-  background: hsl(var(--main), 25%, 25%);
+  background: hsl(215, 25%, 25%);
   color: white;
   border-radius: 30px;
   margin: 0px 8px 8px 8px;
