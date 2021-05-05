@@ -249,7 +249,7 @@ a.foot-link {
 }
 
 .navbar.is-primary .navbar-brand > a.navbar-item:hover {
-  background-color: transparent;
+  background-color: hsl(215, 50%, 50%);
   color: #fff;
 }
 
