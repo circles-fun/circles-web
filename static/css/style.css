@@ -81,7 +81,7 @@ html {
 }
 
 .is-weeb {
-  background: hsl(215, 30%, 50%);
+  background: hsl(215, 30%, 50%) !important;
   border-top-right-radius: 16px;
   border-top-left-radius: 16px;
 }
@@ -285,7 +285,7 @@ a.foot-link {
 }
 
 .bg-accent {
-  background-color: hsl(215, 30%, 50%);
+  background-color: hsl(215, 30%, 50%) !important;
 }
 
 .bg-seccond {

@@ -107,7 +107,7 @@ button:focus {
 }
 
 .bordertitle {
-    border-left: 6px solid hsl(215, 30%, 50%);
+    border-left: 6px solid hsl(215, 30%, 50%) !important;
 }
 
 .bordertitle .title {
@@ -141,7 +141,7 @@ button:focus {
     width: 39px;
     min-width: 39px;
     height: 39px;
-    background: hsl(215, 30%, 50%);
+    background: hsl(215, 30%, 50%) !important;
     border-radius: 6px;
 }
 

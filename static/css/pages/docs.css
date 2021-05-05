@@ -8,7 +8,7 @@
     height: auto;
     width: auto;
     padding: 38px 22px 10px 22px;
-    background-color: hsl(215, 30%, 50%);
+    background-color: hsl(215, 30%, 50%) !important;
     border-top-left-radius: 16px;
     border-top-right-radius: 16px;
 }

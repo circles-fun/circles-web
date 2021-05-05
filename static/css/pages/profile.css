@@ -31,7 +31,7 @@
   align-items: flex-end;
   border-top-right-radius: 20px;
   border-top-left-radius: 20px;
-  background: hsl(215, 30%, 50%);
+  background: hsl(215, 30%, 50%) !important;
   position: relative;
   overflow: hidden;
 }
@@ -255,7 +255,7 @@ html {
 
 .header {
   padding: 10px 10px;
-  background: hsl(215, 30%, 50%);
+  background: hsl(215, 30%, 50%) !important;
   border-radius: 16px;
   margin-bottom: 7px;
 }

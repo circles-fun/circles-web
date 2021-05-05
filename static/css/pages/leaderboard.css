@@ -16,7 +16,7 @@ a:hover {
 }
 
 .leaderboard-banner {
-  background-color: hsl(215, 30%, 50%);
+  background-color: hsl(215, 30%, 50%) !important;
   height: 194px;
   border-radius: 0;
   border-top-right-radius: 8px;
