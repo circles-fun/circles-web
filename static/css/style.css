@@ -277,6 +277,7 @@ a.foot-link {
 
 .navbar-dropdown {
   width: 152px;
+  background-color: hsl(215, 53%, 37%) !important;
 }
 
 .input,
@@ -673,7 +674,7 @@ a.foot-link {
 .infoitem .button.is-primary {
   font-size: 14px;
   margin-left: 12px;
-  color: hsl(202, 69%, 56%) !important;
+  background-color: hsl(202, 69%, 56%) !important;
 }
 
 .modal-close {
