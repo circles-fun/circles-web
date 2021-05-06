@@ -46,7 +46,7 @@
             <div class="left">
                 <a :href="'/lb/'+mode+'/pp'" @click="LoadLeaderboard('pp', mode, mods, '')"
                     :class="'simple-banner-switch'+
-                    (sort == 'pp' ? ' switch--active' :'')">Cookies</a>
+                    (sort == 'pp' ? ' switch--active' :'')">PP</a>
                 <a :href="'/lb/'+mode+'/rscore'" @click="LoadLeaderboard('rscore', mode, mods, '')"
                     :class="'simple-banner-switch'+
                     (sort == 'rscore' ? ' switch--active' :'')">Score</a>
@@ -80,7 +80,7 @@
                             <th class="t-heading"> </th>
                             <th class="t-heading t-heading--main"></th>
                             <th v-if="sort == 'pp' || sort == 'rscore'" class="t-heading table--selected">
-                                <% (sort=='pp' ? "Cookies" : "" ) %>
+                                <% (sort=='pp' ? "PP" : "" ) %>
                                 <% (sort=='rscore' ? "Score" : "" ) %>
                             </th>
                             <th class="t-heading"> Accuracy </th>
