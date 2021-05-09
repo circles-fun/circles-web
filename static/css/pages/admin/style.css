@@ -355,7 +355,7 @@ li {
 .user-link {
     width: 400px;
     overflow: hidden;
-    color: #2fb9d1
+    color: #2fb9d1;
 }
 
 span.user-mapper {
@@ -444,7 +444,7 @@ span.user-mapper {
 
 .map-pp {
     font-weight: 700;
-    color: #1b598b;
+    color: #2fb9d1;
     font-size: 20px
 }
 
