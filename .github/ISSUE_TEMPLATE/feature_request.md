@@ -1,6 +1,6 @@
 ---
 name: Feature request
-about: Suggest an idea for gulag-web!
+about: Suggest an idea for circles-web!
 title: ''
 labels: enhancement, help wanted
 assignees: Yo-ru, Varkaria

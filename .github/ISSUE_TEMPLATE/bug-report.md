@@ -1,6 +1,6 @@
 ---
 name: Bug Report
-about: Create a report to help us improve gulag-web!
+about: Create a report to help us improve circles-web!
 title: ''
 labels: bug, help wanted
 assignees: Yo-ru, Varkaria
