@@ -1,7 +1,3 @@
-![circles-web](https://i.imgur.com/G3UJCSI.png)
-
-[![Discord](https://discordapp.com/api/guilds/748687781605408908/widget.png?style=shield)](https://discord.gg/ShEQgUx)
-
 Table of Contents
 ==================
 - [Table of Contents](#table-of-contents)
