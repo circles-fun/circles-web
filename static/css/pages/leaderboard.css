@@ -233,10 +233,12 @@ table th {
   opacity: 0.2;
 }
 
-.horizontal-ad {
-  box-align: center;
-  padding-top: 5px;
+.ad-top {
   padding-bottom: 5px;
+}
+
+.ad-bottom {
+  padding-top: 5px;
 }
 
 
