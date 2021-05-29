@@ -241,7 +241,7 @@ table th {
   padding-top: 5px;
 }
 
-.ad-right {
+/* .ad-right {
   display: flex;
   justify-content: space-between;
 }
@@ -249,7 +249,7 @@ table th {
 .ad-left {
   display: flex;
   justify-content: space-between;
-}
+} */
 
 
 @media (max-width: 576px) {
