@@ -233,9 +233,7 @@ table th {
   opacity: 0.2;
 }
 
-/*576*/
-
-@media (max-width: 100%) {
+@media (max-width: 576px) {
   .mode-icon {
     display: none;
   }
