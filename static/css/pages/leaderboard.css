@@ -241,6 +241,16 @@ table th {
   padding-top: 5px;
 }
 
+.ad-right {
+  float: right;
+  position: relative;
+}
+
+.ad-left {
+  float: left;
+  position: relative;
+}
+
 
 @media (max-width: 576px) {
   .mode-icon {

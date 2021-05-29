@@ -600,6 +600,16 @@ span.beatmap-mapper {
   display: none;
 }
 
+.ad-right {
+  float: right;
+  position: relative;
+}
+
+.ad-left {
+  float: left;
+  position: relative;
+}
+
 @media screen and (max-width: 1255px) {
   .two-sides {
     display: contents !important;
