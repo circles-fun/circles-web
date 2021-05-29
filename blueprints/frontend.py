@@ -27,6 +27,10 @@ VALID_MODS = frozenset({'vn', 'rx', 'ap'})
 
 frontend = Blueprint('frontend', __name__)
 
+@frontend.route('/ads.txt')
+async def ads():
+    return await render_template('ads.txt')
+
 @frontend.route('/home')
 @frontend.route('/')
 async def home():
