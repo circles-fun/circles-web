@@ -124,7 +124,7 @@ table th {
   padding: 0px 36px;
 }
 
-.main-banner > * {
+.main-banner>* {
   z-index: 2;
 }
 
@@ -223,7 +223,7 @@ table th {
   border-top-left-radius: 8px;
 }
 
-.leaderboard-table > tbody {
+.leaderboard-table>tbody {
   transition: 0.2s opacity;
 }
 
@@ -233,13 +233,21 @@ table th {
   opacity: 0.2;
 }
 
+.horizontal-ad {
+  border: 5px solid rgba(26, 43, 90, 0.685);
+  box-align: center;
+}
+
+
 @media (max-width: 576px) {
   .mode-icon {
     display: none;
   }
+
   .main-banner {
     padding: 0px 12px;
   }
+
   .banner-text {
     font-size: 36px;
   }
