@@ -12,7 +12,7 @@ a:hover {
 .main-block {
   background-color: hsl(215, 10%, 15%);
   margin-top: 0;
-  width: 0 !important;
+  width: auto;
 }
 
 .leaderboard-banner {
@@ -233,7 +233,9 @@ table th {
   opacity: 0.2;
 }
 
-@media (max-width: 576px) {
+/*576*/
+
+@media (max-width: 100%) {
   .mode-icon {
     display: none;
   }
