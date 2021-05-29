@@ -242,13 +242,13 @@ table th {
 }
 
 .ad-right {
+  position: fixed;
   float: right;
-  position: relative;
 }
 
 .ad-left {
+  position: fixed;
   float: left;
-  position: relative;
 }
 
 
