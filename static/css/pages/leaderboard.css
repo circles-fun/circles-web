@@ -241,12 +241,19 @@ table th {
   padding-top: 5px;
 }
 
-.ad-right {
-  right: 0px;
-  position: fixed;
-  text-align: center;
-  top: 0px;
+.ad-wrapper {
+  display: flex;
+  justify-content: space-between;
 }
+
+.ad-right {
+  position: -webkit-sticky;
+  position: sticky;
+  border: 3px solid black;
+  padding: 15px;
+  background-color: #fff;
+}
+
 
 .ad-left {
   left: 0px;
