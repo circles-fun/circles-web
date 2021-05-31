@@ -113,6 +113,7 @@ a.foot-link {
     -webkit-transform: translateY(5px);
     opacity: 0;
   }
+
   100% {
     -webkit-transform: translateY(0);
     opacity: 1;
@@ -158,12 +159,13 @@ a.foot-link {
 
 #app {
   width: 96vw;
-  transition: 0.2s ease; /* for responsive animation */
+  transition: 0.2s ease;
+  /* for responsive animation */
 }
 
 @media (min-width: 1140px) {
   #app {
-      width: 1140px;
+    width: 1140px;
   }
 }
 
@@ -235,25 +237,25 @@ a.foot-link {
 .navbar.is-primary .navbar-end .navbar-link.is-active,
 .navbar.is-primary .navbar-end .navbar-link:focus,
 .navbar.is-primary .navbar-end .navbar-link:hover,
-.navbar.is-primary .navbar-end > a.navbar-item.is-active,
-.navbar.is-primary .navbar-end > a.navbar-item:focus,
-.navbar.is-primary .navbar-end > a.navbar-item:hover,
+.navbar.is-primary .navbar-end>a.navbar-item.is-active,
+.navbar.is-primary .navbar-end>a.navbar-item:focus,
+.navbar.is-primary .navbar-end>a.navbar-item:hover,
 .navbar.is-primary .navbar-item.has-dropdown.is-active .navbar-link,
 .navbar.is-primary .navbar-item.has-dropdown:focus .navbar-link,
 .navbar.is-primary .navbar-item.has-dropdown:hover .navbar-link,
 .navbar.is-primary .navbar-start .navbar-link.is-active,
 .navbar.is-primary .navbar-start .navbar-link:focus,
 .navbar.is-primary .navbar-start .navbar-link:hover,
-.navbar.is-primary .navbar-start > a.navbar-item.is-active,
-.navbar.is-primary .navbar-start > a.navbar-item:focus,
-.navbar.is-primary .navbar-start > a.navbar-item:hover {
+.navbar.is-primary .navbar-start>a.navbar-item.is-active,
+.navbar.is-primary .navbar-start>a.navbar-item:focus,
+.navbar.is-primary .navbar-start>a.navbar-item:hover {
   background-color: transparent;
-  color: #fff;
+  color: hsl(215, 53%, 37%) !important;
 }
 
-.navbar.is-primary .navbar-brand > a.navbar-item:hover {
+.navbar.is-primary .navbar-brand>a.navbar-item:hover {
   background-color: transparent;
-  color: #fff;
+  color: hsl(215, 53%, 37%) !important;
 }
 
 .navbar-logo {
@@ -292,7 +294,7 @@ a.foot-link {
 }
 
 .bg-seccond {
-  background-color: hsl(215,10%,15%);
+  background-color: hsl(215, 10%, 15%);
 }
 
 /* auth notification */
@@ -425,9 +427,11 @@ a.foot-link {
   .noti-col-icon {
     display: none;
   }
+
   .noti-col-label {
     padding-bottom: 0;
   }
+
   .noti-col-label:after {
     height: 0px;
   }
@@ -727,6 +731,7 @@ body::-webkit-scrollbar {
   background-color: hsl(215, 10%, 25%);
   border-bottom-right-radius: 8px;
 }
+
 body::-webkit-scrollbar-thumb {
   border-radius: 10px;
   background-color: hsl(215, 15%, 40%);
