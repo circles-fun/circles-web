@@ -14,11 +14,11 @@
     <div id="navbar" class="navbar-menu">
         <div class="navbar-start">
             <a class="navbar-item" href="/home">
-                <i class="fas fa-home"></i> Home
+                <i class="fas fa-home"></i>&nbsp;Home
             </a>
 
             <a class="navbar-item" href="/leaderboard">
-                <i class="fas fa-phoenix-framework"></i> Leaderboards
+                <i class="fas fa-phoenix-framework"></i>&nbsp;Leaderboards
             </a>
 
             <!-- <div class="navbar-item has-dropdown is-hoverable">
@@ -41,14 +41,14 @@
 
             {% if session.authenticated and session.user_data['is_staff'] %}
             <a class="navbar-item" href="/admin">
-                <i class="fas fa-server"></i> Admin
+                <i class="fas fa-server"></i>&nbsp;Admin
             </a>
             {% endif %}
         </div>
 
         <div class="navbar-end">
             <a class="navbar-item" href="https://www.patreon.com/circlesfun">
-                <i class="fas fa-heart"></i> Support us!
+                <i class="fas fa-heart" style="color:pink"></i>&nbsp;Support us!
             </a>
             {% if session.authenticated %}
             <div class="navbar-item has-dropdown is-hoverable">
@@ -57,26 +57,26 @@
                 </a>
                 <div class="navbar-dropdown">
                     <a class="navbar-item" href="/u/{{ session.user_data['id'] }}">
-                        <i class="fas fa-user"></i> Profile
+                        <i class="fas fa-user"></i>&nbsp;Profile
                     </a>
                     <a class="navbar-item" href="/settings">
-                        <i class="fas fa-cogs"></i> Settings
+                        <i class="fas fa-cogs"></i>&nbsp;Settings
                     </a>
                 </div>
             </div>
             <div class="navbar-item">
                 <a class="button is-dark" href="/logout">
-                    <i class="fas fa-sign-out-alt"></i> Logout
+                    <i class="fas fa-sign-out-alt"></i>&nbsp;Logout
                 </a>
             </div>
             {% else %}
             <div class="navbar-item">
                 <div class="buttons">
                     <a class="button is-light" href="/register">
-                        <i class="fas fa-user-plus"></i> <strong>Sign up</strong>
+                        <i class="fas fa-user-plus"></i>&nbsp;<strong>Sign up</strong>
                     </a>
                     <a class="button is-dark" href="/login">
-                        <i class="fas fa-sign-in-alt"></i> <strong>Log in</strong>
+                        <i class="fas fa-sign-in-alt"></i>&nbsp;<strong>Log in</strong>
                     </a>
                 </div>
             </div>
