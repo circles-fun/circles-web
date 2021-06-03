@@ -14,11 +14,11 @@
     <div id="navbar" class="navbar-menu">
         <div class="navbar-start">
             <a class="navbar-item" href="/home">
-                <i class="fa-solid fa-house"></i> Home
+                <i class="fas fa-home"></i> Home
             </a>
 
             <a class="navbar-item" href="/leaderboard">
-                <i class="fab fa-phoenix-framework"></i> Leaderboards
+                <i class="fas fa-phoenix-framework"></i> Leaderboards
             </a>
 
             <!-- <div class="navbar-item has-dropdown is-hoverable">
@@ -41,12 +41,15 @@
 
             {% if session.authenticated and session.user_data['is_staff'] %}
             <a class="navbar-item" href="/admin">
-                <i class="fa-solid fa-server"></i> Admin
+                <i class="fas fa-server"></i> Admin
             </a>
             {% endif %}
         </div>
 
         <div class="navbar-end">
+            <a class="navbar-item" href="https://www.patreon.com/circlesfun">
+                <i class="fas fa-heart"></i> Support us!
+            </a>
             {% if session.authenticated %}
             <div class="navbar-item has-dropdown is-hoverable">
                 <a class="navbar-link">
