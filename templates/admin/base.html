@@ -36,7 +36,7 @@
 
 <body>
   <!-- navbar -->
-  {% include '../components/navbar.html' %}
+  {% include 'components/navbar.html' %}
 
   <!-- content -->
   <div class="content admin-con">
@@ -74,14 +74,7 @@
   </div>
 
   <!-- footer -->
-  <footer class="footer">
-    <div class="content">
-      <span>{{ appName() }}</span>
-      <a class="foot-link" href="/github"><i class="fa fa-github"></i> GitHub</a>
-      <a class="foot-link" href="/discord"><i class="fab fa-discord"></i> Discord</a>
-
-    </div>
-  </footer>
+  {% include 'components/footer.html' %}
 
   <!-- main js script -->
   <script src="/static/js/main.js" crossorigin="anonymous"></script>

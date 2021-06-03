@@ -1,0 +1,86 @@
+<nav id="navbar" class="navbar is-primary">
+    <div class="navbar-brand">
+        <a class="navbar-item navbar-logo" href="/home">
+            {{ appName() }}
+        </a>
+
+        <a role="button" class="navbar-burger" id="navbar-burger" onclick="togglenavbar()">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+    </div>
+
+    <div id="navbar" class="navbar-menu">
+        <div class="navbar-start">
+            <a class="navbar-item" href="/home">
+                <i class="fas fa-home"></i>&nbsp;Home
+            </a>
+
+            <a class="navbar-item" href="/leaderboard">
+                <i class="fas fa-meteor"></i>&nbsp;Leaderboards
+            </a>
+
+            <!-- <div class="navbar-item has-dropdown is-hoverable">
+                <a class="navbar-link">
+                    Information
+                </a>
+                <div class="navbar-dropdown">
+                    <a class="navbar-item" href="/docs/rules">
+                        Rules
+                    </a>
+                    <a class="navbar-item" href="/discord">
+                        Discord
+                    </a>
+                    <hr class="navbar-divider">
+                    <a class="navbar-item" href="https://github.com/circles-osu/circles-web/issues/new">
+                        Report an issue
+                    </a>
+                </div>
+            </div> -->
+
+            {% if session.authenticated and session.user_data['is_staff'] %}
+            <a class="navbar-item" href="/admin">
+                <i class="fas fa-server"></i>&nbsp;Admin
+            </a>
+            {% endif %}
+        </div>
+
+        <div class="navbar-end">
+            <a class="navbar-item" href="https://www.patreon.com/circlesfun">
+                <i class="fas fa-heart" style="color:rgb(255, 89, 158)"></i>&nbsp;Donate
+            </a>
+            {% if session.authenticated %}
+            <div class="navbar-item has-dropdown is-hoverable">
+                <a class="navbar-link">
+                    {{ session.user_data['name'] }}
+                </a>
+                <div class="navbar-dropdown">
+                    <a class="navbar-item" href="/u/{{ session.user_data['id'] }}">
+                        <i class="fas fa-user"></i>&nbsp;Profile
+                    </a>
+                    <a class="navbar-item" href="/settings">
+                        <i class="fas fa-cogs"></i>&nbsp;Settings
+                    </a>
+                </div>
+            </div>
+            <div class="navbar-item">
+                <a class="button is-dark" href="/logout">
+                    <i class="fas fa-sign-out-alt"></i>&nbsp;Logout
+                </a>
+            </div>
+            {% else %}
+            <div class="navbar-item">
+                <div class="buttons">
+                    <a class="button is-light" href="/register">
+                        <i class="fas fa-user-plus"></i>&nbsp;<strong>Sign up</strong>
+                    </a>
+                    <a class="button is-dark" href="/login">
+                        <i class="fas fa-sign-in-alt"></i>&nbsp;<strong>Log in</strong>
+                    </a>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</nav>
