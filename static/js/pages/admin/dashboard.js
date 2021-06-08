@@ -13,7 +13,7 @@ new Vue({
     methods: {
         GetOnlineUsers() {
             var vm = this;
-            vm.$axios.get(`${window.location.protocol}//${window.location.hostname}:${window.location.port}/gw_api/get_online`)
+            vm.$axios.get(`https://osu.circles.fun/api/get_player_count`)
                 .then(function (response) {
                     vm.online_users = response.data.online;
                 });
