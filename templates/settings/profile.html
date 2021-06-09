@@ -29,7 +29,9 @@
             <div class="field-body">
               <div class="field">
                 <p class="control">
-                  <input class="input {% if not session.user_data['is_donator'] %}is-static{% endif %}" type="text" name="username" value="{{ session.user_data['name'] }}" {% if not session.user_data['is_donator'] %}readonly{% endif %}>
+                  <input class="input {% if not session.user_data['is_donator'] %}is-static{% endif %}" type="text"
+                    name="username" value="{{ session.user_data['name'] }}"
+                    {% if not session.user_data['is_donator'] %}readonly{% endif %}>
                 </p>
               </div>
             </div>
@@ -69,7 +71,8 @@
           </div>
         </div>
         -->
-        <button class='button is-light' type='submit'><span class='icon is-small'><i class='fas fa-check'></i></span><span>Save</span></button>
+        <button class='button is-light' type='submit'><span class='icon is-small'><i
+              class='fas fa-check'></i></span><span>Save</span></button>
       </form>
     </div>
   </div>

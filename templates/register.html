@@ -4,6 +4,25 @@
 {% block content %}
 <link rel="stylesheet" href="/static/css/pages/auth.css">
 
+<meta name="description" content="Create an account on the circles.fun private osu! server.">
+
+<!-- Meta Tags -->
+<meta property="og:url" content="https://circles.fun/register">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Circles Registration">
+<meta content="https://circles.fun/static/images/logo.png" property="og:image">
+<meta content="#2c5690" data-react-helmet="true" name="theme-color">
+<meta property="og:description" content="Create an account on the circles.fun private osu! server.">
+
+<!-- Twitter Meta Tags -->
+<meta name="twitter:card" content="summary_large_image">
+<meta property="twitter:domain" content="circles.fun">
+<meta property="twitter:url" content="https://circles.fun/register">
+<meta name="twitter:title" content="circles.fun">
+<meta name="twitter:description" content="Create an account on the circles.fun private osu! server.">
+<meta name="twitter:image" content="https://circles.fun/static/images/logo.png">
+
+
 <div class="main-block is-marginless is-paddingless is-auth">
   <div class="columns pm-reset is-weeb">
     <div class="column title-block">
@@ -17,7 +36,8 @@
         <div class="field">
           <label for="user" class="label">Username</label>
           <div class="control has-icons-left">
-            <input id="user" type="text" name="username" placeholder="e.g. Aika" class="input" autocomplete="username" required>
+            <input id="user" type="text" name="username" placeholder="e.g. Aika" class="input" autocomplete="username"
+              required>
             <span class="icon is-small is-left">
               <i class="fa fa-envelope"></i>
             </span>
@@ -26,7 +46,8 @@
         <div class="field">
           <label for="email" class="label">Email</label>
           <div class="control has-icons-left">
-            <input id="email" type="email" name="email" placeholder="e.g. aika@gul.ag" class="input" autocomplete="email" required>
+            <input id="email" type="email" name="email" placeholder="e.g. aika@gul.ag" class="input"
+              autocomplete="email" required>
             <span class="icon is-small is-left">
               <i class="fa fa-lock"></i>
             </span>
@@ -35,7 +56,8 @@
         <div class="field">
           <label for="pass" class="label">Password</label>
           <div class="control has-icons-left">
-            <input id="pass" type="password" name="password" placeholder="*************" class="input" autocomplete="new-password" required>
+            <input id="pass" type="password" name="password" placeholder="*************" class="input"
+              autocomplete="new-password" required>
             <span class="icon is-small is-left">
               <i class="fa fa-lock"></i>
             </span>
@@ -47,7 +69,8 @@
         </div>
         {% if not captchaKey() == 'changeme' %}
         <div class="field">
-          <div class="h-captcha" data-sitekey="{{ captchaKey() }}" data-theme="dark" style="display: flex; justify-content: center;"></div>
+          <div class="h-captcha" data-sitekey="{{ captchaKey() }}" data-theme="dark"
+            style="display: flex; justify-content: center;"></div>
         </div>
         {% endif %}
         <div class="field">

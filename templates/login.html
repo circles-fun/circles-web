@@ -4,6 +4,22 @@
 {% block content %}
 <link rel="stylesheet" href="/static/css/pages/auth.css">
 
+<!-- Meta Tags -->
+<meta property="og:url" content="https://circles.fun/login">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Circles Login">
+<meta content="https://circles.fun/static/images/logo.png" property="og:image">
+<meta content="#2c5690" data-react-helmet="true" name="theme-color">
+<meta property="og:description" content="Login to the circles.fun private osu! server!">
+
+<!-- Twitter Meta Tags -->
+<meta name="twitter:card" content="summary_large_image">
+<meta property="twitter:domain" content="circles.fun">
+<meta property="twitter:url" content="https://circles.fun/login">
+<meta name="twitter:title" content="circles.fun">
+<meta name="twitter:description" content="Login to the circles.fun private osu! server!">
+<meta name="twitter:image" content="https://circles.fun/static/images/logo.png">
+
 <div class="main-block is-marginless is-paddingless is-auth">
   <div class="columns is-reset is-weeb">
     <div class="column title-block">
@@ -12,44 +28,48 @@
   </div>
   <div class="columns is-reset flex-lcenter is-block">
     <div class="box">
-     <div class="content">
-    <form action="/login" method="post" class="form-content">
-      <div class="field">
-        <label for="user" class="label">Username</label>
-        <div class="control has-icons-left">
-          <input id="user" type="text" name="username" placeholder="Username" class="input" autocomplete="username" required>
-          <span class="icon is-small is-left">
-            <i class="fa fa-envelope"></i>
-          </span>
-        </div>
+      <div class="content">
+        <form action="/login" method="post" class="form-content">
+          <div class="field">
+            <label for="user" class="label">Username</label>
+            <div class="control has-icons-left">
+              <input id="user" type="text" name="username" placeholder="Username" class="input" autocomplete="username"
+                required>
+              <span class="icon is-small is-left">
+                <i class="fa fa-envelope"></i>
+              </span>
+            </div>
+          </div>
+          <div class="field">
+            <label for="pass" class="label">Password</label>
+            <div class="control has-icons-left">
+              <input id="pass" type="password" name="password" placeholder="Password" class="input"
+                autocomplete="current-password" required>
+              <span class="icon is-small is-left">
+                <i class="fa fa-lock"></i>
+              </span>
+            </div>
+          </div>
+          <div class="mt-5"></div>
+          <div class="dialog">
+            Don't have an account?
+            <a href="/register">
+              Register
+            </a>
+          </div>
+          <div class="field flex-vcenter">
+            <div class="buttons">
+              <button type="submit" class="button is-light">
+                Login
+              </button>
+              <a href="/forgot" class="button is-info">
+                <!-- will probably have paths "/forgot/username" and "/forgot/password" -->
+                Forgot login?
+              </a>
+            </div>
+          </div>
+        </form>
       </div>
-      <div class="field">
-        <label for="pass" class="label">Password</label>
-        <div class="control has-icons-left">
-          <input id="pass" type="password" name="password" placeholder="Password" class="input" autocomplete="current-password" required>
-          <span class="icon is-small is-left">
-            <i class="fa fa-lock"></i>
-          </span>
-        </div>
-      </div>
-      <div class="mt-5"></div>
-      <div class="dialog">
-        Don't have an account?
-        <a href="/register">
-          Register
-        </a>
-      </div>
-      <div class="field flex-vcenter">
-        <div class="buttons">
-          <button type="submit" class="button is-light">
-            Login
-          </button>
-          <a href="/forgot" class="button is-info"> <!-- will probably have paths "/forgot/username" and "/forgot/password" -->
-            Forgot login?
-          </a>
-        </div>
-      </div>
-    </form></div>
     </div>
   </div>
 </div>
