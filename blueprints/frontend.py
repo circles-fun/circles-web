@@ -465,9 +465,9 @@ async def register_post():
     # fetch the users' country
     if (
         request.headers and
-        (ip := request.headers.get('X-Real-IP', type=str)) is not None
+        (co := request.headers.get('CF-IPCountry', type=str)) is not None
     ):
-        country = await utils.fetch_geoloc(ip)
+        country = co
     else:
         country = 'xx'
 
