@@ -179,6 +179,10 @@ a.foot-link {
   background-color: hsl(215, 50%, 50%) !important;
 }
 
+.navbar .navbar-menu {
+  background-color: hsl(215, 50%, 50%) !important;
+}
+
 .navbar-logo {
   font-size: 22px;
   font-weight: 500;
