@@ -16,7 +16,7 @@ new Vue({
         },
         GetOnlineUsers() {
             var vm = this;
-            vm.$axios.get(`${this.GettingUrl}/get_player_count`)
+            vm.$axios.get(`${this.GettingApiUrl}/get_player_count`)
                 .then(function (response) {
                     vm.online_users = response.data.counts.online;
                 });
