@@ -17,9 +17,6 @@ from cmyui.version import Version
 
 from objects import glob
 
-if __name__ != '__main__':
-    raise RuntimeError('main.py should be run directly!')
-
 app = Quart(__name__)
 
 version = Version(1, 2, 0)
