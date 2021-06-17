@@ -65,6 +65,13 @@
         <h2 class="subtitle">
           Welcome to {{ appName() }}!<br />We are a private osu community.<br />
         </h2>
+        <div class="buttons">
+          <a href="/discord">
+            <button type="button" class="button is-dark">
+              <img src="/static/images/discord.svg" />&nbsp;Join Discord
+            </button>
+          </a>
+        </div>
         {% if not session.authenticated %}
         <div class="buttons">
           <a class="button is-light" href="/register">
@@ -73,7 +80,7 @@
           <a class="button is-dark" href="/login"> <strong>Log in</strong> </a>
           <a href="/discord">
             <button type="button" class="button is-dark">
-              <img src="/static/images/discord.svg"/> 
+              <img src="/static/images/discord.svg" />
             </button>
           </a>
         </div>

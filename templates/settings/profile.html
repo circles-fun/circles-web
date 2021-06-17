@@ -1,4 +1,4 @@
-{% extends "settings/base.html" %}
+{% extends 'settings/base.html' %}
 {% block title %} Profile {% endblock %}
 
 {% block content %}
@@ -29,9 +29,9 @@
             <div class="field-body">
               <div class="field">
                 <p class="control">
-                  <input class="input {% if not session.user_data["is_donator"] %}is-static{% endif %}" type="text"
-                    name="username" value="{{ session.user_data["name"] }}"
-                    {% if not session.user_data["is_donator"] %}readonly{% endif %}>
+                  <input class="input {% if not session.user_data['is_donator'] %}is-static{% endif %}" type="text"
+                    name="username" value="{{ session.user_data['name'] }}"
+                    {% if not session.user_data['is_donator'] %}readonly{% endif %}>
                 </p>
               </div>
             </div>
@@ -47,13 +47,13 @@
             <div class="field-body">
               <div class="field">
                 <p class="control">
-                  <input class="input" type="email" name="email" value="{{ session.user_data["email"] }}">
+                  <input class="input" type="email" name="email" value="{{ session.user_data['email'] }}">
                 </p>
               </div>
             </div>
           </div>
         </div>
-        <!-- Disabled - Username AKA doesn"t exist in gulag? (for now?)
+        <!-- Disabled - Username AKA doesn't exist in gulag? (for now?)
         <div class="single-block-content">
           <div class="block-content--left">
             <div class="field-label is-normal">
@@ -71,35 +71,35 @@
           </div>
         </div>
         -->
-        <button class="button is-light" type="submit"><span class="icon is-small"><i
-              class="fas fa-check"></i></span><span>Save</span></button>
+        <button class='button is-light' type='submit'><span class='icon is-small'><i
+              class='fas fa-check'></i></span><span>Save</span></button>
       </form>
     </div>
   </div>
 </div>
 
 {% if flash %}
-<div class="noti-banner noti-banner-warning">
+<div class='noti-banner noti-banner-warning'>
   <div class="container">
     <div class="noti-column">
-      <div class="noti-col noti-col-icon"></div>
-      <div class="noti-col noti-col-label">
-        <div class="noti-bannertype">
-          {% if status=="error" %}
+      <div class='noti-col noti-col-icon'></div>
+      <div class='noti-col noti-col-label'>
+        <div class='noti-bannertype'>
+          {% if status=='error' %}
           Warning
-          {% elif status=="success" %}
+          {% elif status=='success' %}
           Notice
           {% endif %}
         </div>
-        <div class="noti-bannertext">
-          {% if status=="error" %}
+        <div class='noti-bannertext'>
+          {% if status=='error' %}
           Uh oh! Be careful!
-          {% elif status=="success" %}
+          {% elif status=='success' %}
           Alert
           {% endif %}
         </div>
       </div>
-      <div class="noti-banner-text">
+      <div class='noti-banner-text'>
         {{ flash }}
       </div>
     </div>
