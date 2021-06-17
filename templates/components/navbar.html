@@ -21,29 +21,20 @@
                 <i class="fas fa-meteor"></i>&nbsp;Leaderboards
             </a>
 
-            <!-- <div class="navbar-item has-dropdown is-hoverable">
+
+            <div class="navbar-item has-dropdown is-hoverable">
                 <a class="navbar-link">
-                    Information
+                    <i class="fas fa-scroll"></i>&nbsp;Docs
                 </a>
                 <div class="navbar-dropdown">
-                    <a class="navbar-item" href="/docs/rules">
-                        Rules
+                    <a class="navbar-item" href="/doc/rules">
+                        <i class="fas fa-paperclip"></i>&nbsp;Rules
                     </a>
                     <a class="navbar-item" href="/discord">
-                        Discord
-                    </a>
-                    <hr class="navbar-divider">
-                    <a class="navbar-item" href="https://github.com/circles-osu/circles-web/issues/new">
-                        Report an issue
+                        <img src="/static/images/discord.svg"/>&nbsp;Discord
                     </a>
                 </div>
-            </div> -->
-
-            {% if session.authenticated and session.user_data['is_staff'] %}
-            <a class="navbar-item" href="/admin">
-                <i class="fas fa-server"></i>&nbsp;Admin
-            </a>
-            {% endif %}
+            </div>
         </div>
 
         <div class="navbar-end">
@@ -59,6 +50,11 @@
                     <a class="navbar-item" href="/u/{{ session.user_data['id'] }}">
                         <i class="fas fa-user"></i>&nbsp;Profile
                     </a>
+                    {% if session.authenticated and session.user_data['is_staff'] %}
+                    <a class="navbar-item" href="/admin">
+                        <i class="fas fa-server"></i>&nbsp;Admin
+                    </a>
+                    {% endif %}
                     <a class="navbar-item" href="/settings">
                         <i class="fas fa-cogs"></i>&nbsp;Settings
                     </a>

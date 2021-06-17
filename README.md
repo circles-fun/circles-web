@@ -33,7 +33,7 @@ python3.9 get-pip.py && rm get-pip.py
 sudo apt install mysql-server nginx
 
 # Clone circles-web from GitHub.
-git clone https://github.com/circles-osu/circles-web.git
+git clone https://github.com/circles-fun/circles-web.git
 cd circles-web
 
 # Initialize and update the submodules.

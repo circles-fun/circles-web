@@ -7,6 +7,7 @@ import bcrypt
 import hashlib
 import os
 import time
+import markdown2
 
 from cmyui.logging import Ansi
 from cmyui.logging import log
@@ -27,18 +28,22 @@ VALID_MODS = frozenset({'vn', 'rx', 'ap'})
 
 frontend = Blueprint('frontend', __name__)
 
+
 @frontend.route('/sitemap.xml')
 async def sitemap():
     return await render_template('sitemap.xml')
+
 
 @frontend.route('/ads.txt')
 async def ads():
     return await render_template('ads.txt')
 
+
 @frontend.route('/home')
 @frontend.route('/')
 async def home():
     return await render_template('home.html')
+
 
 @frontend.route('/settings')
 @frontend.route('/settings/profile')
@@ -48,7 +53,8 @@ async def settings_profile():
 
     return await render_template('settings/profile.html')
 
-@frontend.route('/settings/profile', methods=['POST']) # POST
+
+@frontend.route('/settings/profile', methods=['POST'])  # POST
 async def settings_profile_post():
     if 'authenticated' not in session:
         return await flash('error', 'You must be logged in to access profile settings!', 'login')
@@ -124,6 +130,7 @@ async def settings_profile_post():
     session.pop('user_data', None)
     return await flash('success', 'Your username/email have been changed! Please login again.', 'login')
 
+
 @frontend.route('/settings/avatar')
 async def settings_avatar():
     if 'authenticated' not in session:
@@ -131,7 +138,8 @@ async def settings_avatar():
 
     return await render_template('settings/avatar.html')
 
-@frontend.route('/settings/avatar', methods=['POST']) # POST
+
+@frontend.route('/settings/avatar', methods=['POST'])  # POST
 async def settings_avatar_post():
     if 'authenticated' not in session:
         return await flash('error', 'You must be logged in to access avatar settings!', 'login')
@@ -154,12 +162,15 @@ async def settings_avatar_post():
 
     # remove old avatars
     for fx in ALLOWED_EXTENSIONS:
-        if os.path.isfile(f'{AVATARS_PATH}/{session["user_data"]["id"]}{fx}'): # Checking file e
+        # Checking file e
+        if os.path.isfile(f'{AVATARS_PATH}/{session["user_data"]["id"]}{fx}'):
             os.remove(f'{AVATARS_PATH}/{session["user_data"]["id"]}{fx}')
 
     # avatar change success
-    avatar.save(os.path.join(AVATARS_PATH, f'{session["user_data"]["id"]}{file_extension.lower()}'))
+    avatar.save(os.path.join(
+        AVATARS_PATH, f'{session["user_data"]["id"]}{file_extension.lower()}'))
     return await flash('success', 'Your avatar has been successfully changed!', 'settings/avatar')
+
 
 @frontend.route('/settings/password')
 async def settings_password():
@@ -168,7 +179,8 @@ async def settings_password():
 
     return await render_template('settings/password.html')
 
-@frontend.route('/settings/password', methods=["POST"]) # POST
+
+@frontend.route('/settings/password', methods=["POST"])  # POST
 async def settings_password_post():
     if 'authenticated' not in session:
         return await flash('error', 'You must be logged in to access password settings!', 'login')
@@ -213,11 +225,11 @@ async def settings_password_post():
     # check old password against db
     # intentionally slow, will cache to speed up
     if pw_bcrypt in bcrypt_cache:
-        if pw_md5 != bcrypt_cache[pw_bcrypt]: # ~0.1ms
+        if pw_md5 != bcrypt_cache[pw_bcrypt]:  # ~0.1ms
             if glob.config.debug:
                 log(f"{session['user_data']['name']}'s change pw failed - pw incorrect.", Ansi.LYELLOW)
             return await flash('error', 'Your old password is incorrect.', 'settings/password')
-    else: # ~200ms
+    else:  # ~200ms
         if not bcrypt.checkpw(pw_md5, pw_bcrypt):
             if glob.config.debug:
                 log(f"{session['user_data']['name']}'s change pw failed - pw incorrect.", Ansi.LYELLOW)
@@ -244,6 +256,7 @@ async def settings_password_post():
     session.pop('authenticated', None)
     session.pop('user_data', None)
     return await flash('success', 'Your password has been changed! Please login again.', 'login')
+
 
 @frontend.route('/u/<id>')
 async def profile(id):
@@ -279,15 +292,18 @@ async def profile(id):
 
     return await render_template('profile.html', user=user_data, mode=mode, mods=mods)
 
+
 @frontend.route('/leaderboard')
 @frontend.route('/lb')
 async def leaderboard_no_data():
     return await render_template('leaderboard.html', mode='std', sort='pp', mods='vn')
 
+
 @frontend.route('/leaderboard/<mode>/<sort>/<mods>')
 @frontend.route('/lb/<mode>/<sort>/<mods>')
 async def leaderboard(mode, sort, mods):
     return await render_template('leaderboard.html', mode=mode, sort=sort, mods=mods)
+
 
 @frontend.route('/login')
 async def login():
@@ -296,7 +312,8 @@ async def login():
 
     return await render_template('login.html')
 
-@frontend.route('/login', methods=['POST']) # POST
+
+@frontend.route('/login', methods=['POST'])  # POST
 async def login_post():
     if 'authenticated' in session:
         return await flash('error', "You're already logged in!", 'home')
@@ -334,11 +351,11 @@ async def login_post():
     # check credentials (password) against db
     # intentionally slow, will cache to speed up
     if pw_bcrypt in bcrypt_cache:
-        if pw_md5 != bcrypt_cache[pw_bcrypt]: # ~0.1ms
+        if pw_md5 != bcrypt_cache[pw_bcrypt]:  # ~0.1ms
             if glob.config.debug:
                 log(f"{username}'s login failed - pw incorrect.", Ansi.LYELLOW)
             return await flash('error', 'Password is incorrect.', 'login')
-    else: # ~200ms
+    else:  # ~200ms
         if not bcrypt.checkpw(pw_md5, pw_bcrypt):
             if glob.config.debug:
                 log(f"{username}'s login failed - pw incorrect.", Ansi.LYELLOW)
@@ -380,6 +397,7 @@ async def login_post():
 
     return await flash('success', f'Hey, welcome back {username}!', 'home')
 
+
 @frontend.route('/register')
 async def register():
     if 'authenticated' in session:
@@ -390,7 +408,8 @@ async def register():
 
     return await render_template('register.html')
 
-@frontend.route('/register', methods=['POST']) # POST
+
+@frontend.route('/register', methods=['POST'])  # POST
 async def register_post():
     if 'authenticated' in session:
         return await flash('error', "You're already logged in.", 'home')
@@ -458,7 +477,7 @@ async def register_post():
     # (start of lock)
     pw_md5 = hashlib.md5(passwd_txt.encode()).hexdigest().encode()
     pw_bcrypt = bcrypt.hashpw(pw_md5, bcrypt.gensalt())
-    glob.cache['bcrypt'][pw_bcrypt] = pw_md5 # cache pw
+    glob.cache['bcrypt'][pw_bcrypt] = pw_md5  # cache pw
 
     safe_name = utils.get_safe_name(username)
 
@@ -493,6 +512,7 @@ async def register_post():
     # user has successfully registered
     return await render_template('verify.html')
 
+
 @frontend.route('/logout')
 async def logout():
     if 'authenticated' not in session:
@@ -509,7 +529,9 @@ async def logout():
     return await flash('success', 'Successfully logged out!', 'login')
 
 # docs
-@frontend.route('/docs') # GET
+
+
+@frontend.route('/docs')  # GET
 async def docs_no_data():
     docs = []
     async with asyncio.Lock():
@@ -518,7 +540,8 @@ async def docs_no_data():
 
     return await render_template('docs.html', docs=docs)
 
-@frontend.route('/doc/<doc>') # GET
+
+@frontend.route('/doc/<doc>')  # GET
 async def docs(doc):
     async with asyncio.Lock():
         markdown = markdown2.markdown_path(f'docs/{doc.lower()}.md')
@@ -526,10 +549,13 @@ async def docs(doc):
     return await render_template('doc.html', doc=markdown, doc_title=doc.lower().capitalize())
 
 # social media redirections
+
+
 @frontend.route('/github')
 @frontend.route('/gh')
 async def github_redirect():
     return redirect(glob.config.github)
+
 
 @frontend.route('/discord')
 async def discord_redirect():
