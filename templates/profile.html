@@ -282,10 +282,10 @@
                                     </div>
                                 </div>
                             </div>
+                            <div v-if="data.scores.best.length >= 5" class="show-more">
+                                <a class="show-button" @click="ShowMore('best')">Show more</a>
+                            </div>
                         </div>
-                    </div>
-                    <div v-if="data.scores.best.length >= 5" class="show-more">
-                        <a class="show-button" @click="ShowMore('best')">Show more</a>
                     </div>
                     <div v-if="data.scores.best.length == 0" class="stats-block">
                         <div class="columns is-marginless">
@@ -351,10 +351,10 @@
                                     </div>
                                 </div>
                             </div>
+                            <div v-if="data.scores.recent.length >= 5" class="show-more">
+                                <a class="show-button" @click="ShowMore('recent')">Show more</a>
+                            </div>
                         </div>
-                    </div>
-                    <div v-if="data.scores.recent.length >= 5" class="show-more">
-                        <a class="show-button" @click="ShowMore('recent')">Show more</a>
                     </div>
                     <div v-if="data.scores.recent.length == 0" class="stats-block">
                         <div class="columns is-marginless">
