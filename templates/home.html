@@ -65,6 +65,7 @@
         <h2 class="subtitle">
           Welcome to {{ appName() }}!<br />We are a private osu community.<br />
         </h2>
+        {% if session.authenticated %}
         <div class="buttons">
           <a href="/discord">
             <button type="button" class="button is-dark">
@@ -72,6 +73,7 @@
             </button>
           </a>
         </div>
+        {% endif %}
         {% if not session.authenticated %}
         <div class="buttons">
           <a class="button is-light" href="/register">
