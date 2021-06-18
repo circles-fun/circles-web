@@ -16,6 +16,7 @@ new Vue({
             mode: mode, // Getting from URL
             mods: mods, // Getting from URL
             userid: userid, // Getting from URL
+            limit: [5, 5, 5],
         }
     },
     created() {
@@ -76,7 +77,7 @@ new Vue({
                     mode: vm.mode,
                     mods: vm.mods,
                     sort: sort,
-                    limit: 5
+                    limit: vm.limit[type]
                 }
             })
                 .then(function (response) {
@@ -93,7 +94,7 @@ new Vue({
                     id: vm.userid,
                     mode: vm.mode,
                     mods: vm.mods,
-                    limit: 5
+                    limit: vm.limit[2]
                 }
             })
                 .then(function (response) {
@@ -109,6 +110,32 @@ new Vue({
             vm.mode = mode
             vm.mods = mods
             vm.LoadAllofdata()
+        },
+        ShowMore(sort) {
+            var vm = this;
+            if (window.event) {
+                window.event.preventDefault();
+            }
+
+            switch (sort) {
+                case 'best':
+                    vm.limit[0] = vm.limit[0] + 5
+                    vm.LoadScores('best')
+                    break;
+
+                case 'recent':
+                    vm.limit[1] = vm.limit[1] + 5
+                    vm.LoadScores('recent')
+                    break;
+
+                case 'mostplayed':
+                    vm.limit[2] = vm.limit[2] + 5
+                    vm.LoadMostBeatmaps()
+                    break;   
+
+                default:
+                    break;
+            }
         },
         addCommas(nStr) {
             nStr += '';
