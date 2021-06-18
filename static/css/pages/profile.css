@@ -555,6 +555,8 @@ html {
 .beatmap-link {
   width: 400px;
   overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
   color: hsl(215, 55%, 58%);
 }
 
