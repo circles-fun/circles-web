@@ -208,6 +208,7 @@ html {
   -progress: 100%;
 }
 
+
 .level-bar {
   background: #304141;
   border-radius: 12px;
@@ -566,6 +567,12 @@ span.beatmap-mapper {
 }
 
 .extra-block {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.show-more {
   width: 100%;
   display: flex;
   justify-content: center;
