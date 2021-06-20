@@ -1,6 +1,7 @@
 .main-block {
     height: auto;
     background-color: hsl(215,10%,15%);
+    border-radius: 0px 0px 15px 15px;
     color: #fff;
 }
 
@@ -9,8 +10,7 @@
     width: auto;
     padding: 38px 22px 10px 22px;
     background-color: hsl(215, 30%, 50%) !important;
-    border-top-left-radius: 16px;
-    border-top-right-radius: 16px;
+    border-radius: 15px 15px 0px 0px;
 }
 
 h1, h2, h3, h4, h5, h6 {
