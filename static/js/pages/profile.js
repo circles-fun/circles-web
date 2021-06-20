@@ -107,8 +107,11 @@ new Vue({
             if (window.event) {
                 window.event.preventDefault();
             }
-            vm.mode = mode
-            vm.mods = mods
+            vm.mode = mode;
+            vm.mods = mods;
+            vm.limit[0] = 5
+            vm.limit[1] = 5
+            vm.limit[2] = 5
             vm.LoadAllofdata()
         },
         ShowMore(sort) {
