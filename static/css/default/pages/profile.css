@@ -4,7 +4,8 @@
 }
 
 .second-block {
-  background: hsl(215, 12%, 15%);
+  background: #22252b;
+  border-radius: 0px 0px 15px 15px;
 }
 
 .stats-block {
@@ -102,7 +103,7 @@
 }
 
 .badge-selects {
-  background: hsl(215, 16%, 20%);
+  background: #22252b;
 }
 
 .select-left {
