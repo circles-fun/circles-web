@@ -553,11 +553,12 @@ html {
 }
 
 .beatmap-link {
-  width: 400px;
-  overflow: hidden;
-  white-space: nowrap;
+  text-align: left;
+  display: flex;
+  color: #598acf;
+  white-space: normal;
   text-overflow: ellipsis;
-  color: hsl(215, 55%, 58%);
+  overflow: hidden;
 }
 
 span.beatmap-mapper {
