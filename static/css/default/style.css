@@ -23,6 +23,7 @@ html {
 .footer {
   padding: 20px;
   margin-top: 39px;
+  background-color: hsl(0, 0%, 11%);
 }
 
 .main-block {
@@ -101,7 +102,7 @@ html {
 
 a.foot-link {
   margin: 8px;
-  color: hsl(202, 57%, 44%) !important;
+  color: #ffffff;
 }
 
 .container {
