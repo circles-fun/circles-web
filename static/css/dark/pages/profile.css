@@ -4,12 +4,13 @@
 }
 
 .second-block {
-  background: rgba(0, 0, 0, 0);
+  background: #141414;
+  border-radius: 0px 0px 15px 15px;
 }
 
 .stats-block {
   width: 100%;
-  background: hsl(0, 0%, 16%);
+  background: #1b1b1b;
   border-radius: 16px;
   padding: 9.5px;
   margin-bottom: 9.5px !important;
@@ -98,11 +99,11 @@
 }
 
 .mode-selects {
-  background: hsl(0, 0%, 11%);
+  background: #1c1c1c;
 }
 
 .badge-selects {
-  background: hsl(0, 0%, 9%);
+  background: #141414;
 }
 
 .select-left {
@@ -256,7 +257,7 @@ html {
 
 .header {
   padding: 10px 10px;
-  background: hsl(0, 0%, 16%) !important;
+  background: #1b1b1b;
   border-radius: 16px;
   margin-bottom: 7px;
 }
@@ -281,7 +282,7 @@ html {
   justify-content: space-between;
   border-radius: 10px;
   overflow: hidden;
-  background: hsl(0, 0%, 13%);
+  background: #1b1b1b;
   transition: 0.2s ease;
   cursor: pointer;
 }
@@ -306,7 +307,7 @@ html {
   transform: translateY(-1px);
   box-shadow: 0 0 1px rgba(0, 0, 0, 0.04), 0 4px 8px rgba(0, 0, 0, 0.04),
     0 16px 24px rgba(0, 0, 0, 0.04), 0 24px 32px rgba(0, 0, 0, 0.04);
-  background: hsl(0, 0%, 15%);
+  background-color: #151515;
 }
 
 .map-single:first-child {
@@ -371,7 +372,7 @@ html {
 
 .map-pp {
   font-weight: 700;
-  color: hsl(0, 0%, 90%);
+  color: #e6e6e6;
   font-size: 20px;
 }
 
@@ -463,6 +464,7 @@ html {
 
 .map-image {
   padding-left: 12px;
+  filter: brightness(80%);
 }
 
 .beatmaps {
@@ -582,7 +584,7 @@ span.beatmap-mapper {
 
 .show-button {
   padding: 3px 42px;
-  background: hsl(0, 0%, 19%);
+  background: #1b1b1b;
   color: white;
   border-radius: 30px;
   margin: 0px 8px 8px 8px;
@@ -676,6 +678,7 @@ span.beatmap-mapper {
     margin-top: -10rem;
     border-radius: 15px;
     object-fit: cover;
+    filter: brightness(80%);
   }
 
   .info-block {
