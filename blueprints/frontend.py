@@ -149,7 +149,7 @@ async def settings_avatar_post():
         return await flash('error', 'You must be logged in to access avatar settings!', 'login')
 
     APATH = f'/home/checksum/circles/.data/avatars'
-    EXTENSIONS = ["png", "jpg", "jpeg"]
+    EXTENSIONS = "png", "jpg", "jpeg";
 
     files = await request.files
 
@@ -189,7 +189,7 @@ async def settings_banner_post():
         return await flash('error', 'You must be logged in to access banner settings!', 'login')
 
     BPATH = f'/home/checksum/circles/.data/avatars'
-    EXTENSIONS = ["jpg", "jpeg"]
+    EXTENSIONS = "jpg", "jpeg";
 
     files = await request.files
 
