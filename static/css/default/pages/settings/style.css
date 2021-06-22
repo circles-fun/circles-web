@@ -714,12 +714,13 @@ label.user-avatar.loading:before {
 #banner-img {
   width: 1140px;
   height: 215px;
-  /* max-width: 225px;
-  max-height: 255px; */
+  max-width: 1140px;
+  max-height: 215px;
   object-fit: cover;
   background-size: cover;
   border-radius: 15px;
 }
+
 #avatar-img {
   width: 225px;
   height: 225px;
