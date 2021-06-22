@@ -171,6 +171,44 @@ async def settings_avatar_post():
         AVATARS_PATH, f'{session["user_data"]["id"]}{file_extension.lower()}'))
     return await flash('success', 'Your avatar has been successfully changed!', 'settings/avatar')
 
+@frontend.route('/settings/banner')
+async def settings_banner():
+    if 'authenticated' not in session:
+        return await flash('error', 'You must be logged in to access banner settings!', 'login')
+
+    return await render_template('settings/banner.html')
+
+@frontend.route('/settings/banner', methods=['POST'])  # POST
+async def settings_banner_post():
+    if 'authenticated' not in session:
+        return await flash('error', 'You must be logged in to access banner settings!', 'login')
+
+    # constants
+    BANNERS_PATH = f'{glob.config.path_to_gulag}.data/banners'
+    ALLOWED_EXTENSIONS = ['.jpeg', '.jpg']
+
+    banner = (await request.files).get('banner')
+
+    # no file uploaded; deny post
+    if avatar is None or not banner.filename:
+        return await flash('error', 'No image was selected!', 'settings/banner')
+
+    filename, file_extension = os.path.splitext(banner.filename.lower())
+
+    # bad file extension; deny post
+    if not file_extension in ALLOWED_EXTENSIONS:
+        return await flash('error', 'The image you select must be either a .JPG or .JPEGfile!', 'settings/banner')
+
+    # remove old avatars
+    for fx in ALLOWED_EXTENSIONS:
+        # Checking file e
+        if os.path.isfile(f'{BANNERS_PATH}/{session["user_data"]["id"]}{fx}'):
+            os.remove(f'{BANNERS_PATH}/{session["user_data"]["id"]}{fx}')
+
+    # avatar change success
+    banner.save(os.path.join(
+        BANNERS_PATH, f'{session["user_data"]["id"]}{file_extension.lower()}'))
+    return await flash('success', 'Your avatar has been successfully changed!', 'settings/banner')
 
 @frontend.route('/settings/password')
 async def settings_password():
