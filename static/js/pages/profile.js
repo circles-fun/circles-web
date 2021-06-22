@@ -68,6 +68,8 @@ new Vue({
                 }
             })
 
+            console.log(res)
+
             switch (type) {
                 case "global":
                     return `${res.global_rank}`;
