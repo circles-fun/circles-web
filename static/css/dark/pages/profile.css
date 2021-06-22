@@ -35,6 +35,7 @@
   background: hsl(0, 0%, 11%);
   position: relative;
   overflow: hidden;
+  filter: brightness(80%);
 }
 
 .profile-avatar {
@@ -74,7 +75,6 @@
   position: absolute;
   flex-direction: row;
   align-items: flex-start;
-  filter: brightness(80%);
 }
 
 .simple-banner-switch {
