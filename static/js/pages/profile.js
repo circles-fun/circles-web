@@ -74,7 +74,6 @@ new Vue({
                     })
                     vm.data.ranking.global = `${res.data.global_rank}`;
                     vm.data.ranking.country = "Coming soon"
-            }
         },
         LoadScores(sort) {
             var vm = this;
