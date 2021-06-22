@@ -75,6 +75,7 @@
   position: absolute;
   flex-direction: row;
   align-items: flex-start;
+  filter: brightness(80%);
 }
 
 .simple-banner-switch {
@@ -135,7 +136,7 @@
 
 tbody {
   width: 100%;
-  color: #e6e6e6;
+  color: #e8e8e8;
 }
 
 tr {
@@ -196,7 +197,7 @@ td {
   margin-top: 6px;
   font-size: 16px;
   font-weight: 700;
-  color: #e6e6e6;
+  color: #e8e8e8;
 }
 
 .chart {
@@ -267,7 +268,7 @@ html {
 
 .header .title {
   font-size: 18px;
-  color: #e6e6e6;
+  color: #e8e8e8;
 }
 
 .scores {
@@ -351,7 +352,7 @@ html {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  color: #e6e6e6;
+  color: #e8e8e8;
 }
 
 .map-date>time {
@@ -377,7 +378,7 @@ html {
 
 .map-pp {
   font-weight: 700;
-  color: #e6e6e6;
+  color: #e8e8e8;
   font-size: 20px;
 }
 
@@ -385,7 +386,7 @@ html {
   font-size: 12px;
   display: flex;
   justify-content: flex-end;
-  color: #e6e6e6;
+  color: #e8e8e8;
 }
 
 .main-stats {
@@ -516,7 +517,7 @@ html {
   overflow: hidden;
   white-space: nowrap;
   font-size: 12;
-  color: #e6e6e6;
+  color: #e8e8e8;
 }
 
 .beatmap-artist {
@@ -531,7 +532,7 @@ html {
   margin-top: 8px;
   font-size: 16px;
   font-weight: 600;
-  color: #e6e6e6;
+  color: #e8e8e8;
   white-space: nowrap;
 }
 
@@ -555,7 +556,7 @@ html {
 }
 
 .play-stats {
-  color: #e6e6e6;
+  color: #e8e8e8;
 }
 
 .beatmap-stats {
@@ -569,7 +570,7 @@ html {
   white-space: initial;
   text-overflow: ellipsis;
   overflow: hidden;
-  color: #e6e6e6;
+  color: #e8e8e8;
 }
 
 span.beatmap-mapper {
@@ -595,7 +596,7 @@ span.beatmap-mapper {
 .show-button {
   padding: 3px 42px;
   background: #1b1b1b;
-  color: #e6e6e6;
+  color: #e8e8e8;
   border-radius: 30px;
   margin: 0px 8px 8px 8px;
 }
@@ -609,7 +610,6 @@ span.beatmap-mapper {
   transition: 0.2s ease;
   top: 25px;
   right: -70px;
-  filter: brightness(80%);
 }
 
 .mods-fulltext {
