@@ -32,7 +32,7 @@
   align-items: flex-end;
   border-top-right-radius: 20px;
   border-top-left-radius: 20px;
-  background: hsl(0, 0%, 11%) !important;
+  background: hsl(0, 0%, 11%);
   position: relative;
   overflow: hidden;
 }
