@@ -710,6 +710,16 @@ label.user-avatar.loading:before {
 .margin-top {
   margin-top: 10px;
 }
+
+#banner-img {
+  width: 1140px;
+  height: 215px;
+  /* max-width: 225px;
+  max-height: 255px; */
+  object-fit: cover;
+  background-size: cover;
+  border-radius: 15px;
+}
 #avatar-img {
   width: 225px;
   height: 225px;
