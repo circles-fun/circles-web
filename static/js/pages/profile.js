@@ -34,6 +34,7 @@ new Vue({
             this.LoadScores('best')
             this.LoadScores('recent')
             this.LoadGrades()
+            this.getRank();
         },
         GettingUrl() {
             return `${window.location.protocol}//${window.location.hostname}:${window.location.port}`
@@ -62,25 +63,17 @@ new Vue({
                     vm.data.grades = response.data;
                 });
         },
-        async getRank(type, id) {
+        async getRank() {
             var vm = this;
-
-            switch (type) {
-                case "global":
                     let res = await vm.$axios.get(`https://osu.circles.fun/api/get_player_rank`, {
                         params: {
-                            userid: id,
+                            userid: vm.userid,
                             mode: vm.mode,
                             mods: vm.mods,
                         }
                     })
                     vm.data.ranking.global = `${res.data.global_rank}`;
-                    
-                break;
-
-                case "country":
                     vm.data.ranking.country = "Coming soon"
-                break;
             }
         },
         LoadScores(sort) {
