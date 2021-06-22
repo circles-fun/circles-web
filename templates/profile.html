@@ -6,7 +6,7 @@
 <script src="/static/js/asserts/vue-axios.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/timeago.js/4.0.2/timeago.min.js"></script>
 
-<link id= "style" rel="stylesheet" href="/static/css/default/pages/profile.css">
+<link id="style" rel="stylesheet" href="/static/css/default/pages/profile.css">
 
 <script>
     var userid = Number("{{ user['id'] }}"); //For text editor doesn't dizzy lmao
@@ -20,13 +20,13 @@
     <ins class="adsbygoogle" style="display:inline-block;width:970px;height:90px"
         data-ad-client="ca-pub-9619500283342943" data-ad-slot="5170671013"></ins>
     <script>
-        (adsbygoogle = window.adsbygoogle || []).push({});
+            (adsbygoogle = window.adsbygoogle || []).push({});
     </script>
 </div>
 
 <div id="app">
     <div class="main-block">
-        <div class="profile-bg">
+        <div style="background: url(https://a.circles.fun/banners/{{ user['id'] }}.jpeg)" class="profile-bg">
             <div class="info-block">
                 <h1 class="title">
                     <p class="ranks">
@@ -36,7 +36,7 @@
                 </h1>
             </div>
             <div class="anime-girl">
-                    <img src="https://circles.fun/static/images/pippi.png" alt="Setsuna">
+                <img src="https://circles.fun/static/images/pippi.png" alt="Setsuna">
             </div>
         </div>
         <div class="profile-flex">
