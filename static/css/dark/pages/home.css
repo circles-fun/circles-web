@@ -58,8 +58,12 @@
   }
 }
 
+.section {
+  background: #131313;
+}
+
 .splash {
-  background: #3d5f8f;
+  background: #161616;
 }
 
 .footer {
