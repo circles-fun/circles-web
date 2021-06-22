@@ -179,6 +179,8 @@ async def settings_avatar_post():
 async def settings_banner():
     if not 'authenticated' in session:
         return await flash('error', 'You must be logged in to access banner settings!', 'login')
+    if not session['user_data']['is_staff']:
+        return await flash('error', f'You have insufficient privileges.', 'settings/profile')
 
     return await render_template('settings/banner.html')
 
