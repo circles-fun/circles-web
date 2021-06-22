@@ -5,6 +5,7 @@ __all__ = ()
 import asyncio
 import bcrypt
 import hashlib
+import aiofiles.os
 import os
 import time
 import markdown2
@@ -16,6 +17,9 @@ from quart import redirect
 from quart import render_template
 from quart import request
 from quart import session
+
+from PIL import Image
+from resizeimage import resizeimage
 
 from constants import regexes
 from objects import glob
@@ -141,74 +145,72 @@ async def settings_avatar():
 
 @frontend.route('/settings/avatar', methods=['POST'])  # POST
 async def settings_avatar_post():
-    if 'authenticated' not in session:
+    if not 'authenticated' in session:
         return await flash('error', 'You must be logged in to access avatar settings!', 'login')
 
-    # constants
-    AVATARS_PATH = f'{glob.config.path_to_gulag}.data/avatars'
-    ALLOWED_EXTENSIONS = ['.jpeg', '.jpg', '.png']
+    APATH = f'{glob.config.gulag_path}/.data/avatars'
+    EXTENSIONS = ["png", "jpg", "jpeg"]
 
-    avatar = (await request.files).get('avatar')
+    files = await request.files
 
-    # no file uploaded; deny post
-    if avatar is None or not avatar.filename:
-        return await flash('error', 'No image was selected!', 'settings/avatar')
+    avatar_file = (files.get('avatar'))
+    ava = (os.path.splitext(avatar_file.filename.lower()))[1]
+    avatar_dir = f"{APATH}/{session['user_data']['id']}{ava}"
 
-    filename, file_extension = os.path.splitext(avatar.filename.lower())
+    if ava not in EXTENSIONS:
+        return await flash('error', 'Please submit an image which is either a png, jpg, jpeg or gif file!', 'settings/avatar')
 
-    # bad file extension; deny post
-    if not file_extension in ALLOWED_EXTENSIONS:
-        return await flash('error', 'The image you select must be either a .JPG, .JPEG, or .PNG file!', 'settings/avatar')
+    for old_ava in EXTENSIONS:
+        old_dir = f"{APATH}/{session['user_data']['id']}{old_ava}"
+        if os.path.exists(old_dir):
+            await aiofiles.os.remove(old_dir)
 
-    # remove old avatars
-    for fx in ALLOWED_EXTENSIONS:
-        # Checking file e
-        if os.path.isfile(f'{AVATARS_PATH}/{session["user_data"]["id"]}{fx}'):
-            os.remove(f'{AVATARS_PATH}/{session["user_data"]["id"]}{fx}')
+    avatar_file.save(avatar_dir)
+    img = Image.open(avatar_dir)
+    width, height = img.size
+    if width > 256 or height > 256:
+        new = resizeimage.resize_cover(img, [256, 256])
+        new.save(avatar_dir, img.format)
 
-    # avatar change success
-    avatar.save(os.path.join(
-        AVATARS_PATH, f'{session["user_data"]["id"]}{file_extension.lower()}'))
     return await flash('success', 'Your avatar has been successfully changed!', 'settings/avatar')
 
-@frontend.route('/settings/banner')
+
+@frontend.route('/settings/banner')  # GET
 async def settings_banner():
-    if 'authenticated' not in session:
+    if not 'authenticated' in session:
         return await flash('error', 'You must be logged in to access banner settings!', 'login')
 
     return await render_template('settings/banner.html')
 
+
 @frontend.route('/settings/banner', methods=['POST'])  # POST
 async def settings_banner_post():
-    if 'authenticated' not in session:
+    if not 'authenticated' in session:
         return await flash('error', 'You must be logged in to access banner settings!', 'login')
 
-    # constants
-    BANNERS_PATH = f'{glob.config.path_to_gulag}.data/banners'
-    ALLOWED_EXTENSIONS = ['.jpeg', '.jpg']
+    BPATH = f'{glob.config.gulag_path}/.data/banners'
+    EXTENSIONS = ["jpg", "jpeg"]
 
-    banner = (await request.files).get('banner')
+    files = await request.files
 
-    # no file uploaded; deny post
-    if banner is None or not banner.filename:
-        return await flash('error', 'No image was selected!', 'settings/banner')
+    banner_file = (files.get('banner'))
 
-    filename, file_extension = os.path.splitext(banner.filename.lower())
+    banner = (os.path.splitext(banner_file.filename.lower()))[1]
 
-    # bad file extension; deny post
-    if not file_extension in ALLOWED_EXTENSIONS:
-        return await flash('error', 'The image you select must be either a .JPG or .JPEGfile!', 'settings/banner')
+    banner_dir = f"{BPATH}/{session['user_data']['id']}{banner}"
 
-    # remove old banners
-    for fx in ALLOWED_EXTENSIONS:
-        # Checking file e
-        if os.path.isfile(f'{BANNERS_PATH}/{session["user_data"]["id"]}{fx}'):
-            os.remove(f'{BANNERS_PATH}/{session["user_data"]["id"]}{fx}')
+    if banner not in EXTENSIONS:
+        return await flash('error', 'Please submit an image which is either a jpg or jpeg file!', 'settings/banner')
 
-    # banner change success
-    banner.save(os.path.join(
-        BANNERS_PATH, f'{session["user_data"]["id"]}{file_extension.lower()}'))
+    # remove any old banners
+    for old_ava in EXTENSIONS:
+        old_dir = f"{BPATH}/{session['user_data']['id']}{old_ava}"
+        if os.path.exists(old_dir):
+            await aiofiles.os.remove(banner_dir)
+
+    banner_file.save(banner_dir)
     return await flash('success', 'Your banner has been successfully changed!', 'settings/banner')
+
 
 @frontend.route('/settings/password')
 async def settings_password():

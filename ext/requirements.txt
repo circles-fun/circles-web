@@ -3,8 +3,11 @@ quart
 bcrypt
 aiomysql
 aiohttp
+aiofiles
 mysql-connector
 asyncpg
 orjson
 timeago
 markdown2
+resizeimage
+PIL
