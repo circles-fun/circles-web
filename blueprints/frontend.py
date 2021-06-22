@@ -149,7 +149,7 @@ async def settings_avatar_post():
         return await flash('error', 'You must be logged in to access avatar settings!', 'login')
 
     APATH = f'/home/checksum/circles/.data/avatars'
-    EXTENSIONS = [".png", ".jpg", ".jpeg"];
+    EXTENSIONS = [".png", ".jpg", ".jpeg"]
 
     files = await request.files
 
@@ -170,7 +170,7 @@ async def settings_avatar_post():
     width, height = img.size
     if width > 256 or height > 256:
         new = resizeimage.resize_cover(img, [256, 256])
-        new.save(avatar_dir, img.format)
+        await new.save(avatar_dir, img.format)
 
     return await flash('success', 'Your avatar has been successfully changed!', 'settings/avatar')
 
@@ -189,7 +189,7 @@ async def settings_banner_post():
         return await flash('error', 'You must be logged in to access banner settings!', 'login')
 
     BPATH = f'/home/checksum/circles/.data/banners'
-    EXTENSIONS = [".jpg", ".jpeg"];
+    EXTENSIONS = [".jpg", ".jpeg"]
 
     files = await request.files
     banner_file = (files.get('banner'))
@@ -202,12 +202,17 @@ async def settings_banner_post():
         return await flash('error', 'Please submit an image which is either a jpg or jpeg file!', 'settings/banner')
 
     # remove any old banners
-    for old_ava in EXTENSIONS:
-        old_dir = f"{BPATH}/{session['user_data']['id']}{old_ava}"
+    for old_banner in EXTENSIONS:
+        old_dir = f"{BPATH}/{session['user_data']['id']}{old_banner}"
         if os.path.exists(old_dir):
             await aiofiles.os.remove(banner_dir)
 
     banner_file.save(banner_dir)
+    img = Image.open(banner_dir)
+    width, height = img.size
+    if width > 1140 or height > 215:
+        new = resizeimage.resize_cover(img, [1140, 215])
+        await new.save(banner_dir, img.format)
     return await flash('success', 'Your banner has been successfully changed!', 'settings/banner')
 
 
