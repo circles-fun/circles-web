@@ -58,7 +58,7 @@ new Vue({
                     vm.data.grades = response.data;
                 });
         },
-        getRank() {
+        getRank(type) {
             var vm = this;
             let res = vm.$axios.get(`https://osu.circles.fun/api/get_player_rank`, {
                 params: {
@@ -67,7 +67,17 @@ new Vue({
                     mods: vm.mods,
                 }
             })
-            return res;
+
+            switch (type) {
+                case "global":
+                    return res.global_rank;
+            
+                case "country":
+                    return "Coming Soon."
+
+                default:
+                    return "wtf?"
+            }
         },
         LoadScores(sort) {
             var vm = this;
