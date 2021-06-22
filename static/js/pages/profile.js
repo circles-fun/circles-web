@@ -61,13 +61,15 @@ new Vue({
         async getRank(type) {
             var vm = this;
 
+            console.log(vm)
+
             switch (type) {
                 case "global":
                     let res = await vm.$axios.get(`https://osu.circles.fun/api/get_player_rank`, {
                         params: {
                             id: vm.userid,
-                            mode: vm.mode,
                             mods: vm.mods,
+                            mode: vm.mode,
                         }
                     }).then(() => {return `${res.data.global_rank}`})          
                 case "country":
