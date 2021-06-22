@@ -4,6 +4,10 @@ new Vue({
     data() {
         return {
             data: {
+                ranking: {
+                    global: null,
+                    country: null,
+                },
                 stats: {},
                 grades: {},
                 scores: {
@@ -70,14 +74,13 @@ new Vue({
                             mods: vm.mods,
                         }
                     })
-                    console.log(res.data.global_rank);
-                    return `${res.data.global_rank}`;
-            
-                case "country":
-                    return "Coming Soon."
+                    vm.data.ranking.global = `${res.data.global_rank}`;
+                    
+                break;
 
-                default:
-                    return "wtf?"
+                case "country":
+                    vm.data.ranking.country = "Coming soon"
+                break;
             }
         },
         LoadScores(sort) {
@@ -156,7 +159,7 @@ new Vue({
                 case 'mostplayed':
                     vm.limit[2] = vm.limit[2] + 5
                     vm.LoadMostBeatmaps()
-                    break;   
+                    break;
 
                 default:
                     break;
