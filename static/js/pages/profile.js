@@ -72,7 +72,27 @@ new Vue({
                             mods: vm.mods,
                         }
                     })
-                    vm.data.ranking.global = `${res.data.global_rank}`;
+
+                    let humanizedres;
+                    switch (res) {
+                        case 1:
+                            humanizedres = `${res}st`
+                            break;
+
+                        case 2:
+                            humanizedres = `${res}nd`
+                            break;
+
+                        case 3:
+                            humanizedres = `${res}rd`
+                            break;
+
+                        default:
+                            humanizedres = `${res}th`
+                            break;
+                    }
+
+                    vm.data.ranking.global = `${humanizedres}`;
                     vm.data.ranking.country = "Coming soon"
         },
         LoadScores(sort) {
