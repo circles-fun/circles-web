@@ -237,7 +237,7 @@ a.foot-link {
 .navbar-item:hover,
 .navbar-item.navbar-dropdown:hover .navbar-item {
   opacity: 1 !important;
-  background-color: hsl(215, 53%, 37%) !important;
+  background-color: #4170b1;
 }
 
 .navbar.is-primary .navbar-end .navbar-link.is-active,
@@ -256,12 +256,12 @@ a.foot-link {
 .navbar.is-primary .navbar-start>a.navbar-item:focus,
 .navbar.is-primary .navbar-start>a.navbar-item:hover {
   background-color: transparent;
-  color: hsl(215, 53%, 37%) !important;
+  color: #4170b1;
 }
 
 .navbar.is-primary .navbar-brand>a.navbar-item:hover {
   background-color: transparent;
-  color: hsl(215, 53%, 37%) !important;
+  color: #4170b1;
 }
 
 .navbar-logo {
@@ -285,8 +285,9 @@ a.foot-link {
 }
 
 .navbar-dropdown {
-  width: 152px;
-  background-color: #2c5690 !important;
+  width: 150px;
+  background-color: #4170b1;
+  border-radius: 10px;
 }
 
 .input,
