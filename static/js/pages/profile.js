@@ -72,33 +72,8 @@ new Vue({
                             mods: vm.mods,
                         }
                     })
-
-                    let humanizedres = null;
-                    switch (res) {
-                        case 1:
-                            humanizedres = `${res}st`
-                            vm.data.ranking.global = `${humanizedres}`;
-                            vm.data.ranking.country = "Coming soon"
-                            break;
-
-                        case 2:
-                            humanizedres = `${res}nd`
-                            vm.data.ranking.global = `${humanizedres}`;
-                            vm.data.ranking.country = "Coming soon"
-                            break;
-
-                        case 3:
-                            humanizedres = `${res}rd`
-                            vm.data.ranking.global = `${humanizedres}`;
-                            vm.data.ranking.country = "Coming soon"
-                            break;
-
-                        default:
-                            humanizedres = `${res}th`
-                            vm.data.ranking.global = `${humanizedres}`;
-                            vm.data.ranking.country = "Coming soon"
-                            break;
-                    }
+                    vm.data.ranking.global = `#${res.data.global_rank}`;
+                    vm.data.ranking.country = "Coming soon"
         },
         LoadScores(sort) {
             var vm = this;
