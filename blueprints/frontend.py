@@ -165,7 +165,7 @@ async def settings_avatar_post():
         if os.path.exists(old_dir):
             await aiofiles.os.remove(old_dir)
 
-    avatar_file.save(avatar_dir)
+    await avatar_file.save(avatar_dir)
     img = Image.open(avatar_dir)
     width, height = img.size
     if width > 256 or height > 256:
@@ -207,7 +207,7 @@ async def settings_banner_post():
         if os.path.exists(old_dir):
             await aiofiles.os.remove(banner_dir)
 
-    banner_file.save(banner_dir)
+    await banner_file.save(banner_dir)
     img = Image.open(banner_dir)
     width, height = img.size
     if width > 1140 or height > 215:
