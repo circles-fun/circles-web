@@ -70,7 +70,7 @@ new Vue({
 
             switch (type) {
                 case "global":
-                    return res.global_rank;
+                    return `${res.global_rank}`;
             
                 case "country":
                     return "Coming Soon."
