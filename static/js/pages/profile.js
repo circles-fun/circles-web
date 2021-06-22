@@ -68,11 +68,9 @@ new Vue({
                 }
             })
 
-            console.log(res)
-
             switch (type) {
                 case "global":
-                    return `${res.global_rank}`;
+                    return `${res.data.global_rank}`;
             
                 case "country":
                     return "Coming Soon."
