@@ -712,9 +712,9 @@ label.user-avatar.loading:before {
 }
 
 #banner-img {
-  width: 1140px;
+  width: 800px;
   height: 215px;
-  max-width: 1140px;
+  max-width: 800px;
   max-height: 215px;
   object-fit: cover;
   background-size: cover;
@@ -793,9 +793,8 @@ input:checked + label.checkbox:hover {
   align-items: center;
 }
 .buttons .button {
-  margin-bottom: 0.5rem;
-  margin-left: 0.8rem;
-  border-radius: 0.4em;
+  margin-top: 6px;
+  margin-left: 5px;
 }
 .single-right-block.right-block-center:last-of-type > .right-block-content {
   min-height: auto;
