@@ -63,13 +63,15 @@ new Vue({
 
             switch (type) {
                 case "global":
-                    return `${vm.$axios.get(`https://osu.circles.fun/api/get_player_rank`, {
+                    let res = await vm.$axios.get(`https://osu.circles.fun/api/get_player_rank`, {
                         params: {
-                            userid: vm.userid,
+                            id: vm.userid,
                             mode: vm.mode,
                             mods: vm.mods,
                         }
-                    }).then(e => e.data.global_rank)}`;
+                    })
+                    console.log(res.data.global_rank);
+                    return `${res.data.global_rank}`;
             
                 case "country":
                     return "Coming Soon."
