@@ -69,9 +69,7 @@ new Vue({
                             mode: vm.mode,
                             mods: vm.mods,
                         }
-                    })
-                    return `${res.data.global_rank}`
-            
+                    }).then(() => {return `${res.data.global_rank}`})          
                 case "country":
                     return "Coming Soon."
             }
@@ -101,7 +99,6 @@ new Vue({
                 .then(function (response) {
                     vm.data.scores[sort] = response.data.scores;
                     vm.data.scores.load[type] = false
-                    console.log(vm.data.scores.load)
                 });
         },
         LoadMostBeatmaps() {
