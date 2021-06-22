@@ -553,6 +553,10 @@ html {
   margin-right: 10px;
 }
 
+.play-stats {
+  color: #bababa;
+}
+
 .beatmap-stats {
   flex: 1;
   display: flex;
@@ -565,7 +569,7 @@ html {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  color: hsl(0, 0%, 99%);
+  color: #bababa;
 }
 
 span.beatmap-mapper {
@@ -601,10 +605,10 @@ span.beatmap-mapper {
 }
 
 .anime-girl {
-    position: absolute;
-    transition: 0.2s ease;
-    top: 25px;
-    right: -70px;
+  position: absolute;
+  transition: 0.2s ease;
+  top: 25px;
+  right: -70px;
 }
 
 .mods-fulltext {
