@@ -134,6 +134,7 @@
 
 tbody {
   width: 100%;
+  color: #bababa;
 }
 
 tr {
@@ -194,6 +195,7 @@ td {
   margin-top: 6px;
   font-size: 16px;
   font-weight: 700;
+  color: #bababa;
 }
 
 .chart {
@@ -347,6 +349,7 @@ html {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  color: #bababa;
 }
 
 .map-date>time {
@@ -372,7 +375,7 @@ html {
 
 .map-pp {
   font-weight: 700;
-  color: #e6e6e6;
+  color: #bababa;
   font-size: 20px;
 }
 
@@ -380,6 +383,7 @@ html {
   font-size: 12px;
   display: flex;
   justify-content: flex-end;
+  color: #bababa;
 }
 
 .main-stats {
@@ -510,6 +514,7 @@ html {
   overflow: hidden;
   white-space: nowrap;
   font-size: 12;
+  color: #bababa;
 }
 
 .beatmap-artist {
@@ -524,7 +529,7 @@ html {
   margin-top: 8px;
   font-size: 16px;
   font-weight: 600;
-  color: #fff;
+  color: #bababa;
   white-space: nowrap;
 }
 
@@ -585,7 +590,7 @@ span.beatmap-mapper {
 .show-button {
   padding: 3px 42px;
   background: #1b1b1b;
-  color: white;
+  color: #bababa;
   border-radius: 30px;
   margin: 0px 8px 8px 8px;
 }
