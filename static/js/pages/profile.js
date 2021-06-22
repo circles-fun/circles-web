@@ -58,14 +58,14 @@ new Vue({
                     vm.data.grades = response.data;
                 });
         },
-        async getRank(type) {
+        async getRank(type, id) {
             var vm = this;
 
             switch (type) {
                 case "global":
                     let res = await vm.$axios.get(`https://osu.circles.fun/api/get_player_rank`, {
                         params: {
-                            id: vm.userid,
+                            userid: id,
                             mode: vm.mode,
                             mods: vm.mods,
                         }

@@ -99,14 +99,14 @@
                                 <td><b>Global Rank</b></td>
                                 <td class="right-aligned">
                                     <div>
-                                        <% getRank("global") %>
+                                        <% getRank("global", {{ user['id'] }}) %>
                                     </div>
                                 </td>
                             </tr>
                             <tr>
                                 <td><b>Country Rank</b></td>
                                 <td class="right-aligned">
-                                    <% getRank("country") %>
+                                    <% getRank("country", {{ user['id'] }}) %>
                                 </td>
                             </tr>
                         </tbody>
