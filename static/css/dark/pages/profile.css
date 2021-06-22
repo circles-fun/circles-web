@@ -311,7 +311,7 @@ html {
   transform: translateY(-1px);
   box-shadow: 0 0 1px rgba(0, 0, 0, 0.04), 0 4px 8px rgba(0, 0, 0, 0.04),
     0 16px 24px rgba(0, 0, 0, 0.04), 0 24px 32px rgba(0, 0, 0, 0.04);
-  background-color: #151515;
+  background: #151515;
 }
 
 .map-single:first-child {
@@ -566,10 +566,9 @@ html {
 }
 
 .beatmap-link {
-  width: 400px;
-  overflow: hidden;
-  white-space: nowrap;
+  white-space: initial;
   text-overflow: ellipsis;
+  overflow: hidden;
   color: #bababa;
 }
 
