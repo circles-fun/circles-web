@@ -100,9 +100,8 @@ html {
   margin-top: 92px;
 }
 
-a.foot-link {
-  margin: 8px;
-  color: hsl(0, 0%, 100%) !important;
+a {
+  color: lightsteelblue;
 }
 
 .container {
@@ -124,6 +123,7 @@ a.foot-link {
 
 .button:hover {
   transform: scale(1.05);
+  background-color: #1b1b1b
 }
 
 .mode-icon {
@@ -284,7 +284,9 @@ a.foot-link {
   transition-timing-function: ease;
   color: white;
   padding: 18px 24px;
-  opacity: 1;
+  border-radius: 15px;
+  margin-bottom: 20px;
+  filter: brightness(80%);
 }
 
 .paper-snackbar.is-success {

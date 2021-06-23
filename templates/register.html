@@ -2,7 +2,7 @@
 {% block title %} Register {% endblock %}
 
 {% block content %}
-<link id= "style" rel="stylesheet" href="/static/css/default/pages/auth.css">
+<link id="style" rel="stylesheet" href="/static/css/default/pages/auth.css">
 
 <!-- Primary Meta Tags -->
 <title>Circles - Register</title>
@@ -21,6 +21,12 @@
 <meta property="twitter:url" content="https://circles.fun/">
 <meta property="twitter:title" content="Circles - Register">
 <meta property="twitter:description" content="Create an account onto the circles.fun private osu! server!">
+
+{% if flash %}
+<div class="paper-snackbar is-{{ status }}">
+  {{ flash }}
+</div>
+{% endif %}
 
 <div class="main-block is-marginless is-paddingless is-auth">
   <div class="columns pm-reset is-weeb">
@@ -81,12 +87,6 @@
     </div>
   </div>
 </div>
-
-{% if flash %}
-<div class="paper-snackbar is-{{ status }}" style="opacity: 1;">
-  {{ flash }}
-</div>
-{% endif %}
 
 {% if not captchaKey() == 'changeme' %}
 <script src="https://hcaptcha.com/1/api.js" async defer></script>
