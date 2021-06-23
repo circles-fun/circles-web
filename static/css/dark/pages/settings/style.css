@@ -424,11 +424,11 @@ input::placeholder {
   padding-right: 10px;
 }
 .pink-bold {
-  color: #48AAAD;
+  color: #ffffff;
   font-weight: 700;
 }
 .settings-btn {
-  color: #48AAAD;
+  color: #ffffff;
   border-radius: 8px;
   padding: 8px;
   font-size: 14px;
@@ -438,7 +438,7 @@ input::placeholder {
   padding-right: 24px;
   transition: 0.2s background-color, 0.2s color, 0.2s border;
   cursor: pointer;
-  border: #48AAAD solid 2px;
+  border: #ffffff solid 2px;
   margin-top: 12px;
   text-align: center;
   min-width: 204px;
@@ -710,6 +710,18 @@ label.user-avatar.loading:before {
 .margin-top {
   margin-top: 10px;
 }
+
+#banner-img {
+  width: 1140px;
+  height: 215px;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+  background-size: cover;
+  position: relative;
+  border-radius: 15px;
+}
+
 #avatar-img {
   width: 225px;
   height: 225px;
@@ -782,10 +794,8 @@ input:checked + label.checkbox:hover {
   align-items: center;
 }
 .buttons .button {
-  margin-bottom: 0.5rem;
-  margin-left: 0.8rem;
-  border-radius: 0.4em;
-  background-color: hsl(202, 63%, 34%) !important;
+  margin-top: 6px;
+  margin-left: 5px;
 }
 .single-right-block.right-block-center:last-of-type > .right-block-content {
   min-height: auto;
