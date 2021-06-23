@@ -73,7 +73,7 @@ new Vue({
                         }
                     })
                     vm.data.ranking.global = `#${res.data.global_rank}`;
-                    vm.data.ranking.country = `${res.data.country_rank}`
+                    vm.data.ranking.country = `#${res.data.country_rank}`
         },
         LoadScores(sort) {
             var vm = this;
