@@ -77,67 +77,67 @@
                                 </span>
                             </div>
                         </div>
+                    </a>
+                    {% endfor %}
                 </div>
-                </a>
-                {% endfor %}
             </div>
         </div>
-    </div>
-    {% endif %}
-    {% if recentscores %}
-    <div class="column is-paddingless m-2">
-        <div class="recent-beat">
-            <div class="columns is-marginless">
-                <div class="column is-paddingless flex-vcenter">
-                    <h2 class="section-title">Recent Score</h2>
-                </div>
-            </div>
-            <div class="blockdata">
-                {% for maps in recentscores %}
-                <div class="map-single">
-                    <div class="map-content1">
-                        <div class="map-image"><img
-                                src="https://assets.ppy.sh/beatmaps/{{ maps.set_id }}/covers/cover.jpg"
-                                class="map-image-picture"></div>
-                        <div class="map-title-block">
-                            <div class="map-title"><a class="user-link">
-                                    [{{ maps.mode }}] {{ maps.title }} [{{ maps.version }}]
-                                </a></div>
-                            <div class="play-stats">
-                                {{ maps.score }} / {{ maps.max_combo }}x
-                            </div>
-                            <div class="map-date"><time>
-                                    {{ timeago.format((maps.play_time), (datetime.datetime.now() +
-                                    datetime.timedelta(seconds = 60 * 3.4))) }}
-                                </time></div>
-                        </div>
+        {% endif %}
+        {% if recentscores %}
+        <div class="column is-paddingless m-2">
+            <div class="recent-beat">
+                <div class="columns is-marginless">
+                    <div class="column is-paddingless flex-vcenter">
+                        <h2 class="section-title">Recent Score</h2>
                     </div>
-                    <div class="map-content2">
-                        <div class="score-details d-flex">
-                            <div class="score-details_right-block">
-                                <div class="score-details_pp-block">
-                                    <div class="map-pp">
-                                        {{ maps.pp }}<span class="map-pp-unit">pp</span></div>
-                                    <div class="map-acc">accuracy:&nbsp;<b>
-                                            {{ maps.acc }}%
-                                        </b></div>
+                </div>
+                <div class="blockdata">
+                    {% for maps in recentscores %}
+                    <div class="map-single">
+                        <div class="map-content1">
+                            <div class="map-image"><img
+                                    src="https://assets.ppy.sh/beatmaps/{{ maps.set_id }}/covers/cover.jpg"
+                                    class="map-image-picture"></div>
+                            <div class="map-title-block">
+                                <div class="map-title"><a class="user-link">
+                                        [{{ maps.mode }}] {{ maps.title }} [{{ maps.version }}]
+                                    </a></div>
+                                <div class="play-stats">
+                                    {{ maps.score }} / {{ maps.max_combo }}x
                                 </div>
-                                <div class="score-details_grade-block">
-                                    <div class="rank-single">
-                                        <div class="map-rank rank-{{ maps.grade|upper }}">
-                                            {{ maps.grade.replace("X", "SS").replace("H", "") }}
+                                <div class="map-date"><time>
+                                        {{ timeago.format((maps.play_time), (datetime.datetime.now() +
+                                        datetime.timedelta(seconds = 60 * 3.4))) }}
+                                    </time></div>
+                            </div>
+                        </div>
+                        <div class="map-content2">
+                            <div class="score-details d-flex">
+                                <div class="score-details_right-block">
+                                    <div class="score-details_pp-block">
+                                        <div class="map-pp">
+                                            {{ maps.pp }}<span class="map-pp-unit">pp</span></div>
+                                        <div class="map-acc">accuracy:&nbsp;<b>
+                                                {{ maps.acc }}%
+                                            </b></div>
+                                    </div>
+                                    <div class="score-details_grade-block">
+                                        <div class="rank-single">
+                                            <div class="map-rank rank-{{ maps.grade|upper }}">
+                                                {{ maps.grade.replace("X", "SS").replace("H", "") }}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    {% endfor %}
                 </div>
-                {% endfor %}
             </div>
         </div>
+        {% endif %}
     </div>
-    {% endif %}
 </div>
 
 <script src="/static/js/pages/admin/dashboard.js"></script>
