@@ -10,13 +10,13 @@ a:hover {
 }
 
 .main-block {
-  background-color: hsl(0, 0%, 10%);
+  background-color: #212121;
   margin-top: 0;
   width: auto;
 }
 
 .leaderboard-banner {
-  background-color: hsl(0, 0%, 8%) !important;
+  background-color: #212121;
   height: 194px;
   border-radius: 0;
   border-top-right-radius: 8px;
@@ -28,13 +28,14 @@ a:hover {
   color: #222;
   height: 38px;
   font-size: 12px;
-  background-color: hsl(0, 0%, 17%);
+  background-color: #2c2c2c;
 }
 
 .leaderboard-main-bg {
   border-bottom-right-radius: 8px;
   border-bottom-left-radius: 8px;
-  padding: 24px 24px;
+  padding: 15px 15px;
+  background-color: #212121;
 }
 
 .leaderboard-table {
@@ -44,6 +45,7 @@ a:hover {
   border-spacing: 0 3px;
   border-collapse: separate;
   padding-bottom: 24px;
+  background-color: #212121;
 }
 
 tr td {
@@ -53,7 +55,7 @@ tr td {
 .column-player-rank {
   padding: 0 10px;
   text-align: center;
-  background-color: hsl(0, 0%, 11%) !important;
+  background-color: #343434;
   min-width: 44px;
   font-weight: 600;
   font-size: 13px;
@@ -78,6 +80,7 @@ tr td {
   padding: 5px 12px;
   text-align: center !important;
   font-size: 12px;
+  background-color: #212121;
 }
 
 .t-heading--main {
@@ -96,7 +99,7 @@ tr td {
 
 tr.leaderboard-column td {
   font-weight: 600;
-  border-bottom: hsl(0, 0%, 11%);
+  border-bottom: #1c1c1c; 
   transition: 0.1s background-color;
   color: #fff !important;
   text-align: center;
@@ -108,7 +111,7 @@ table th {
 }
 
 .leaderboard-column:hover td:not(:first-child) {
-  background-color: hsl(0, 0%, 14%);
+  background-color: hsl(0deg 0% 24%);
 }
 
 .main-banner {
