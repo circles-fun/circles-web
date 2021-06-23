@@ -2,16 +2,15 @@
     height: auto;
     width: auto;
     max-width: 1152px;
-
-    background-color: hsl(215,10%,15%);
+    background-color: hsl(0deg 0% 0% / 0%);
     color: #fff;
 }
 
 .title-block {
     height: auto;
     width: auto;
-    padding: 38px 22px 10px 22px;
-    background-color: hsl(215, 30%, 50%) !important;
+    padding: 10px 20px;
+    background-color: #242424;
     border-top-left-radius: 16px;
     border-top-right-radius: 16px;
 }
@@ -23,6 +22,7 @@
 
 .error-block {
     padding: 22px;
+    background-color: #202020;
 }
 
 .error-subtitle {
