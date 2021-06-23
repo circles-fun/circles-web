@@ -1,19 +1,24 @@
 .main-block {
     height: auto;
     background-color: rgba(28, 28, 28, 0);
-    color: #fff;
+    color: #ffffff;
 }
 
 .title-block {
     height: auto;
     width: auto;
-    padding: 38px 22px 10px 22px;
-    background-color: hsla(0, 0%, 9%, 0) !important;
+    padding: 38px 22px 10px;
     border-top-left-radius: 16px;
     border-top-right-radius: 16px;
+    background-color: #242424;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     font-weight: 500;
 }
 
@@ -21,15 +26,19 @@ h1 {
     font-size: 1.9em;
 }
 
-h2, .doc-title {
+h2,
+.doc-title {
     font-size: 1.7em;
 }
 
 .doc-block {
     padding: 22px;
+    background-color: #202020;
+    border-radius: 0px 0px 10px 10px;
 }
 
-h3, .doc-subtitle {
+h3,
+.doc-subtitle {
     font-size: 1.5em;
 }
 
@@ -50,16 +59,17 @@ h6 {
     font-size: 0.9em;
 }
 
-ol, ul {
+ol,
+ul {
     padding: 0px 0px 10px 20px;
 }
 
 ol li {
-    counter-increment: section !important;
     list-style-type: none;
+    counter-increment: section 1 !important;
 }
 
-ol li:before {
+ol li::before {
     font-weight: 700;
     content: counters(section, ".") ". ";
 }
