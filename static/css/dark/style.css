@@ -660,6 +660,10 @@ a.foot-link {
   background: hsl(0, 0%, 12%) !important;
 }
 
+.button.is-dark {
+  background: #202020;
+}
+
 .modal-close {
   position: relative;
 }
