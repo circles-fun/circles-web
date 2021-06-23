@@ -101,7 +101,11 @@ html {
 }
 
 a {
-  color: lightsteelblue;
+  color: #b0c4de;
+}
+
+a:hover {
+  color: #a7c0e0;
 }
 
 .container {
