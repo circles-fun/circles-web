@@ -7,24 +7,34 @@
 <body>
     <canvas id="myChart" width="385" height="255" style="max-height: 255; max-width: 385;"></canvas>
     <script>
-    const data = {
-        labels: [1,2,3,4,5,6,7,8,9,10],
-        datasets: [
-            {
-                label: "My First dataset",
-                data: [1,2,3,2,1,2,3,4,5,4]
-            }
-        ]
-    }
-
-    const ctx = document.getElementById('myChart').getContext('2d');
-    const myChart = new Chart(ctx, {
-        type: 'line',
-        data: data,
-        options: {
-            responsive: false
+        const params = {
+            userid: 2,
+            mods: "vn",
+            mode: "std"
         }
-    });
+        axios.get(`https://osu.circles.fun/api/get_player_rank_history?userid=${userid}&mods=${mods}&mode=${mode}`).then((res) => {
+            console.log(res)
+        }).catch((err) => {
+            console.error(err.message)
+        })
+        const data = {
+            labels: [1,2,3,4,5,6,7,8,9,10],
+            datasets: [
+                {
+                    label: "My First dataset",
+                    data: [1,2,3,2,1,2,3,4,5,4]
+                }
+            ]
+        }
+
+        const ctx = document.getElementById('myChart').getContext('2d');
+        const myChart = new Chart(ctx, {
+            type: 'line',
+            data: data,
+            options: {
+                responsive: false
+            }
+        });
     </script>
 </body>
 </html>
