@@ -32,9 +32,10 @@ new Vue({
     methods: {
         LoadAllofdata() {
             this.LoadMostBeatmaps()
-            this.LoadScores('best')
-            this.LoadScores('recent')
-            this.LoadGrades()
+            this.LoadScores('best');
+            this.LoadScores('recent');
+            this.LoadGrades();
+            this.getRankHistory();
             this.getRank();
         },
         GettingUrl() {
