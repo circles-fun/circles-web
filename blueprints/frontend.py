@@ -42,6 +42,9 @@ async def sitemap():
 async def ads():
     return await render_template('ads.txt')
 
+@frontend.route('/test')
+async def home():
+    return await render_template('test.html')
 
 @frontend.route('/home')
 @frontend.route('/')
