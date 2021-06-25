@@ -43,7 +43,7 @@ async def ads():
     return await render_template('ads.txt')
 
 @frontend.route('/test')
-async def home():
+async def test():
     return await render_template('test.html')
 
 @frontend.route('/home')
