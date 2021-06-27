@@ -6,7 +6,7 @@ app_name = 'gulag-web'
 # secret key
 secret_key = 'changeme'
 
-#hCaptcha settings:
+# hCaptcha settings:
 hCaptcha_sitekey = 'changeme'
 hCaptcha_secret = 'changeme'
 

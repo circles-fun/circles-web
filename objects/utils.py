@@ -8,13 +8,16 @@ from quart import render_template
 
 from objects import glob
 
+
 async def flash(status, msg, template):
     """Flashes a success/error message on a specified template."""
     return await render_template(f'{template}.html', flash=msg, status=status)
 
+
 def get_safe_name(name: str) -> str:
     """Returns the safe version of a username."""
     return name.lower().replace(' ', '_')
+
 
 def convert_mode_int(mode: str) -> Optional[int]:
     """Converts mode (str) to mode (int)."""
@@ -23,12 +26,14 @@ def convert_mode_int(mode: str) -> Optional[int]:
         return None
     return _str_mode_dict[mode]
 
+
 _str_mode_dict = {
     'std': 0,
     'taiko': 1,
     'catch': 2,
     'mania': 3
 }
+
 
 def convert_mode_str(mode: int) -> Optional[str]:
     """Converts mode (int) to mode (str)."""
@@ -37,12 +42,14 @@ def convert_mode_str(mode: int) -> Optional[str]:
         return None
     return _mode_str_dict[mode]
 
+
 _mode_str_dict = {
     0: 'std',
     1: 'taiko',
     2: 'catch',
     3: 'mania'
 }
+
 
 async def fetch_geoloc(ip: str) -> str:
     """Fetches the country code corresponding to an IP."""
@@ -59,6 +66,7 @@ async def fetch_geoloc(ip: str) -> str:
                 log(f'Failed to get geoloc data: {lines[0]}.', Ansi.LRED)
             return 'xx'
         return lines[1].lower()
+
 
 async def validate_captcha(data: str) -> bool:
     """Verify `data` with hcaptcha's API."""

@@ -14,6 +14,7 @@ from objects.utils import flash
 
 admin = Blueprint('admin', __name__)
 
+
 @admin.route('/')
 @admin.route('/home')
 @admin.route('/dashboard')

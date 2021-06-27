@@ -22,10 +22,12 @@ api = Blueprint('api', __name__)
 valid_modes = frozenset({'std', 'taiko', 'catch', 'mania'})
 valid_mods = frozenset({'vn', 'rx', 'ap'})
 valid_sorts = frozenset({'tscore', 'rscore', 'pp', 'plays',
-                        'playtime', 'acc', 'max_combo'})
+                         'playtime', 'acc', 'max_combo'})
 
 """ /get_leaderboard """
-@api.route('/get_leaderboard') # GET
+
+
+@api.route('/get_leaderboard')  # GET
 async def get_leaderboard():
     mode = request.args.get('mode', default='std', type=str)
     mods = request.args.get('mods', default='vn', type=str)
@@ -46,12 +48,12 @@ async def get_leaderboard():
         return b'invalid sort param!'
 
     q = ['SELECT u.id user_id, u.name username, '
-        'u.country, tscore_{0}_{1} tscore, '
-        'rscore_{0}_{1} rscore, pp_{0}_{1} pp, '
-        'plays_{0}_{1} plays, playtime_{0}_{1} playtime, '
-        'acc_{0}_{1} acc, max_combo_{0}_{1} max_combo FROM stats '
-        'JOIN users u ON stats.id = u.id '
-        'WHERE pp_{0}_{1} > 0 AND u.priv >= 3'.format(mods, mode)]
+         'u.country, tscore_{0}_{1} tscore, '
+         'rscore_{0}_{1} rscore, pp_{0}_{1} pp, '
+         'plays_{0}_{1} plays, playtime_{0}_{1} playtime, '
+         'acc_{0}_{1} acc, max_combo_{0}_{1} max_combo FROM stats '
+         'JOIN users u ON stats.id = u.id '
+         'WHERE pp_{0}_{1} > 0 AND u.priv >= 3'.format(mods, mode)]
 
     args = []
 
@@ -62,7 +64,7 @@ async def get_leaderboard():
     # TODO: maybe cache total num of scores in the db to get a
     # rough estimate on what is a ridiculous page for a request?
     q.append(f'ORDER BY {sort_by}_{mods}_{mode} DESC '
-            'LIMIT 50 OFFSET %s')
+             'LIMIT 50 OFFSET %s')
     args.append(page * 50)
 
     if glob.config.debug:
@@ -70,8 +72,11 @@ async def get_leaderboard():
     res = await glob.db.fetchall(' '.join(q), args)
     return jsonify(res) if res else b'{}'
 
+
 """ /get_user_info """
-@api.route('/get_user_info') # GET
+
+
+@api.route('/get_user_info')  # GET
 async def get_user_info():
     # get request args
     id = request.args.get('id', type=int)
@@ -84,45 +89,45 @@ async def get_user_info():
     # fetch user info and stats
     # user info
     q = ['SELECT u.id user_id, u.name username, u.safe_name username_safe, u.country, u.priv privileges, '
-        'u.silence_end, u.donor_end, u.creation_time, u.latest_activity, u.clan_id, u.clan_priv, '
+         'u.silence_end, u.donor_end, u.creation_time, u.latest_activity, u.clan_id, u.clan_priv, '
 
-        # total score
-        'tscore_vn_std, tscore_vn_taiko, tscore_vn_catch, tscore_vn_mania, '
-        'tscore_rx_std, tscore_rx_taiko, tscore_rx_catch, '
-        'tscore_ap_std, '
+         # total score
+         'tscore_vn_std, tscore_vn_taiko, tscore_vn_catch, tscore_vn_mania, '
+         'tscore_rx_std, tscore_rx_taiko, tscore_rx_catch, '
+         'tscore_ap_std, '
 
-        # ranked score
-        'rscore_vn_std, rscore_vn_taiko, rscore_vn_catch, rscore_vn_mania, '
-        'rscore_rx_std, rscore_rx_taiko, rscore_rx_catch, '
-        'rscore_ap_std, '
+         # ranked score
+         'rscore_vn_std, rscore_vn_taiko, rscore_vn_catch, rscore_vn_mania, '
+         'rscore_rx_std, rscore_rx_taiko, rscore_rx_catch, '
+         'rscore_ap_std, '
 
-        # pp
-        'pp_vn_std, pp_vn_taiko, pp_vn_catch, pp_vn_mania, '
-        'pp_rx_std, pp_rx_taiko, pp_rx_catch, '
-        'pp_ap_std, '
+         # pp
+         'pp_vn_std, pp_vn_taiko, pp_vn_catch, pp_vn_mania, '
+         'pp_rx_std, pp_rx_taiko, pp_rx_catch, '
+         'pp_ap_std, '
 
-        # plays
-        'plays_vn_std, plays_vn_taiko, plays_vn_catch, plays_vn_mania, '
-        'plays_rx_std, plays_rx_taiko, plays_rx_catch, '
-        'plays_ap_std, '
+         # plays
+         'plays_vn_std, plays_vn_taiko, plays_vn_catch, plays_vn_mania, '
+         'plays_rx_std, plays_rx_taiko, plays_rx_catch, '
+         'plays_ap_std, '
 
-        # playtime
-        'playtime_vn_std, playtime_vn_taiko, playtime_vn_catch, playtime_vn_mania, '
-        'playtime_rx_std, playtime_rx_taiko, playtime_rx_catch, '
-        'playtime_ap_std, '
+         # playtime
+         'playtime_vn_std, playtime_vn_taiko, playtime_vn_catch, playtime_vn_mania, '
+         'playtime_rx_std, playtime_rx_taiko, playtime_rx_catch, '
+         'playtime_ap_std, '
 
-        # accuracy
-        'acc_vn_std, acc_vn_taiko, acc_vn_catch, acc_vn_mania, '
-        'acc_rx_std, acc_rx_taiko, acc_rx_catch, '
-        'acc_ap_std, '
+         # accuracy
+         'acc_vn_std, acc_vn_taiko, acc_vn_catch, acc_vn_mania, '
+         'acc_rx_std, acc_rx_taiko, acc_rx_catch, '
+         'acc_ap_std, '
 
-        # maximum combo
-        'max_combo_vn_std, max_combo_vn_taiko, max_combo_vn_catch, max_combo_vn_mania, '
-        'max_combo_rx_std, max_combo_rx_taiko, max_combo_rx_catch, '
-        'max_combo_ap_std '
+         # maximum combo
+         'max_combo_vn_std, max_combo_vn_taiko, max_combo_vn_catch, max_combo_vn_mania, '
+         'max_combo_rx_std, max_combo_rx_taiko, max_combo_rx_catch, '
+         'max_combo_ap_std '
 
-        # join users
-        'FROM stats JOIN users u ON stats.id = u.id']
+         # join users
+         'FROM stats JOIN users u ON stats.id = u.id']
 
     # achivement
     q2 = ['''
@@ -149,10 +154,13 @@ async def get_user_info():
         log(' '.join(q), Ansi.LGREEN)
     res = await glob.db.fetch(' '.join(q), args)
     res_ach = await glob.db.fetch(' '.join(q2), args)
-    return jsonify(userdata=res,achivement=res_ach) if res else b'{}'
+    return jsonify(userdata=res, achivement=res_ach) if res else b'{}'
+
 
 """ /get_player_scores """
-@api.route('/get_player_scores') # GET
+
+
+@api.route('/get_player_scores')  # GET
 async def get_player_scores():
     # get request args
     id = request.args.get('id', type=int)
@@ -183,23 +191,23 @@ async def get_player_scores():
 
     # fetch scores
     q = [f'SELECT scores_{mods}.*, maps.* '
-        f'FROM scores_{mods} JOIN maps ON scores_{mods}.map_md5 = maps.md5']
+         f'FROM scores_{mods} JOIN maps ON scores_{mods}.map_md5 = maps.md5']
     q2 = [f'SELECT COUNT(scores_{mods}.id) AS result '
-        f'FROM scores_{mods} JOIN maps ON scores_{mods}.map_md5 = maps.md5']
+          f'FROM scores_{mods} JOIN maps ON scores_{mods}.map_md5 = maps.md5']
 
     # argumnts
     args = []
 
     q.append(f'WHERE scores_{mods}.userid = %s '
-            f'AND scores_{mods}.mode = {mode} '
-            f'AND maps.status = 2')
+             f'AND scores_{mods}.mode = {mode} '
+             f'AND maps.status = 2')
     q2.append(f'WHERE scores_{mods}.userid = %s '
-            f'AND scores_{mods}.mode = {mode}')
+              f'AND scores_{mods}.mode = {mode}')
     if sort == 'pp':
         q.append(f'AND scores_{mods}.status = 2')
         q2.append(f'AND scores_{mods}.status = 2')
     q.append(f'ORDER BY scores_{mods}.{sort} DESC '
-            f'LIMIT {limit}')
+             f'LIMIT {limit}')
     args.append(id)
 
     if glob.config.debug:
@@ -209,8 +217,11 @@ async def get_player_scores():
     limit = await glob.db.fetch(' '.join(q2), args)
     return jsonify(scores=res, limit=limit['result']) if res else jsonify(scores=[], limit=limit['result'])
 
+
 """ /get_player_most """
-@api.route('/get_player_most') # GET
+
+
+@api.route('/get_player_most')  # GET
 async def get_player_most():
     # get request args
     id = request.args.get('id', type=int)
@@ -232,7 +243,8 @@ async def get_player_most():
         limit = 50
 
     # fetch scores
-    q = [f'SELECT scores_{mods}.mode, scores_{mods}.map_md5, maps.artist, maps.title, maps.set_id, maps.creator, COUNT(*) AS `count` '
+    q = [
+        f'SELECT scores_{mods}.mode, scores_{mods}.map_md5, maps.artist, maps.title, maps.set_id, maps.creator, COUNT(*) AS `count` '
         f'FROM scores_{mods} JOIN maps ON scores_{mods}.map_md5 = maps.md5']
 
     # argumnts
@@ -240,7 +252,7 @@ async def get_player_most():
 
     q.append(f'WHERE userid = %s AND scores_{mods}.mode = {mode} GROUP BY map_md5')
     q.append(f'ORDER BY COUNT DESC '
-            f'LIMIT {limit}')
+             f'LIMIT {limit}')
     args.append(id)
 
     if glob.config.debug:
@@ -248,7 +260,8 @@ async def get_player_most():
     res = await glob.db.fetchall(' '.join(q), args)
     return jsonify(maps=res) if res else jsonify(maps=[])
 
-@api.route('/get_user_grade') # GET
+
+@api.route('/get_user_grade')  # GET
 async def get_user_grade():
     # get request stuff
     mode = request.args.get('mode', default='std', type=str)

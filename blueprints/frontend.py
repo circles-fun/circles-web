@@ -42,9 +42,11 @@ async def sitemap():
 async def ads():
     return await render_template('ads.txt')
 
+
 @frontend.route('/test')
 async def test():
     return await render_template('test.html')
+
 
 @frontend.route('/home')
 @frontend.route('/')
@@ -79,8 +81,8 @@ async def settings_profile_post():
 
     # no data has changed; deny post
     if (
-        new_name == old_name and
-        new_email == old_email
+            new_name == old_name and
+            new_email == old_email
     ):
         return await flash('error', 'No changes have been made.', 'settings/profile')
 
@@ -161,7 +163,8 @@ async def settings_avatar_post():
     avatar_dir = f"{APATH}/{session['user_data']['id']}{ava}"
 
     if ava not in EXTENSIONS:
-        return await flash('error', 'Please submit an image which is either a png, jpg, jpeg or gif file!', 'settings/avatar')
+        return await flash('error', 'Please submit an image which is either a png, jpg, jpeg or gif file!',
+                           'settings/avatar')
 
     for old_ava in EXTENSIONS:
         old_dir = f"{APATH}/{session['user_data']['id']}{old_ava}"
@@ -267,7 +270,7 @@ async def settings_password_post():
         'FROM users '
         'WHERE id = %s',
         [session['user_data']['id']])
-    )['pw_bcrypt'].encode()
+                 )['pw_bcrypt'].encode()
 
     pw_md5 = hashlib.md5(old_password.encode()).hexdigest().encode()
 
@@ -477,8 +480,8 @@ async def register_post():
     if glob.config.hCaptcha_sitekey != 'changeme':
         captcha_data = form.get('h-captcha-response', type=str)
         if (
-            captcha_data is None or
-            not await utils.validate_captcha(captcha_data)
+                captcha_data is None or
+                not await utils.validate_captcha(captcha_data)
         ):
             return await flash('error', 'Captcha failed.', 'register')
 
@@ -532,8 +535,8 @@ async def register_post():
 
     # fetch the users' country
     if (
-        request.headers and
-        (co := request.headers.get('CF-IPCountry', type=str)) is not None
+            request.headers and
+            (co := request.headers.get('CF-IPCountry', type=str)) is not None
     ):
         country = co
     else:
@@ -577,6 +580,7 @@ async def logout():
     # render login
     return await flash('success', 'Successfully logged out!', 'login')
 
+
 # docs
 
 
@@ -596,6 +600,7 @@ async def docs(doc):
         markdown = markdown2.markdown_path(f'docs/{doc.lower()}.md')
 
     return await render_template('doc.html', doc=markdown, doc_title=doc.lower().capitalize())
+
 
 # social media redirections
 
