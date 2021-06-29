@@ -9,6 +9,7 @@ import aiofiles.os
 import os
 import time
 import markdown2
+import requests
 
 from cmyui.logging import Ansi
 from cmyui.logging import log
@@ -52,6 +53,24 @@ async def test():
 @frontend.route('/')
 async def home():
     return await render_template('home.html')
+
+
+@frontend.route('/callback/discord', methods=['GET'])
+async def discord_callback():
+
+    if request.headers.get('code'):
+        data = {
+            'client_id': "859228383383519282",
+            'client_secret': glob.config.discord_secret,
+            'grant_type': 'authorization_code',
+            'code': request.headers.get('code'),
+            'redirect_uri': "https://circles.fun/callback/discord"
+        }
+        token = requests.post('https://discord.com/api/v8/oauth2/token', data=data)
+        print(token)
+        return await flash('success', "Successfully linked your discord account to your profile.", "settings/profile")
+    else:
+        return await flash('error', "go fuck yourself.", "settings/profile")
 
 
 @frontend.route('/settings')
