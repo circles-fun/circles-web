@@ -57,7 +57,6 @@ async def home():
 
 @frontend.route('/callback/discord', methods=['GET'])
 async def discord_callback():
-
     if request.headers.get('code'):
         data = {
             'client_id': "859228383383519282",
@@ -66,7 +65,7 @@ async def discord_callback():
             'code': request.headers.get('code'),
             'redirect_uri': "https://circles.fun/callback/discord"
         }
-        token = requests.post('https://discord.com/api/v8/oauth2/token', data=data)
+        token = await requests.post('https://discord.com/api/v8/oauth2/token', data=data)
         print(token)
         return await flash('success', "Successfully linked your discord account to your profile.", "settings/profile")
     else:
