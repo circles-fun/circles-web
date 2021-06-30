@@ -25,6 +25,25 @@
 </div>
 
 <div id="app">
+
+    <!-- Primary Meta Tags -->
+    <title>Circles - Leaderboard</title>
+    <meta name="title" content="{{ user['name'] }}'s Profile">
+    <meta name="description" content="Check out {{ user['name'] }}'s profile on the circles.fun private osu server!">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://circles.fun/{{ user['id'] }}">
+    <meta property="og:title" content="{{ user['name'] }}'s Profile">
+    <meta property="og:description" content="Check out {{ user['name'] }}'s profile on the circles.fun private osu server!">
+    <meta property="og:image" content="https://a.circles.fun/{{ user['id'] }}">
+    <meta content="#2c5690" data-react-helmet="true" name="theme-color">
+
+    <!-- Twitter -->
+    <meta property="twitter:url" content="https://circles.fun/{{ user['id'] }}">
+    <meta property="twitter:title" content="{{ user['name'] }}'s Profile">
+    <meta property="twitter:description" content="Check out {{ user['name'] }}'s profile on the circles.fun private osu server!">
+
     <div class="main-block">
         <div style="background: url(https://a.circles.fun/banners/{{ user['id'] }})" class="profile-bg">
             <div class="info-block">
