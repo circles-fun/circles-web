@@ -190,11 +190,11 @@ async def settings_avatar_post():
             await aiofiles.os.remove(old_dir)
 
     await avatar_file.save(avatar_dir)
-    img = Image.open(avatar_dir)
-    width, height = img.size
-    if width > 256 or height > 256:
-        new = resizeimage.resize_cover(img, [256, 256])
-        new.save(avatar_dir, img.format)
+    # img = Image.open(avatar_dir)
+    # width, height = img.size
+    # if width > 256 or height > 256:
+    #    new = resizeimage.resize_cover(img, [256, 256])
+    #    new.save(avatar_dir, img.format)
 
     return await flash('success', 'Your avatar has been successfully changed!', 'settings/avatar')
 
@@ -234,11 +234,11 @@ async def settings_banner_post():
             await aiofiles.os.remove(banner_dir)
 
     await banner_file.save(banner_dir)
-    img = Image.open(banner_dir)
-    width, height = img.size
-    if width > 1140 or height > 215:
-        new = resizeimage.resize_cover(img, [1140, 215])
-        new.save(banner_dir, img.format)
+    # img = Image.open(banner_dir)
+    # width, height = img.size
+    # if width > 1140 or height > 215:
+    #    new = resizeimage.resize_cover(img, [1140, 215])
+    #    new.save(banner_dir, img.format)
     return await flash('success', 'Your banner has been successfully changed!', 'settings/banner')
 
 
