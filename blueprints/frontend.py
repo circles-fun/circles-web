@@ -70,9 +70,13 @@ async def discord_callback():
         b = {
             "Authorization": f"Bearer {token}"
         }
-        res = await glob.http.get("https://discordapp.com/api/users/@me", headers=b)
-        log(f"{res.text.data.id}", Ansi.CYAN)
-        return await flash('success', "Successfully linked your discord account to your profile.", "settings/profile")
+
+        async with glob.http.get("https://discordapp.com/api/users/@me", args=b) as resp:
+            if not resp or resp.status != 200:
+                return await flash('error', "Failed to get your Discord ID.", "settings/profile")
+
+            log(f"{resp.content}")
+            return await flash('success', "Successfully linked your discord account to your profile.", "settings/profile")
     else:
         return await flash('error', "Invalid OAuth code.", "settings/profile")
 
