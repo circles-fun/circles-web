@@ -172,7 +172,10 @@ async def settings_avatar_post():
         return await flash('error', 'You must be logged in to access avatar settings!', 'login')
 
     APATH = f'/home/checksum/circles/.data/avatars'
-    EXTENSIONS = [".png", ".jpg", ".jpeg", ".gif"]
+    EXTENSIONS = [".png", ".jpg", ".jpeg"]
+
+    if session['user_data']['is_donator']:
+        EXTENSIONS.append(".gif")
 
     files = await request.files
 
@@ -181,7 +184,7 @@ async def settings_avatar_post():
     avatar_dir = f"{APATH}/{session['user_data']['id']}{ava}"
 
     if ava not in EXTENSIONS:
-        return await flash('error', 'Please submit an image which is either a png, jpg, jpeg or gif file!',
+        return await flash('error', 'Please submit an image which is either a png, jpg, jpeg! Supporters can use gifs!',
                            'settings/avatar')
 
     for old_ava in EXTENSIONS:
@@ -203,8 +206,9 @@ async def settings_avatar_post():
 async def settings_banner():
     if not 'authenticated' in session:
         return await flash('error', 'You must be logged in to access banner settings!', 'login')
-    if not session['user_data']['is_staff']:
-        return await flash('error', f'You have insufficient privileges.', 'settings/profile')
+
+    if not session['user_data']['is_donator']:
+        return await flash('error', f'You must be a supporter to change your banner!', 'settings/profile')
 
     return await render_template('settings/banner.html')
 
@@ -215,7 +219,7 @@ async def settings_banner_post():
         return await flash('error', 'You must be logged in to access banner settings!', 'login')
 
     BPATH = f'/home/checksum/circles/.data/banners'
-    EXTENSIONS = [".png", ".jpg", ".jpeg", ".gif"]
+    EXTENSIONS = [".gif", ".png", ".jpg", ".jpeg"]
 
     files = await request.files
     banner_file = (files.get('banner'))
