@@ -55,7 +55,7 @@ async def home():
     return await render_template('home.html')
 
 
-@frontend.route('/callback/discord', methods=['GET'])
+@frontend.route('/callback/discord')
 async def discord_callback():
     if request.args.get('code'):
         a = {
@@ -70,16 +70,14 @@ async def discord_callback():
             'Content-Type': 'application/x-www-form-urlencoded'
         }
 
-        async with glob.http.post("https://discord.com/api/oauth2/token", data=a, headers=headers) as respa:
+        async with glob.http.post("https://discord.com/api/oauth2/token", params=a, headers=headers) as respa:
             if not respa or respa.status != 200:
                 return await flash('error', "Failed to get your Discord OAuth token. (Malformed URL?)", "settings/profile")
 
-        token = await respa.json()
-
-        log(token[access_token], Ansi.LRED)
+        log(respa[access_token], Ansi.LRED)
 
         b = {
-            "Authorization": f"Bearer {token[access_token]}"
+            "Authorization": f"Bearer {respa[access_token]}"
         }
 
         async with glob.http.get("https://discordapp.com/api/users/@me", headers=b) as respb:
