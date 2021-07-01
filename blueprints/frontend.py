@@ -74,7 +74,7 @@ async def discord_callback():
             if not respa or respa.status != 200:
                 return await flash('error', "Failed to get your Discord OAuth token. (Malformed URL?)", "settings/profile")
 
-        token = respa.json
+        token = await respa.json()
         
         b = {
             "Authorization": f"Bearer {token.access_token}"
