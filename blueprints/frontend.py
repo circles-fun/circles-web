@@ -65,17 +65,26 @@ async def discord_callback():
             'code': request.args.get('code'),
             'redirect_uri': "https://circles.fun/callback/discord"
         }
-        token = await glob.http.post('https://discord.com/api/v8/oauth2/token', data=a)
+
+        headers = {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+
+        async with glob.http.post("https://discord.com/api/oauth2/token", data=a, headers=headers) as respa:
+            if not respa or respa.status != 200:
+                return await flash('error', "Failed to get your Discord OAuth token. (Malformed URL?)", "settings/profile")
+
+        token = respa.json().access_token
 
         b = {
             "Authorization": f"Bearer {token}"
         }
 
-        async with glob.http.get("https://discordapp.com/api/users/@me", headers=b) as resp:
-            if not resp or resp.status != 200:
+        async with glob.http.get("https://discordapp.com/api/users/@me", headers=b) as respb:
+            if not respb or respb.status != 200:
                 return await flash('error', "Failed to get your Discord ID.", "settings/profile")
 
-            log(f"{resp.content}")
+            log(f"{token}", Ansi.GREEN)
             return await flash('success', "Successfully linked your discord account to your profile.", "settings/profile")
     else:
         return await flash('error', "Invalid OAuth code.", "settings/profile")
