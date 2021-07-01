@@ -74,13 +74,12 @@ async def discord_callback():
             if not respa or respa.status != 200:
                 return await flash('error', "Failed to get your Discord OAuth token. (Malformed URL?)", "settings/profile")
 
-        token = await respa.read()
+        token = await respa.json()
 
-        log(token, Ansi.LRED)
-        log(token.access_token, Ansi.LRED)
+        log(token[access_token], Ansi.LRED)
 
         b = {
-            "Authorization": f"Bearer {token.access_token}"
+            "Authorization": f"Bearer {token[access_token]}"
         }
 
         async with glob.http.get("https://discordapp.com/api/users/@me", headers=b) as respb:
