@@ -75,14 +75,12 @@ async def discord_callback():
                 return await flash('error', "Failed to get your Discord OAuth token. (Malformed URL?)", "settings/profile")
 
         token = respa.json
-
-        log(f"{token}", Ansi.GREEN)
         
         b = {
             "Authorization": f"Bearer {token.access_token}"
         }
 
-        async with glob.http.get("https://discordapp.com/api/users/@me", data=b) as respb:
+        async with glob.http.get("https://discordapp.com/api/users/@me", headers=b) as respb:
             if not respb or respb.status != 200:
                 return await flash('error', "Failed to get your Discord ID.", "settings/profile")
 
