@@ -71,7 +71,7 @@ async def discord_callback():
             "Authorization": f"Bearer {token}"
         }
         res = await glob.http.get("https://discordapp.com/api/users/@me", headers=b)
-        log(f"{res.data.id}", Ansi.CYAN)
+        log(f"{res.json.data.id}", Ansi.CYAN)
         return await flash('success', "Successfully linked your discord account to your profile.", "settings/profile")
     else:
         return await flash('error', "Invalid OAuth code.", "settings/profile")
