@@ -71,7 +71,7 @@ async def discord_callback():
             "Authorization": f"Bearer {token}"
         }
 
-        async with glob.http.get("https://discordapp.com/api/users/@me", args=b) as resp:
+        async with glob.http.get("https://discordapp.com/api/users/@me", headers=b) as resp:
             if not resp or resp.status != 200:
                 return await flash('error', "Failed to get your Discord ID.", "settings/profile")
 
