@@ -57,19 +57,24 @@ async def home():
 
 @frontend.route('/callback/discord', methods=['GET'])
 async def discord_callback():
-    if request.headers.get('code'):
-        data = {
+    if request.args.get('code'):
+        a = {
             'client_id': "859228383383519282",
             'client_secret': glob.config.discord_secret,
             'grant_type': 'authorization_code',
-            'code': request.headers.get('code'),
+            'code': request.args.get('code'),
             'redirect_uri': "https://circles.fun/callback/discord"
         }
-        token = await requests.post('https://discord.com/api/v8/oauth2/token', data=data)
-        print(token)
+        token = await glob.http.post('https://discord.com/api/v8/oauth2/token', data=a)
+
+        b = {
+            "Authorization": f"Bearer {token}"
+        }
+        res = await glob.http.get("https://discordapp.com/api/users/@me", data=b)
+        log(f"{res.data.id}", Ansi.CYAN)
         return await flash('success', "Successfully linked your discord account to your profile.", "settings/profile")
     else:
-        return await flash('error', "go fuck yourself.", "settings/profile")
+        return await flash('error', "Invalid OAuth code.", "settings/profile")
 
 
 @frontend.route('/settings')
