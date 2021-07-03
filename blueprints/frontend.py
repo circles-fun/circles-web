@@ -10,6 +10,7 @@ import os
 import time
 import markdown2
 import requests
+import patreon
 
 from cmyui.logging import Ansi
 from cmyui.logging import log
@@ -54,6 +55,22 @@ async def test():
 async def home():
     return await render_template('home.html')
 
+@frontend.route('/callback/patreon')
+async def patreon_callback():
+    oauth_client = patreon.OAuth(glob.config.patreon.client_id, glob.config.patreon.client_secret)
+    tokens = oauth_client.get_tokens(request.args.get('code'), '/callback/patreon')
+    access_token = tokens['access_token']
+
+    api_client = patreon.API(access_token)
+    user_response = api_client.get_identity()
+    user = user_response.data()
+    memberships = user.relationship('memberships')
+    membership = memberships[0] if memberships and len(memberships) > 0 else None
+
+    if not membership:
+        return await flash('error', "You do not have a valid membership.")
+
+    return await flash('success', f"{membership}", "settings/profile")
 
 @frontend.route('/callback/discord')
 async def discord_callback():
@@ -74,10 +91,10 @@ async def discord_callback():
             if not respa or respa.status != 200:
                 return await flash('error', "Failed to get your Discord OAuth token. (Malformed URL?)", "settings/profile")
 
-        log(respa[access_token], Ansi.LRED)
+        log(respa.data().access_token, Ansi.LRED)
 
         b = {
-            "Authorization": f"Bearer {respa[access_token]}"
+            "Authorization": f"Bearer {respa.data().access_token}"
         }
 
         async with glob.http.get("https://discordapp.com/api/users/@me", headers=b) as respb:
