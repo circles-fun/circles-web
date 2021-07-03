@@ -21,10 +21,8 @@ mysql = {
     'password': 'changeme',
 }
 
-patreon = {
-    'client_id': '',
-    'client_secret': '',
-}
+patreon_client_id = ''
+patreon_secret = ''
 
 # path to gulag root (must have leading and following slash)
 path_to_gulag = '/path/to/gulag/'

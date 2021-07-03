@@ -55,9 +55,10 @@ async def test():
 async def home():
     return await render_template('home.html')
 
+
 @frontend.route('/callback/patreon')
 async def patreon_callback():
-    oauth_client = patreon.OAuth(glob.config.patreon.client_id, glob.config.patreon.client_secret)
+    oauth_client = patreon.OAuth(glob.config.patreon_client_id, glob.config.patreon_secret)
     tokens = oauth_client.get_tokens(request.args.get('code'), '/callback/patreon')
     access_token = tokens['access_token']
 
@@ -71,6 +72,7 @@ async def patreon_callback():
         return await flash('error', "You do not have a valid membership.")
 
     return await flash('success', f"{membership}", "settings/profile")
+
 
 @frontend.route('/callback/discord')
 async def discord_callback():
@@ -89,7 +91,8 @@ async def discord_callback():
 
         async with glob.http.post("https://discord.com/api/oauth2/token", params=a, headers=headers) as respa:
             if not respa or respa.status != 200:
-                return await flash('error', "Failed to get your Discord OAuth token. (Malformed URL?)", "settings/profile")
+                return await flash('error', "Failed to get your Discord OAuth token. (Malformed URL?)",
+                                   "settings/profile")
 
         log(respa.data().access_token, Ansi.LRED)
 
@@ -101,7 +104,8 @@ async def discord_callback():
             if not respb or respb.status != 200:
                 return await flash('error', "Failed to get your Discord ID.", "settings/profile")
 
-            return await flash('success', "Successfully linked your discord account to your profile.", "settings/profile")
+            return await flash('success', "Successfully linked your discord account to your profile.",
+                               "settings/profile")
     else:
         return await flash('error', "Invalid OAuth code.", "settings/profile")
 
