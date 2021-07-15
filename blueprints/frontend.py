@@ -155,7 +155,7 @@ async def settings_avatar_post():
     if 'authenticated' not in session:
         return await flash('error', 'You must be logged in to access avatar settings!', 'login')
 
-    APATH = f'{glob.config.path_to_gulag}/.data/avatars'
+    APATH = f'{glob.config.path_to_gulag}.data/avatars'
     EXTENSIONS = [".png", ".jpg", ".jpeg"]
 
     if session['user_data']['is_donator']:
@@ -202,7 +202,7 @@ async def settings_banner_post():
     if 'authenticated' not in session:
         return await flash('error', 'You must be logged in to access banner settings!', 'login')
 
-    BPATH = f'{glob.config.path_to_gulag}circles/.data/banners'
+    BPATH = f'{glob.config.path_to_gulag}.data/banners'
     EXTENSIONS = [".gif", ".png", ".jpg", ".jpeg"]
 
     files = await request.files
