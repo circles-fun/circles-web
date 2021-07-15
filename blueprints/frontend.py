@@ -152,10 +152,10 @@ async def settings_avatar():
 
 @frontend.route('/settings/avatar', methods=['POST'])  # POST
 async def settings_avatar_post():
-    if not 'authenticated' in session:
+    if 'authenticated' not in session:
         return await flash('error', 'You must be logged in to access avatar settings!', 'login')
 
-    APATH = f'/home/checksum/circles/.data/avatars'
+    APATH = f'{glob.config.path_to_gulag}/.data/avatars'
     EXTENSIONS = [".png", ".jpg", ".jpeg"]
 
     if session['user_data']['is_donator']:
@@ -199,10 +199,10 @@ async def settings_banner():
 
 @frontend.route('/settings/banner', methods=['POST'])  # POST
 async def settings_banner_post():
-    if not 'authenticated' in session:
+    if 'authenticated' not in session:
         return await flash('error', 'You must be logged in to access banner settings!', 'login')
 
-    BPATH = f'/home/checksum/circles/.data/banners'
+    BPATH = f'{glob.config.path_to_gulag}circles/.data/banners'
     EXTENSIONS = [".gif", ".png", ".jpg", ".jpeg"]
 
     files = await request.files
@@ -213,7 +213,7 @@ async def settings_banner_post():
     banner_dir = f"{BPATH}/{session['user_data']['id']}{banner}"
 
     if banner not in EXTENSIONS:
-        return await flash('error', 'Please submit an image which is either a jpg or jpeg file!', 'settings/banner')
+        return await flash('error', 'Please submit an image which is either a png, jpg, or gif!', 'settings/banner')
 
     # remove any old banners
     for old_banner in EXTENSIONS:
