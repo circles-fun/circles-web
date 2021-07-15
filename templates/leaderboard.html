@@ -106,7 +106,6 @@
                             <tr v-for="(user, index) in boards" class="leaderboard-column">
                                 <td class="column-player-rank">#<% index + 1 %></td>
                                 <td class="column-player-name text-left">
-                                    <img :src="'https://a.circles.fun/'+user.user_id" class="leaderboard-player-avatar-img">
                                     <a :href="'/u/'+user.user_id"><% user.username %></a>
                                 </td>
                                 <td v-if="sort == 'pp' || sort == 'rscore'">
