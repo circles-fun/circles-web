@@ -26,8 +26,8 @@
 .profile-bg {
   min-height: 215px;
   width: 100%;
-  background-size: cover;
-  background-position: center;
+  background-size: cover !important;
+  background-position: center !important;
   display: flex;
   align-items: flex-end;
   border-top-right-radius: 20px;
