@@ -196,7 +196,7 @@ body {
 }
 
 .card {
-    background: #242424;
+    background: #242424 !important;
 }
 
 th {
