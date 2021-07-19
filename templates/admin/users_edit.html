@@ -78,17 +78,19 @@
         <div class="w-100">
             <div class="row">
                 <div class="col">
-                    <a href="/admin/users"><button type="button" class="btn btn-dark w-100"> Cancel </button></a>
+                    <a href="/admin/users"><button type="button" class="btn btn-dark bg-custom-dark w-100"> Cancel
+                        </button></a>
                 </div>
                 <div class="col">
                     <form action="/admin/users/forgot/{{ search_data.id }}" method="post">
-                        <button type="submit" class="btn w-100 disabled">
+                        <button type="submit" class="btn bg-custom-dark w-100 disabled">
                             User forgot password?
                         </button>
                     </form>
                 </div>
                 <div class="col">
-                    <button type="submit" class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#edit-confirmed"> Save </button>
+                    <button type="submit" class="btn btn-primary bg-custom-dark w-100" data-bs-toggle="modal"
+                        data-bs-target="#edit-confirmed"> Save </button>
                 </div>
             </div>
         </div>
@@ -100,7 +102,7 @@
 <div class="modal modal-blur fade" id="edit-confirmed" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <button type="button" class="btn-close bg-custom-dark" data-bs-dismiss="modal" aria-label="Close"></button>
             <div class="modal-header text-center">
                 Are you sure to modify this user?
             </div>
@@ -108,7 +110,7 @@
                 <div class="w-100">
                     <div class="row">
                         <div class="col">
-                            <button type="button" class="btn btn-dark w-100" data-bs-dismiss="modal">
+                            <button type="button" class="btn btn-dark bg-custom-dark w-100" data-bs-dismiss="modal">
                                 No
                             </button>
                         </div>

@@ -177,10 +177,12 @@ body {
 
 .bg-lighter-dark {
     background: #1c1c1c;
+    color: white;
 }
 
 .bg-custom-dark {
     background: #1a1a1a;
+    color: white;
 }
 
 .page-title {
