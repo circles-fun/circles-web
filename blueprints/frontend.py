@@ -548,21 +548,23 @@ async def register_post():
     else:
         country = 'xx'
 
-    # add to `users` table.
-    user_id = await glob.db.execute(
-        'INSERT INTO users '
-        '(name, safe_name, email, pw_bcrypt, country, creation_time, latest_activity) '
-        'VALUES (%s, %s, %s, %s, %s, UNIX_TIMESTAMP(), UNIX_TIMESTAMP())',
-        [username, safe_name, email, pw_bcrypt, country]
-    )
+    async with glob.db.pool.acquire() as conn:
+        async with conn.cursor() as db_cursor:
+            # add to `users` table.
+            await db_cursor.execute(
+                'INSERT INTO users '
+                '(name, safe_name, email, pw_bcrypt, country, creation_time, latest_activity) '
+                'VALUES (%s, %s, %s, %s, %s, UNIX_TIMESTAMP(), UNIX_TIMESTAMP())',
+                [username, safe_name, email, pw_bcrypt, country]
+            )
+            user_id = db_cursor.lastrowid
 
-    # add to `stats` table.
-    await glob.db.execute(
-        'INSERT INTO stats '
-        '(id) VALUES (%s)',
-        [user_id]
-    )
-    # (end of lock)
+            # add to `stats` table.
+            await db_cursor.executemany(
+                'INSERT INTO stats '
+                '(id, mode) VALUES (%s, %s)',
+                [(user_id, mode) for mode in range(8)]
+            )
 
     if glob.config.debug:
         log(f'{username} has registered - awaiting verification.', Ansi.LGREEN)
