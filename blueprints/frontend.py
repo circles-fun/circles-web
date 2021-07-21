@@ -191,10 +191,13 @@ async def settings_banner():
     if not 'authenticated' in session:
         return await flash('error', 'You must be logged in to access banner settings!', 'login')
 
-    if not session['user_data']['is_donator'] or session['user_data']['is_staff']:
-        return await flash('error', f'You must be a supporter to change your banner!', 'settings/profile')
+    # Allow only donators and staff to access banner settings.
+    # Donators and staff can only change their own banner.
 
-    return await render_template('settings/banner.html')
+    if session['user_data']['is_donator'] or session['user_data']['is_staff']: # donators and staff can change there profile banner.
+        return await render_template('settings/banner.html') # render banner settings page
+    else:
+        return await flash('error', 'You must be a donator to change your banner!', 'settings/banner')
 
 
 @frontend.route('/settings/banner', methods=['POST'])  # POST
