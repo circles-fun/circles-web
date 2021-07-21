@@ -158,7 +158,7 @@ async def settings_avatar_post():
     APATH = f'{glob.config.path_to_gulag}.data/avatars'
     EXTENSIONS = [".png", ".jpg", ".jpeg"]
 
-    if session['user_data']['is_donator'] or session['user_data']['is_staff']:
+    if session['user_data']['is_donator'] or session['user_data']['is_staff']: # donators/staff can upload animated avatars
         EXTENSIONS.append(".gif")
 
     files = await request.files
@@ -191,10 +191,10 @@ async def settings_banner():
     if not 'authenticated' in session:
         return await flash('error', 'You must be logged in to access banner settings!', 'login')
 
-    if not session['user_data']['is_donator'] or session['user_data']['is_staff']:
-        return await flash('error', f'You must be a supporter to change your banner!', 'settings/profile')
+    if session['user_data']['is_donator'] or session['user_data']['is_staff']: # donators and staff can change the banner
+        return await render_template('settings/banner.html')    
 
-    return await render_template('settings/banner.html')
+    return await flash('error', 'You must be a donator to change your banner!', 'settings/banner')
 
 
 @frontend.route('/settings/banner', methods=['POST'])  # POST
