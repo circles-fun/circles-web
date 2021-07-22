@@ -47,13 +47,15 @@ async def get_leaderboard():
     if sort_by not in valid_sorts:
         return b'invalid sort param!'
 
-    q = ['SELECT u.id user_id, u.name username, '
-         'u.country, tscore_{0}_{1} tscore, '
-         'rscore_{0}_{1} rscore, pp_{0}_{1} pp, '
-         'plays_{0}_{1} plays, playtime_{0}_{1} playtime, '
-         'acc_{0}_{1} acc, max_combo_{0}_{1} max_combo FROM stats '
-         'JOIN users u ON stats.id = u.id '
-         'WHERE pp_{0}_{1} > 0 AND u.priv >= 3'.format(mods, mode)]
+    sql_0 = utils.leaderboard_mode_to_int(f"{mode}_{mods}")
+
+    q = [
+        'SELECT u.id user_id, u.name username, {sql_1}',
+        'FROM stats JOIN users u ON stats.id = u.id',
+        'WHERE mode = {sql_0} AND u.priv >=3 AND {sql_1} > 0',
+        'ORDER BY {sql_1} DESC']
+
+    q = q.format(sql_0=sql_0, sql_1=sort_by)
 
     args = []
 
@@ -63,8 +65,7 @@ async def get_leaderboard():
 
     # TODO: maybe cache total num of scores in the db to get a
     # rough estimate on what is a ridiculous page for a request?
-    q.append(f'ORDER BY {sort_by}_{mods}_{mode} DESC '
-             'LIMIT 50 OFFSET %s')
+    q.append(f'LIMIT 50 OFFSET %s')
     args.append(page * 50)
 
     if glob.config.debug:
@@ -250,7 +251,8 @@ async def get_player_most():
     # argumnts
     args = []
 
-    q.append(f'WHERE userid = %s AND scores_{mods}.mode = {mode} GROUP BY map_md5')
+    q.append(
+        f'WHERE userid = %s AND scores_{mods}.mode = {mode} GROUP BY map_md5')
     q.append(f'ORDER BY COUNT DESC '
              f'LIMIT {limit}')
     args.append(id)
