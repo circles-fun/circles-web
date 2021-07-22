@@ -7,6 +7,7 @@
 
 __all__ = ()
 
+from cachetools import cached, TTLCache
 from cmyui.logging import Ansi
 from cmyui.logging import log
 from quart import Blueprint
@@ -69,6 +70,7 @@ async def api_get_player_rank() -> tuple:
 
 
 @api.route('/get_leaderboard')  # GET
+@cached(cache=TTLCache(ttl=600))  # cache for 10 minutes
 async def get_leaderboard():
     mode = request.args.get('mode', default='std', type=str)
     mods = request.args.get('mods', default='vn', type=str)
@@ -118,9 +120,6 @@ async def get_leaderboard():
         'results': []
     }
 
-    if glob.config.debug:  # log extra info if in debug mode
-        log(response, Ansi.LMAGENTA)
-
     # build the results
     for i in range(len(output)):
         response['results'].append({
@@ -134,9 +133,6 @@ async def get_leaderboard():
             'acc': output[i]['acc'],
             'max_combo': output[i]['max_combo']
         })
-
-    if glob.config.debug:  # log extra info if in debug mode
-        log(response['results'], Ansi.LMAGENTA)
 
     # return the response
     return jsonify(response) if response else b'{}'
