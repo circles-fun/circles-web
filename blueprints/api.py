@@ -48,14 +48,12 @@ async def get_leaderboard():
         return b'invalid sort param!'
 
     sql_0 = utils.leaderboard_mode_to_int(f"{mode}_{mods}")
+    sql_1 = sort_by
 
-    q = [
-        'SELECT u.id user_id, u.name username, {sql_1}',
-        'FROM stats JOIN users u ON stats.id = u.id',
-        'WHERE mode = {sql_0} AND u.priv >=3 AND {sql_1} > 0',
-        'ORDER BY {sql_1} DESC']
-
-    q = q.format(sql_0=sql_0, sql_1=sort_by)
+    q = [f'SELECT u.id user_id, u.name username, {sql_1}',
+        f'FROM stats JOIN users u ON stats.id = u.id',
+        f'WHERE mode = {sql_0} AND u.priv >=3 AND {sql_1} > 0',
+        f'ORDER BY {sql_1} DESC']
 
     args = []
 
