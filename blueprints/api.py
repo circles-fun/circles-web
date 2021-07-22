@@ -38,12 +38,12 @@ async def api_get_player_rank() -> tuple:
         return b'Invalid player id.'
 
     if (
-            'mode' not in request.args.get('mode') or
+            request.args.get('mode') is None or
             request.args.get('mode') not in valid_modes):
         return b'Must provide mode (std/taiko/mania).'
 
     if (
-            'mods' not in request.args.get('mods') or
+            request.args.get('mods') is None or
             request.args.get('mods') not in valid_mods):
         return b'Must provide mod (vn/rx/ap).'
 
