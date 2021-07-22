@@ -190,7 +190,7 @@ async def get_user_info():
     args = []
 
     # append request arguments (id or name)
-    if id and id.isnumeric():
+    if id and type(id) == "int":
         q.append(f'WHERE u.id = {id}')
         q2.append(f'WHERE u.id = {id}')
     elif name:
