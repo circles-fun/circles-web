@@ -48,7 +48,7 @@ async def api_get_player_rank() -> tuple:
         return b'Must provide mod (vn/rx/ap).'
 
     sql_0 = utils.mode_mods_to_int(
-        f"{request.args.get('mode')}_{request.args.get('mods')}")
+        f"{request.args.get('mods')}_{request.args.get('mode')}")
 
     q = f"SELECT u.id user_id, pp FROM stats JOIN users u ON stats.id=u.id WHERE mode={sql_0} AND u.priv >= 3"
 
