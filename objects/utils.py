@@ -16,6 +16,7 @@ async def flash(status, msg, template):
 
 def mode_mods_to_int(mode: str) -> int:
     """Converts mode_mods (str) to mode_mods (int)."""
+    
     # NOTE: This is a temporary function to convert the leaderboard mode to an int.
     # It will be removed when the site is fully converted to use the new
     # stats table.
