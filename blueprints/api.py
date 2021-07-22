@@ -51,17 +51,18 @@ async def get_leaderboard():
     sql_1 = sort_by
 
     q = [f'SELECT u.id user_id, u.name username, {sql_1}',
-        f'FROM stats JOIN users u ON stats.id = u.id',
-        f'WHERE mode = {sql_0} AND u.priv >=3 AND {sql_1} > 0']
+         f'FROM stats JOIN users u ON stats.id = u.id',
+         f'WHERE mode = {sql_0} AND u.priv >=3 AND {sql_1} > 0']
 
     if country is not None:
         q.append('AND u.country = %s')
 
     # TODO: maybe cache total num of scores in the db to get a
     # rough estimate on what is a ridiculous page for a request?
-    q.append(f'ORDER BY {sql_1} DESC', 
-             f'LIMIT 50 OFFSET {page * 50}')
-    
+
+    q.append(f'ORDER BY {sql_1} DESC')
+    q.append(f'LIMIT 50 OFFSET {page * 50}')
+
     q = ' '.join(q)
 
     if glob.config.debug:
