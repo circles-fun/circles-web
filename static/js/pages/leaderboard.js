@@ -41,7 +41,7 @@ new Vue({
                 mods: vm.mods,
             }})
             .then(function(response){
-                vm.boards = response.data;
+                vm.boards = response.data.results;
                 vm.load = false;
             });
         },

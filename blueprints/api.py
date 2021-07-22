@@ -47,7 +47,8 @@ async def api_get_player_rank() -> tuple:
             request.args.get('mods') not in valid_mods):
         return b'Must provide mod (vn/rx/ap).'
 
-    sql_0 = utils.mode_mods_to_int(f"{request.args.get('mode')}_{request.args.get('mods')}")
+    sql_0 = utils.mode_mods_to_int(
+        f"{request.args.get('mode')}_{request.args.get('mods')}")
 
     output = await glob.db.fetchall(f"SELECT u.id user_id, u.name username FROM stats JOIN users u ON stats.id=u.id WHERE mode={sql_0} AND u.priv >= 3;")
 
@@ -58,7 +59,7 @@ async def api_get_player_rank() -> tuple:
         users_array.append(output[i]['id'])
 
     rank = users_array.index(search_id) + 1
-    
+
     return jsonify({"status": "success",
                     "global_rank": rank,
                     "country_rank": "soon"})
@@ -88,28 +89,49 @@ async def get_leaderboard():
         return b'invalid sort param!'
 
     sql_0 = utils.mode_mods_to_int(f"{mods}_{mode}")
-    sql_1 = sort_by
 
     q = ['SELECT u.id user_id, u.name username, tscore',
          'rscore, pp, plays, playtime, acc, max_combo',
          'FROM stats JOIN users u ON stats.id = u.id',
-         f'WHERE mode = {sql_0} AND u.priv >=3 AND {sql_1} > 0']
+         f'WHERE mode = {sql_0} AND u.priv >=3 AND {sort_by} > 0']
+
+    # TODO: maybe cache the top X scores in the db to get a
+    # rough estimate on what is a ridiculous page for a request?
+    # (and then cache that number in the db)
 
     if country is not None:
-        q.append('AND u.country = %s')
+        q.append(f'AND country = {country}')
 
-    # TODO: maybe cache total num of scores in the db to get a
-    # rough estimate on what is a ridiculous page for a request?
+    # fetch 50 rows
+    output = await glob.db.fetch(' '.join(q) + f' LIMIT {page * 50} OFFSET {page * 50}')
 
-    q.append(f'ORDER BY {sql_1} DESC')
-    q.append(f'LIMIT 50 OFFSET {page * 50}')
+    # build the response
+    response = {
+        'status': 'success',
+        'page': page,
+        'total_pages': int(len(output) / 50),
+        'results': []
+    }
 
-    q = ' '.join(q)
+    # build the results
+    for i in range(len(output)):
+        response['results'].append({
+            'user_id': output[i]['user_id'],
+            'username': output[i]['username'],
+            'tscore': output[i]['tscore'],
+            'rscore': output[i]['rscore'],
+            'pp': output[i]['pp'],
+            'plays': output[i]['plays'],
+            'playtime': output[i]['playtime'],
+            'acc': output[i]['acc'],
+            'max_combo': output[i]['max_combo']
+        })
 
-    if glob.config.debug:
-        log(q, Ansi.LGREEN)
-    res = await glob.db.fetchall(f"{q}")
-    return jsonify(res) if res else b'{}'
+    if glob.config.debug:  # log extra info if in debug mode
+        log(' '.join(q), Ansi.LMAGENTA)
+
+    # return the response
+    return jsonify(response) if response else b'{}'
 
 
 """ /get_user_info """
