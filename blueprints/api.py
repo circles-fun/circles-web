@@ -169,7 +169,9 @@ async def get_user_info():
         return b'missing parameters! (mods & modes)'
 
     sql_0 = utils.mode_mods_to_int(f"{mods}_{mode}")
-    
+    log(f"sql_0: {sql_0}", Ansi.LGREEN)
+    log(f"{mods}, {mode}", Ansi.LGREEN)
+
     if not name and not id:
         return b'missing parameters! (id or name)'
 
