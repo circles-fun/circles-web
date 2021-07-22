@@ -27,9 +27,7 @@ def mode_mods_to_int(mode: str) -> int:
     )):
         if mode == mode_str:
             return mode_num
-        else:
-            continue
-    return 0 # if it gets here, something went wrong.
+
 
 def get_safe_name(name: str) -> str:
     """Returns the safe version of a username."""
