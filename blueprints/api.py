@@ -70,7 +70,7 @@ async def api_get_player_rank() -> tuple:
 
 
 @api.route('/get_leaderboard')  # GET
-@cached(cache=TTLCache(ttl=600))  # cache for 10 minutes
+@cached(cache=TTLCache(maxsize=1024,ttl=600))  # cache for 10 minutes
 async def get_leaderboard():
     mode = request.args.get('mode', default='std', type=str)
     mods = request.args.get('mods', default='vn', type=str)
