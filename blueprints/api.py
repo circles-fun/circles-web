@@ -51,17 +51,16 @@ async def api_get_player_rank() -> tuple:
         f"{request.args.get('mods')}_{request.args.get('mode')}")
 
     q = [
-        "SELECT u.id user_id, pp FROM stats"
-        "JOIN users u ON stats.id=u.id"
-        f"WHERE mode={sql_0}"
-        "AND u.priv >= 3"
+        "SELECT u.id user_id, pp FROM stats "
+        " JOIN users u ON stats.id=u.id "
+        f" WHERE mode={sql_0}"
+        " AND u.priv >= 3"
     ]
 
     if 'country' in request.args:
-        q.append(f"AND country='{request.args.get('country')}'")
+        q.append(f" AND country='{request.args.get('country')}'")
 
-    q.append("ORDER BY pp DESC")
-    q = ' '.join(q) # join query with spaces
+    q.append(" ORDER BY pp DESC")
 
     output = await glob.db.fetchall(q)
 
