@@ -173,8 +173,8 @@ async def get_user_info():
         return b'missing parameters! (id or name)'
 
     q = [
-        "SELECT u.id user_id, u.name username, u.safe_name username_safe, u.country, u.priv privileges",
-        "u.silence_end, u.donor_end, u.creation_time, u.latest_activity, u.clan_id, u.clan_priv",
+        "SELECT u.id user_id, u.name username, u.safe_name username_safe, u.country, u.priv privileges,",
+        "u.silence_end, u.donor_end, u.creation_time, u.latest_activity, u.clan_id, u.clan_priv,",
         "tscore, rscore, pp, plays, playtime, acc, max_combo",
         "FROM stats JOIN users u ON stats.id = u.id",
         f"WHERE mode={sql_0} AND u.priv >= 3 AND u.id = {id}"
