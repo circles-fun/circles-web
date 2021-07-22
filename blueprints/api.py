@@ -103,7 +103,7 @@ async def get_leaderboard():
         q.append(f'AND country = {country}')
 
     # fetch 50 rows
-    output = await glob.db.fetch(' '.join(q) + f' LIMIT {page * 50} OFFSET {page - 1 * 50}')
+    output = await glob.db.fetchall(' '.join(q) + f' LIMIT {page * 50} OFFSET {int(page) - 1 * 50}')
 
     # build the response
     response = {
