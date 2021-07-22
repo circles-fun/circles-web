@@ -45,6 +45,8 @@ new Vue({
             vm.$axios.get(`${this.GettingUrl()}/gw_api/get_user_info`, {
                 params: {
                     id: vm.userid,
+                    mode: vm.mode,
+                    mods: vm.mods,
                 }
             })
                 .then(function (response) {

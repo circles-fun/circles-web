@@ -52,17 +52,19 @@ async def api_get_player_rank():
 
     q = [
         "SELECT u.id user_id, pp FROM stats"
-        " JOIN users u ON stats.id=u.id"
-        f" WHERE mode={sql_0}"
-        " AND u.priv >= 3"
+        "JOIN users u ON stats.id=u.id"
+        f"WHERE mode={sql_0}"
+        "AND u.priv >= 3"
     ]
 
     if 'country' in request.args:
-        q.append(f" AND country='{request.args.get('country')}'")
+        q.append(f"AND country='{request.args.get('country')}'")
 
-    q.append(" ORDER BY pp DESC")
+    q.append("ORDER BY pp DESC")
 
-    output = await glob.db.fetchall(' '.join(q))
+    q = ' '.join(q)  # join all the query parts together as a single string
+
+    output = await glob.db.fetchall(q)
 
     rank = 1
     for i in range(len(output)):  # loop through ids in order of pp
@@ -81,6 +83,8 @@ async def api_get_player_rank():
 
 @api.route('/get_leaderboard')  # GET
 async def get_leaderboard():
+    """Return the leaderboard."""
+
     mode = request.args.get('mode', default='std', type=str)
     mods = request.args.get('mods', default='vn', type=str)
     sort_by = request.args.get('sort', default='pp', type=str)
@@ -153,56 +157,28 @@ async def get_leaderboard():
 
 @api.route('/get_user_info')  # GET
 async def get_user_info():
+    """Return user info."""
+
     # get request args
     id = request.args.get('id', type=int)
     name = request.args.get('name', type=str)
+    mods = request.args.get('mods', type=str)
+    mode = request.args.get('mode', type=str)
 
-    # check if required parameters are met
+    if not mode or not mods:
+        return b'missing parameters! (mods & modes)'
+
+    sql_0 = utils.mode_mods_to_int(f"{mods}_{mode}")
     if not name and not id:
         return b'missing parameters! (id or name)'
 
-    # fetch user info and stats
-    # user info
-    q = ['SELECT u.id user_id, u.name username, u.safe_name username_safe, u.country, u.priv privileges, '
-         'u.silence_end, u.donor_end, u.creation_time, u.latest_activity, u.clan_id, u.clan_priv, '
-
-         # total score
-         'tscore_vn_std, tscore_vn_taiko, tscore_vn_catch, tscore_vn_mania, '
-         'tscore_rx_std, tscore_rx_taiko, tscore_rx_catch, '
-         'tscore_ap_std, '
-
-         # ranked score
-         'rscore_vn_std, rscore_vn_taiko, rscore_vn_catch, rscore_vn_mania, '
-         'rscore_rx_std, rscore_rx_taiko, rscore_rx_catch, '
-         'rscore_ap_std, '
-
-         # pp
-         'pp_vn_std, pp_vn_taiko, pp_vn_catch, pp_vn_mania, '
-         'pp_rx_std, pp_rx_taiko, pp_rx_catch, '
-         'pp_ap_std, '
-
-         # plays
-         'plays_vn_std, plays_vn_taiko, plays_vn_catch, plays_vn_mania, '
-         'plays_rx_std, plays_rx_taiko, plays_rx_catch, '
-         'plays_ap_std, '
-
-         # playtime
-         'playtime_vn_std, playtime_vn_taiko, playtime_vn_catch, playtime_vn_mania, '
-         'playtime_rx_std, playtime_rx_taiko, playtime_rx_catch, '
-         'playtime_ap_std, '
-
-         # accuracy
-         'acc_vn_std, acc_vn_taiko, acc_vn_catch, acc_vn_mania, '
-         'acc_rx_std, acc_rx_taiko, acc_rx_catch, '
-         'acc_ap_std, '
-
-         # maximum combo
-         'max_combo_vn_std, max_combo_vn_taiko, max_combo_vn_catch, max_combo_vn_mania, '
-         'max_combo_rx_std, max_combo_rx_taiko, max_combo_rx_catch, '
-         'max_combo_ap_std '
-
-         # join users
-         'FROM stats JOIN users u ON stats.id = u.id']
+    q = [
+        "SELECT u.id user_id, u.name username, u.safe_name username_safe, u.country, u.priv privileges",
+        "u.silence_end, u.donor_end, u.creation_time, u.latest_activity, u.clan_id, u.clan_priv",
+        "tscore, rscore, pp, plays, playtime, acc, max_combo",
+        "FROM stats JOIN users u ON stats.id = u.id",
+        f"WHERE mode={sql_0} AND u.priv >= 3 AND u.id = {id}"
+    ]
 
     # achivement
     q2 = ['''
@@ -226,9 +202,10 @@ async def get_user_info():
     q2.append('ORDER BY ua.achid ASC')
 
     if glob.config.debug:
-        log(' '.join(q), Ansi.LGREEN)
+        log(' '.join(q), Ansi.LMAGENTA)
     res = await glob.db.fetch(' '.join(q), args)
     res_ach = await glob.db.fetch(' '.join(q2), args)
+
     return jsonify(userdata=res, achivement=res_ach) if res else b'{}'
 
 

@@ -1,9 +1,13 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.3.2/dist/chart.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js" integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
+        integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
+
 <body>
     <canvas id="myChart" width="385" height="255" style="max-height: 255; max-width: 385;"></canvas>
     <script>
@@ -12,19 +16,19 @@
             mods: "vn",
             mode: "std"
         }
-        axios.get(`https://osu.circles.fun/api/get_player_rank_history?userid=${params.userid}&mods=${params.mods}&mode=${params.mode}`).then((res) => {
+        axios.get(
+            `https://osu.circles.fun/api/get_player_rank_history?userid=${params.userid}&mods=${params.mods}&mode=${params.mode}`
+            ).then((res) => {
             console.log(res)
         }).catch((err) => {
             console.error(err.message)
         })
         const data = {
-            labels: [1,2,3,4,5,6,7,8,9,10],
-            datasets: [
-                {
-                    label: "My First dataset",
-                    data: [1,2,3,2,1,2,3,4,5,4]
-                }
-            ]
+            labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+            datasets: [{
+                label: "My First dataset",
+                data: [1, 2, 3, 2, 1, 2, 3, 4, 5, 4]
+            }]
         }
 
         const ctx = document.getElementById('myChart').getContext('2d');
@@ -37,4 +41,5 @@
         });
     </script>
 </body>
+
 </html>

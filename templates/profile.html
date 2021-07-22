@@ -20,7 +20,7 @@
     <ins class="adsbygoogle" style="display:inline-block;width:970px;height:90px"
         data-ad-client="ca-pub-9619500283342943" data-ad-slot="5170671013"></ins>
     <script>
-            (adsbygoogle = window.adsbygoogle || []).push({});
+        (adsbygoogle = window.adsbygoogle || []).push({});
     </script>
 </div>
 
@@ -35,14 +35,16 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://circles.fun/{{ user['id'] }}">
     <meta property="og:title" content="{{ user['name'] }}'s Profile">
-    <meta property="og:description" content="Check out {{ user['name'] }}'s profile on the circles.fun private osu server!">
+    <meta property="og:description"
+        content="Check out {{ user['name'] }}'s profile on the circles.fun private osu server!">
     <meta property="og:image" content="https://a.circles.fun/{{ user['id'] }}">
     <meta content="#2c5690" data-react-helmet="true" name="theme-color">
 
     <!-- Twitter -->
     <meta property="twitter:url" content="https://circles.fun/{{ user['id'] }}">
     <meta property="twitter:title" content="{{ user['name'] }}'s Profile">
-    <meta property="twitter:description" content="Check out {{ user['name'] }}'s profile on the circles.fun private osu server!">
+    <meta property="twitter:description"
+        content="Check out {{ user['name'] }}'s profile on the circles.fun private osu server!">
 
     <div class="main-block">
         <div style="background: url(https://a.circles.fun/banners/{{ user['id'] }})" class="profile-bg">
@@ -143,7 +145,7 @@
                                 <td><b>PP</b></td>
                                 <td class="right-aligned">
                                     <div v-if="(mode == 'std') || (mode == 'taiko') || (mode == 'mania')">
-                                        <% addCommas(data.stats[`pp_${mods}_${mode}`]) %>
+                                        <% addCommas(data.stats[`pp`]) %>
                                     </div>
                                     <div v-else>
                                         not yet
@@ -153,37 +155,37 @@
                             <tr>
                                 <td><b>Ranked score</b></td>
                                 <td class="right-aligned">
-                                    <% addCommas(data.stats[`rscore_${mods}_${mode}`]) %>
+                                    <% addCommas(data.stats[`rscore`]) %>
                                 </td>
                             </tr>
                             <tr>
                                 <td><b>Total score</b></td>
                                 <td class="right-aligned">
-                                    <% addCommas(data.stats[`tscore_${mods}_${mode}`]) %>
+                                    <% addCommas(data.stats[`tscore`]) %>
                                 </td>
                             </tr>
                             <tr>
                                 <td><b>Max combo</b></td>
                                 <td class="right-aligned">
-                                    <% addCommas(data.stats[`max_combo_${mods}_${mode}`]) %>
+                                    <% addCommas(data.stats[`max_combo`]) %>
                                 </td>
                             </tr>
                             <tr>
                                 <td><b>Playcount</b></td>
                                 <td class="right-aligned">
-                                    <% addCommas(data.stats[`plays_${mods}_${mode}`]) %>
+                                    <% addCommas(data.stats[`plays`]) %>
                                 </td>
                             </tr>
                             <tr>
                                 <td><b>Playtime</b></td>
                                 <td class="right-aligned">
-                                    <% secondsToDhm(data.stats[`playtime_${mods}_${mode}`]) %>
+                                    <% secondsToDhm(data.stats[`playtime`]) %>
                                 </td>
                             </tr>
                             <tr>
                                 <td><b>Accuracy</b></td>
                                 <td class="right-aligned">
-                                    <% data.stats[`acc_${mods}_${mode}`] %>%
+                                    <% data.stats[`acc`] %>%
                                 </td>
                             </tr>
                         </tbody>
