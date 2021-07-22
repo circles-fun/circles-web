@@ -77,57 +77,6 @@ async def api_get_player_rank() -> tuple:
                     "country_rank": "soon"})
 
 
-"""/get_player_info"""
-
-
-@api.route('/get_player_info')  # GET
-async def api_get_player_info() -> tuple:
-    """Return info on a given player."""
-
-    if 'userid' not in request.args.get('userid'):
-        return b'Must provide player id!'
-
-    if not request.args.get('userid').isnumeric():
-        return b'Invalid player id.'
-
-    if (
-            'mode' not in request.args.get('mode') or
-            request.args.get('mode') not in valid_modes):
-        return b'Must provide mode (std/taiko/mania).'
-
-    if (
-            'mods' not in request.args.get('mods') or
-            request.args.get('mods') not in valid_mods):
-        return b'Must provide mod (vn/rx/ap).'
-
-    sql_0 = utils.mode_mods_to_int(
-        f"{request.args.get('mode')}_{request.args.get('mods')}")
-
-    q = f"SELECT u.id user_id, pp, username, mode, mods, accuracy, max_combo FROM stats JOIN users u ON stats.id=u.id WHERE mode={sql_0} AND u.priv >= 3 ORDER BY pp DESC"
-
-    try:
-        rows = await glob.db.fetchall(q)
-    except utils.db.DatabaseError as e:
-        log.error(f'{Ansi.red(type(e))} - {Ansi.red(e)}')
-        return jsonify({'error': str(e)}), 500
-
-    if not rows:
-        return jsonify({'error': 'No stats found!'}), 404
-
-    return jsonify({'rank': rows}), 200
-
-    rank = 1
-    for i in range(len(output)):  # loop through ids in order of pp
-        if output[i]['user_id'] == int(request.args.get('userid')):
-            break
-        rank += 1
-
-    # return player rank
-    return jsonify({"status": "success",
-                    "global_rank": rank,
-                    "country_rank": "soon"})
-
-
 """ /get_leaderboard """
 
 
