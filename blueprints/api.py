@@ -74,7 +74,7 @@ async def get_leaderboard():
     mods = request.args.get('mods', default='vn', type=str)
     sort_by = request.args.get('sort', default='pp', type=str)
     country = request.args.get('country', default=None, type=str)
-    page = request.args.get('page', default=0, type=int)
+    page = request.args.get('page', default=1, type=int)
 
     if mode not in valid_modes:
         return b'invalid mode! (std, taiko, catch, mania)'
@@ -103,7 +103,7 @@ async def get_leaderboard():
         q.append(f'AND country = {country}')
 
     # fetch 50 rows
-    output = await glob.db.fetch(' '.join(q) + f' LIMIT {page * 50} OFFSET {page * 50}')
+    output = await glob.db.fetch(' '.join(q) + f' LIMIT {page * 50} OFFSET {page - 1 * 50}')
 
     # build the response
     response = {
