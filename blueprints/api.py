@@ -50,8 +50,9 @@ async def get_leaderboard():
     sql_0 = utils.mode_mods_to_int(f"{mods}_{mode}")
     sql_1 = sort_by
 
-    q = [f'SELECT u.id user_id, u.name username, {sql_1}',
-         f'FROM stats JOIN users u ON stats.id = u.id',
+    q = ['SELECT u.id user_id, u.name username, max_combo',
+         'acc, plays, playtime, rscore, tscore, pp',
+         'FROM stats JOIN users u ON stats.id = u.id',
          f'WHERE mode = {sql_0} AND u.priv >=3 AND {sql_1} > 0']
 
     if country is not None:
