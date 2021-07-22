@@ -442,7 +442,7 @@ async def login_post():
 
     # login successful; store session data
     if glob.config.debug:
-        log(f"{username}'s login succeeded.", Ansi.LGREEN)
+        log(f"{username}'s login succeeded.", Ansi.LMAGENTA)
 
     session['authenticated'] = True
     session['user_data'] = {
@@ -573,7 +573,7 @@ async def register_post():
             )
 
     if glob.config.debug:
-        log(f'{username} has registered - awaiting verification.', Ansi.LGREEN)
+        log(f'{username} has registered - awaiting verification.', Ansi.LMAGENTA)
 
     # user has successfully registered
     return await render_template('verify.html')
@@ -585,7 +585,7 @@ async def logout():
         return await flash('error', "You can't logout if you aren't logged in!", 'login')
 
     if glob.config.debug:
-        log(f'{session["user_data"]["name"]} logged out.', Ansi.LGREEN)
+        log(f'{session["user_data"]["name"]} logged out.', Ansi.LMAGENTA)
 
     # clear session data
     session.pop('authenticated', None)

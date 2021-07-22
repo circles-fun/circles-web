@@ -30,13 +30,13 @@ app.secret_key = glob.config.secret_key
 async def mysql_conn() -> None:
     glob.db = AsyncSQLPool()
     await glob.db.connect(glob.config.mysql)
-    log('Connected to MySQL!', Ansi.LGREEN)
+    log('Connected to MySQL!', Ansi.LMAGENTA)
 
 
 @app.before_serving
 async def http_conn() -> None:
     glob.http = aiohttp.ClientSession(json_serialize=orjson.dumps)
-    log('Got our Client Session!', Ansi.LGREEN)
+    log('Got our Client Session!', Ansi.LMAGENTA)
 
 
 # globals which can be used in template code

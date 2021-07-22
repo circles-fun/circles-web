@@ -264,8 +264,8 @@ async def get_player_scores():
     args.append(id)
 
     if glob.config.debug:
-        log(' '.join(q), Ansi.LGREEN)
-        log(' '.join(q2), Ansi.LGREEN)
+        log(' '.join(q), Ansi.LMAGENTA)
+        log(' '.join(q2), Ansi.LMAGENTA)
     res = await glob.db.fetchall(' '.join(q), args)
     limit = await glob.db.fetch(' '.join(q2), args)
     return jsonify(scores=res, limit=limit['result']) if res else jsonify(scores=[], limit=limit['result'])
@@ -310,7 +310,7 @@ async def get_player_most():
     args.append(id)
 
     if glob.config.debug:
-        log(' '.join(q), Ansi.LGREEN)
+        log(' '.join(q), Ansi.LMAGENTA)
     res = await glob.db.fetchall(' '.join(q), args)
     return jsonify(maps=res) if res else jsonify(maps=[])
 
@@ -354,6 +354,6 @@ async def get_user_grade():
         grades[score['grade'].lower()] += 1
 
     if glob.config.debug:
-        log(q, Ansi.LGREEN)
+        log(q, Ansi.LMAGENTA)
     # return
     return jsonify(grades)
