@@ -32,7 +32,6 @@ new Vue({
     methods: {
         LoadAllofdata() {
             this.getRank();
-            this.LoadProfileData();
             this.LoadMostBeatmaps();
             this.LoadScores('best');
             this.LoadScores('recent');
@@ -41,13 +40,13 @@ new Vue({
         GettingUrl() {
             return `${window.location.protocol}//${window.location.hostname}:${window.location.port}`
         },
-        LoadProfileData() {
+        LoadProfileData(mode, mods) {
             var vm = this;
             vm.$axios.get(`${this.GettingUrl()}/gw_api/get_user_info`, {
                     params: {
                         id: vm.userid,
-                        mode: vm.mode,
-                        mods: vm.mods,
+                        mode: mode,
+                        mods: mods,
                     }
                 })
                 .then(function (response) {
@@ -144,6 +143,7 @@ new Vue({
             vm.limit[0] = 5
             vm.limit[1] = 5
             vm.limit[2] = 5
+            LoadProfileData(mode, mods)
             vm.LoadAllofdata()
         },
         ShowMore(sort) {
