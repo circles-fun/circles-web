@@ -63,7 +63,7 @@ async def get_leaderboard():
 
     # TODO: maybe cache total num of scores in the db to get a
     # rough estimate on what is a ridiculous page for a request?
-    q.append(f'LIMIT 50 OFFSET %s')
+    q.append(f'LIMIT 50 OFFSET {page * 50}')
     args.append(page * 50)
 
     if glob.config.debug:
