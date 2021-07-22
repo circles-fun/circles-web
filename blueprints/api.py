@@ -47,7 +47,7 @@ async def get_leaderboard():
     if sort_by not in valid_sorts:
         return b'invalid sort param!'
 
-    sql_0 = utils.mode_mods_to_int(f"{mode}_{mods}")
+    sql_0 = utils.mode_mods_to_int(f"{mods}_{mode}")
     sql_1 = sort_by
 
     q = [f'SELECT u.id user_id, u.name username, {sql_1}',

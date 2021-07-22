@@ -27,6 +27,8 @@ def mode_mods_to_int(mode: str) -> int:
     )):
         if mode == mode_str:
             return mode_num
+    else:
+        return 0
 
 
 def get_safe_name(name: str) -> str:
