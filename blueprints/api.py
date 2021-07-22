@@ -28,32 +28,30 @@ valid_sorts = frozenset({'tscore', 'rscore', 'pp', 'plays',
 
 
 @api.route('/get_player_rank')  # GET
-async def api_get_player_rank(conn: Connection) -> tuple[int, bytes]:
+async def api_get_player_rank() -> tuple:
     """Return the ranking of a given player."""
 
-    if 'userid' not in conn.args:
+    if 'userid' not in request.args.get('userid'):
         return b'Must provide player id!'
 
-    if not conn.args['userid'].isdecimal():
+    if not request.args.get('userid').isnumeric():
         return b'Invalid player id.'
 
     if (
-            'mode' not in conn.args or
-            conn.args['mode'] not in ('std', 'taiko', 'mania')
-    ):
+            'mode' not in request.args.get('mode') or
+            request.args.get('mode') not in valid_modes):
         return b'Must provide mode (std/taiko/mania).'
 
     if (
-            'mods' not in conn.args or
-            conn.args['mods'] not in ('vn', 'rx', 'ap')
-    ):
+            'mods' not in request.args.get('mods') or
+            request.args.get('mods') not in valid_mods):
         return b'Must provide mod (vn/rx/ap).'
 
-    sql_0 = utils.mode_mods_to_int(f"{conn.args['mods']}_{conn.args['mode']}")
+    sql_0 = utils.mode_mods_to_int(f"{request.args.get('mode')}_{request.args.get('mods')}")
 
     output = await glob.db.fetchall(f"SELECT u.id user_id, u.name username FROM stats JOIN users u ON stats.id=u.id WHERE mode={sql_0} AND u.priv >= 3;")
 
-    search_id = int(conn.args['userid'])
+    search_id = int(request.args.get('userid'))
 
     users_array = []
     for i in range(len(output)):
