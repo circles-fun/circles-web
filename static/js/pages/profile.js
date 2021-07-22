@@ -67,7 +67,7 @@ new Vue({
         },
         async getRank() {
             var vm = this;
-                    let res = await vm.$axios.get(`https://osu.circles.fun/api/get_player_rank`, {
+                    let res = await vm.$axios.get(`${this.GettingUrl()}/gw_api/get_player_rank`, {
                         params: {
                             userid: vm.userid,
                             mode: vm.mode,
