@@ -67,7 +67,7 @@ async def get_leaderboard():
 
     if glob.config.debug:
         log(q, Ansi.LGREEN)
-    res = await glob.db.fetchall(f"{q};")
+    res = await glob.db.fetchall(f"{q}")
     return jsonify(res) if res else b'{}'
 
 
