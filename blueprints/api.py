@@ -104,6 +104,9 @@ async def get_leaderboard():
 
     q.append(f'LIMIT {page * 50} OFFSET {int(page) - 1 * 50}')
 
+    if glob.config.debug:  # log extra info if in debug mode
+        log(' '.join(q), Ansi.LMAGENTA)
+
     # fetch 50 rows
     output = await glob.db.fetchall(' '.join(q))
 
@@ -128,9 +131,6 @@ async def get_leaderboard():
             'acc': output[i]['acc'],
             'max_combo': output[i]['max_combo']
         })
-
-    if glob.config.debug:  # log extra info if in debug mode
-        log(' '.join(q), Ansi.LMAGENTA)
 
     # return the response
     return jsonify(response) if response else b'{}'
