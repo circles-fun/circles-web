@@ -90,7 +90,7 @@ async def get_leaderboard():
 
     sql_0 = utils.mode_mods_to_int(f"{mods}_{mode}")
 
-    q = ['SELECT u.id user_id, u.name username, tscore',
+    q = ['SELECT u.id user_id, u.name username, tscore,',
          'rscore, pp, plays, playtime, acc, max_combo',
          'FROM stats JOIN users u ON stats.id = u.id',
          f'WHERE mode = {sql_0} AND u.priv >=3 AND {sort_by} > 0']
