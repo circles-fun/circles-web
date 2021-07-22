@@ -28,7 +28,7 @@ valid_sorts = frozenset({'tscore', 'rscore', 'pp', 'plays',
 
 
 @api.route('/get_player_rank')  # GET
-async def api_get_player_rank() -> tuple:
+async def api_get_player_rank():
     """Return the ranking of a given player."""
 
     if request.args.get('userid') is None:
