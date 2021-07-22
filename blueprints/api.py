@@ -24,6 +24,48 @@ valid_mods = frozenset({'vn', 'rx', 'ap'})
 valid_sorts = frozenset({'tscore', 'rscore', 'pp', 'plays',
                          'playtime', 'acc', 'max_combo'})
 
+"""/get_player_rank"""
+
+
+@api.route('/get_player_rank')  # GET
+async def api_get_player_rank(conn: Connection) -> tuple[int, bytes]:
+    """Return the ranking of a given player."""
+
+    if 'userid' not in conn.args:
+        return b'Must provide player id!'
+
+    if not conn.args['userid'].isdecimal():
+        return b'Invalid player id.'
+
+    if (
+            'mode' not in conn.args or
+            conn.args['mode'] not in ('std', 'taiko', 'mania')
+    ):
+        return b'Must provide mode (std/taiko/mania).'
+
+    if (
+            'mods' not in conn.args or
+            conn.args['mods'] not in ('vn', 'rx', 'ap')
+    ):
+        return b'Must provide mod (vn/rx/ap).'
+
+    sql_0 = utils.mode_mods_to_int(f"{conn.args['mods']}_{conn.args['mode']}")
+
+    output = await glob.db.fetchall(f"SELECT u.id user_id, u.name username FROM stats JOIN users u ON stats.id=u.id WHERE mode={sql_0} AND u.priv >= 3;")
+
+    search_id = int(conn.args['userid'])
+
+    users_array = []
+    for i in range(len(output)):
+        users_array.append(output[i]['id'])
+
+    rank = users_array.index(search_id) + 1
+    
+    return jsonify({"status": "success",
+                    "global_rank": rank,
+                    "country_rank": "soon"})
+
+
 """ /get_leaderboard """
 
 
