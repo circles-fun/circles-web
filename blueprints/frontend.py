@@ -194,8 +194,10 @@ async def settings_banner():
     # Allow only donators and staff to access banner settings.
     # Donators and staff can only change their own banner.
 
-    if session['user_data']['is_donator'] or session['user_data']['is_staff']: # donators and staff can change there profile banner.
-        return await render_template('settings/banner.html') # render banner settings page
+    # donators and staff can change there profile banner.
+    if session['user_data']['is_donator'] or session['user_data']['is_staff']:
+        # render banner settings page
+        return await render_template('settings/banner.html')
     else:
         return await flash('error', 'You must be a donator to change your banner!', 'settings/banner')
 
@@ -223,7 +225,7 @@ async def settings_banner_post():
     for old_banner in EXTENSIONS:
         old_dir = f"{BPATH}/{session['user_data']['id']}{old_banner}"
         if os.path.isfile(old_dir):
-            await aiofiles.os.remove(old_dir) # remove old banner
+            await aiofiles.os.remove(old_dir)  # remove old banner
 
     await banner_file.save(banner_dir)
     # img = Image.open(banner_dir)
@@ -280,7 +282,7 @@ async def settings_password_post():
         'FROM users '
         'WHERE id = %s',
         [session['user_data']['id']])
-                 )['pw_bcrypt'].encode()
+    )['pw_bcrypt'].encode()
 
     pw_md5 = hashlib.md5(old_password.encode()).hexdigest().encode()
 
