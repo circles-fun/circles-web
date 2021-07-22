@@ -26,8 +26,8 @@ new Vue({
     },
     created() {
         // starting a page
-        this.LoadProfileData()
-        this.LoadAllofdata()
+        this.LoadProfileData("std", "vn");
+        this.LoadAllofdata();
     },
     methods: {
         LoadAllofdata() {
