@@ -31,7 +31,7 @@ valid_sorts = frozenset({'tscore', 'rscore', 'pp', 'plays',
 async def api_get_player_rank() -> tuple:
     """Return the ranking of a given player."""
 
-    if 'userid' not in request.args.get('userid'):
+    if request.args.get('userid') is None:
         return b'Must provide player id!'
 
     if not request.args.get('userid').isnumeric():
