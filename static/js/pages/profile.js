@@ -35,7 +35,6 @@ new Vue({
             this.LoadScores('best');
             this.LoadScores('recent');
             this.LoadGrades();
-            this.getRankHistory();
             this.getRank();
         },
         GettingUrl() {
