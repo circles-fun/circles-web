@@ -14,7 +14,7 @@ async def flash(status, msg, template):
     return await render_template(f'{template}.html', flash=msg, status=status)
 
 
-def leaderboard_mode_to_int(mode: str):
+def leaderboard_mode_to_int(mode: str) -> Optional[int]:
     """Converts mode (str) to mode (int)."""
     # NOTE: This is a temporary function to convert the leaderboard mode to an int.
     # It will be removed when the site is fully converted to use the new
@@ -27,10 +27,7 @@ def leaderboard_mode_to_int(mode: str):
     )):
         if mode_str == mode:
             return mode_num
-        else:
-            continue
-    return None
-
+    return 0
 
 def get_safe_name(name: str) -> str:
     """Returns the safe version of a username."""
