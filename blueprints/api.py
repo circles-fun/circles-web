@@ -51,9 +51,9 @@ async def api_get_player_rank():
         f"{request.args.get('mods')}_{request.args.get('mode')}")
 
     q = [
-        "SELECT u.id user_id, pp FROM stats"
-        "JOIN users u ON stats.id=u.id"
-        f"WHERE mode={sql_0}"
+        "SELECT u.id user_id, pp FROM stats",
+        "JOIN users u ON stats.id=u.id",
+        f"WHERE mode={sql_0}",
         "AND u.priv >= 3"
     ]
 
