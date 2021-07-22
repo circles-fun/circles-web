@@ -143,7 +143,7 @@ new Vue({
             vm.limit[0] = 5
             vm.limit[1] = 5
             vm.limit[2] = 5
-            LoadProfileData(mode, mods)
+            vm.LoadProfileData(mode, mods)
             vm.LoadAllofdata()
         },
         ShowMore(sort) {
