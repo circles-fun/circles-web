@@ -114,6 +114,7 @@ async def get_leaderboard():
         q.append(f'AND country = {country}')
 
     q.append(f'LIMIT {page * 50} OFFSET {int(page - 1) * 50}')
+    q.append(f'ORDER BY {sort_by} DESC')
 
     if glob.config.debug:  # log extra info if in debug mode
         log(' '.join(q), Ansi.LMAGENTA)
