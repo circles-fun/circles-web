@@ -118,6 +118,9 @@ async def get_leaderboard():
         'results': []
     }
 
+    if glob.config.debug:  # log extra info if in debug mode
+        log(response, Ansi.LMAGENTA)
+
     # build the results
     for i in range(len(output)):
         response['results'].append({
@@ -131,6 +134,9 @@ async def get_leaderboard():
             'acc': output[i]['acc'],
             'max_combo': output[i]['max_combo']
         })
+
+    if glob.config.debug:  # log extra info if in debug mode
+        log(response['results'], Ansi.LMAGENTA)
 
     # return the response
     return jsonify(response) if response else b'{}'
