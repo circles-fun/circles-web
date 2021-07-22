@@ -31,11 +31,12 @@ new Vue({
     },
     methods: {
         LoadAllofdata() {
-            this.LoadMostBeatmaps()
+            this.getRank();
+            this.LoadProfileData();
+            this.LoadMostBeatmaps();
             this.LoadScores('best');
             this.LoadScores('recent');
             this.LoadGrades();
-            this.getRank();
         },
         GettingUrl() {
             return `${window.location.protocol}//${window.location.hostname}:${window.location.port}`
@@ -43,12 +44,12 @@ new Vue({
         LoadProfileData() {
             var vm = this;
             vm.$axios.get(`${this.GettingUrl()}/gw_api/get_user_info`, {
-                params: {
-                    id: vm.userid,
-                    mode: vm.mode,
-                    mods: vm.mods,
-                }
-            })
+                    params: {
+                        id: vm.userid,
+                        mode: vm.mode,
+                        mods: vm.mods,
+                    }
+                })
                 .then(function (response) {
                     vm.data.stats = response.data.userdata;
                 });
@@ -56,38 +57,38 @@ new Vue({
         LoadGrades() {
             var vm = this;
             vm.$axios.get(`${this.GettingUrl()}/gw_api/get_user_grade`, {
-                params: {
-                    id: vm.userid,
-                    mode: vm.mode,
-                    mods: vm.mods,
-                }
-            })
+                    params: {
+                        id: vm.userid,
+                        mode: vm.mode,
+                        mods: vm.mods,
+                    }
+                })
                 .then(function (response) {
                     vm.data.grades = response.data;
                 });
         },
         async getRank() {
             var vm = this;
-                    let res = await vm.$axios.get(`${this.GettingUrl()}/gw_api/get_player_rank`, {
-                        params: {
-                            userid: vm.userid,
-                            mode: vm.mode,
-                            mods: vm.mods,
-                        }
-                    })
-                    vm.data.ranking.global = `#${res.data.global_rank}`;
-                    vm.data.ranking.country = `#${res.data.country_rank}`
+            let res = await vm.$axios.get(`${this.GettingUrl()}/gw_api/get_player_rank`, {
+                params: {
+                    userid: vm.userid,
+                    mode: vm.mode,
+                    mods: vm.mods,
+                }
+            })
+            vm.data.ranking.global = `#${res.data.global_rank}`;
+            vm.data.ranking.country = `#${res.data.country_rank}`
         },
         async getRankHistory() {
             var vm = this;
-                    let res = await vm.$axios.get(`https://osu.circles.fun/api/get_player_rank_history`, {
-                        params: {
-                            userid: vm.userid,
-                            mode: vm.mode,
-                            mods: vm.mods,
-                        }
-                    })
-                    vm.data.ranking.history = `#${res.data.history}`;
+            let res = await vm.$axios.get(`https://osu.circles.fun/api/get_player_rank_history`, {
+                params: {
+                    userid: vm.userid,
+                    mode: vm.mode,
+                    mods: vm.mods,
+                }
+            })
+            vm.data.ranking.history = `#${res.data.history}`;
         },
         LoadScores(sort) {
             var vm = this;
@@ -103,14 +104,14 @@ new Vue({
             }
             vm.data.scores.load[type] = true
             vm.$axios.get(`${this.GettingUrl()}/gw_api/get_player_scores`, {
-                params: {
-                    id: vm.userid,
-                    mode: vm.mode,
-                    mods: vm.mods,
-                    sort: sort,
-                    limit: vm.limit[type]
-                }
-            })
+                    params: {
+                        id: vm.userid,
+                        mode: vm.mode,
+                        mods: vm.mods,
+                        sort: sort,
+                        limit: vm.limit[type]
+                    }
+                })
                 .then(function (response) {
                     vm.data.scores[sort] = response.data.scores;
                     vm.data.scores.load[type] = false
@@ -121,13 +122,13 @@ new Vue({
             var vm = this;
             vm.data.scores.load[2] = true
             vm.$axios.get(`${this.GettingUrl()}/gw_api/get_player_most`, {
-                params: {
-                    id: vm.userid,
-                    mode: vm.mode,
-                    mods: vm.mods,
-                    limit: vm.limit[2]
-                }
-            })
+                    params: {
+                        id: vm.userid,
+                        mode: vm.mode,
+                        mods: vm.mods,
+                        limit: vm.limit[2]
+                    }
+                })
                 .then(function (response) {
                     vm.data.scores.most = response.data.maps;
                     vm.data.scores.load[2] = false
@@ -190,6 +191,5 @@ new Vue({
             return dDisplay + hDisplay + mDisplay;
         },
     },
-    computed: {
-    }
+    computed: {}
 });
