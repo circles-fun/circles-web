@@ -51,8 +51,8 @@ async def api_get_player_rank():
         f"{request.args.get('mods')}_{request.args.get('mode')}")
 
     q = [
-        "SELECT u.id user_id, pp FROM stats "
-        " JOIN users u ON stats.id=u.id "
+        "SELECT u.id user_id, pp FROM stats"
+        " JOIN users u ON stats.id=u.id"
         f" WHERE mode={sql_0}"
         " AND u.priv >= 3"
     ]
@@ -68,7 +68,7 @@ async def api_get_player_rank():
     for i in range(len(output)):  # loop through ids in order of pp
         if output[i]['user_id'] == int(request.args.get('userid')):
             break
-        rank += 1
+        rank += 1  # increment rank
 
     # return player rank
     return jsonify({"status": "success",
