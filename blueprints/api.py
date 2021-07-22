@@ -61,8 +61,9 @@ async def api_get_player_rank() -> tuple:
         q.append(f"AND country='{request.args.get('country')}'")
 
     q.append("ORDER BY pp DESC")
+    q = ' '.join(q)
 
-    output = await glob.db.fetchall(' '.join(q))
+    output = await glob.db.fetchall(q)
 
     rank = 1
     for i in range(len(output)):  # loop through ids in order of pp
