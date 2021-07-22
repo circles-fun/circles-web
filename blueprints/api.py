@@ -102,8 +102,10 @@ async def get_leaderboard():
     if country is not None:
         q.append(f'AND country = {country}')
 
+    q.append(f'LIMIT {page * 50} OFFSET {int(page) - 1 * 50}')
+
     # fetch 50 rows
-    output = await glob.db.fetchall(' '.join(q) + f' LIMIT {page * 50} OFFSET {int(page) - 1 * 50}')
+    output = await glob.db.fetchall(' '.join(q))
 
     # build the response
     response = {
