@@ -190,19 +190,20 @@ async def get_user_info():
     args = []
 
     # append request arguments (id or name)
-    if id:
-        q.append('WHERE u.id = %s')
-        q2.append('WHERE u.id = %s')
-        args.append(id)
+    if id and id.isnumeric():
+        q.append(f'WHERE u.id = {id}')
+        q2.append(f'WHERE u.id = {id}')
     elif name:
         q.append('WHERE u.safe_name = %s')
         q2.append('WHERE u.safe_name = %s')
-        args.append(utils.get_safe_name(name))
+        args.append(name)
 
     q2.append('ORDER BY ua.achid ASC')
 
     if glob.config.debug:
         log(' '.join(q), Ansi.LMAGENTA)
+        log(' '.join(q2), Ansi.LMAGENTA)
+
     res = await glob.db.fetch(' '.join(q), args)
     res_ach = await glob.db.fetch(' '.join(q2), args)
 
