@@ -173,7 +173,7 @@ async def settings_avatar_post():
 
     for old_ava in EXTENSIONS:
         old_dir = f"{APATH}/{session['user_data']['id']}{old_ava}"
-        if os.path.exists(old_dir):
+        if os.path.isfile(old_dir):
             await aiofiles.os.remove(old_dir)
 
     await avatar_file.save(avatar_dir)
@@ -211,6 +211,7 @@ async def settings_banner_post():
     files = await request.files
     banner_file = (files.get('banner'))
 
+    # construct banner file path and extension
     banner = (os.path.splitext(banner_file.filename.lower()))[1]
 
     banner_dir = f"{BPATH}/{session['user_data']['id']}{banner}"
@@ -221,8 +222,8 @@ async def settings_banner_post():
     # remove any old banners
     for old_banner in EXTENSIONS:
         old_dir = f"{BPATH}/{session['user_data']['id']}{old_banner}"
-        if os.path.exists(old_dir):
-            await aiofiles.os.remove(banner_dir)
+        if os.path.isfile(old_dir):
+            await aiofiles.os.remove(old_dir) # remove old banner
 
     await banner_file.save(banner_dir)
     # img = Image.open(banner_dir)
