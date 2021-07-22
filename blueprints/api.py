@@ -61,7 +61,7 @@ async def api_get_player_rank() -> tuple:
         q.append(f"AND country='{request.args.get('country')}'")
 
     q.append("ORDER BY pp DESC")
-    q = ' '.join(q)
+    q = ' '.join(q) # join query with spaces
 
     output = await glob.db.fetchall(q)
 
