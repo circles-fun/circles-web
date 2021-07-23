@@ -73,9 +73,10 @@ async def api_get_player_rank():
         rank += 1  # increment rank
 
     # return player rank
-    return jsonify({"status": "success",
-                    "global_rank": rank,
-                    "country_rank": "soon"})
+    return jsonify({
+        "status": "success",
+        "rank": rank
+    })
 
 
 """ /get_leaderboard """
@@ -118,7 +119,7 @@ async def get_leaderboard():
         q.append(f'AND country = {country}')
 
     q.append(f'ORDER BY {sort_by} DESC')
-    q.append(f'LIMIT {page * 50} OFFSET {int(page - 1) * 50}')
+    q.append(f'LIMIT {page * 50} OFFSET {(page - 1) * 50}')
 
     if glob.config.debug:  # log extra info if in debug mode
         log(' '.join(q), Ansi.LMAGENTA)
@@ -165,10 +166,10 @@ async def get_user_info():
     mods = request.args.get('mods', type=str)
     mode = request.args.get('mode', type=str)
 
-    if not mode or not mods: # if no mode or mods, return error
+    if not mode or not mods:  # if no mode or mods, return error
         return b'missing parameters! (mods & modes)'
 
-    if not name and not id: # if no name or id, return error
+    if not name and not id:  # if no name or id, return error
         return b'missing parameters! (id or name)'
 
     sql_0 = utils.mode_mods_to_int(f"{mods}_{mode}")

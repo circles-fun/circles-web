@@ -31,7 +31,8 @@ new Vue({
     },
     methods: {
         LoadAllofdata() {
-            this.getRank();
+            this.getGlobalRank();
+            this.getCountryRank();
             this.LoadMostBeatmaps();
             this.LoadScores('best');
             this.LoadScores('recent');
@@ -66,7 +67,7 @@ new Vue({
                     vm.data.grades = response.data;
                 });
         },
-        async getRank() {
+        async getGlobalRank() {
             var vm = this;
             let res = await vm.$axios.get(`${this.GettingUrl()}/gw_api/get_player_rank`, {
                 params: {
@@ -75,8 +76,19 @@ new Vue({
                     mods: vm.mods,
                 }
             })
-            vm.data.ranking.global = `#${res.data.global_rank}`;
-            vm.data.ranking.country = `#${res.data.country_rank}`
+            vm.data.ranking.global = `#${res.data.rank}`;
+        },
+        async getCountryRank() {
+            var vm = this;
+            let res = await vm.$axios.get(`${this.GettingUrl()}/gw_api/get_player_rank`, {
+                params: {
+                    userid: vm.userid,
+                    mode: vm.mode,
+                    mods: vm.mods,
+                    country: vm.data.stats.country,
+                }
+            })
+            vm.data.ranking.country = `#${res.data.rank}`;
         },
         async getRankHistory() {
             var vm = this;
