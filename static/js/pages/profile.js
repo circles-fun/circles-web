@@ -31,8 +31,8 @@ new Vue({
     },
     methods: {
         LoadAllofdata() {
-            this.getGlobalRank();
-            this.getCountryRank();
+            await this.getGlobalRank();
+            await this.getCountryRank();
             this.LoadMostBeatmaps();
             this.LoadScores('best');
             this.LoadScores('recent');
