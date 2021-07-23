@@ -31,12 +31,12 @@ new Vue({
     },
     methods: {
         LoadAllofdata() {
-            await this.getGlobalRank();
-            await this.getCountryRank();
             this.LoadMostBeatmaps();
             this.LoadScores('best');
             this.LoadScores('recent');
             this.LoadGrades();
+            this.getGlobalRank();
+            this.getCountryRank();
         },
         GettingUrl() {
             return `${window.location.protocol}//${window.location.hostname}:${window.location.port}`
