@@ -165,13 +165,13 @@ async def get_user_info():
     mods = request.args.get('mods', type=str)
     mode = request.args.get('mode', type=str)
 
-    if not mode or not mods:
+    if not mode or not mods: # if no mode or mods, return error
         return b'missing parameters! (mods & modes)'
 
-    sql_0 = utils.mode_mods_to_int(f"{mods}_{mode}")
-
-    if not name or not id:
+    if not name and not id: # if no name or id, return error
         return b'missing parameters! (id or name)'
+
+    sql_0 = utils.mode_mods_to_int(f"{mods}_{mode}")
 
     # arguments
     args0 = []
