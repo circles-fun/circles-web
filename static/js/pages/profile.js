@@ -90,17 +90,17 @@ new Vue({
             })
             vm.data.ranking.country = `#${res.data.rank}`;
         },
-        async getRankHistory() {
-            var vm = this;
-            let res = await vm.$axios.get(`https://osu.circles.fun/api/get_player_rank_history`, {
-                params: {
-                    userid: vm.userid,
-                    mode: vm.mode,
-                    mods: vm.mods,
-                }
-            })
-            vm.data.ranking.history = `#${res.data.history}`;
-        },
+        // async getRankHistory() {
+        //     var vm = this;
+        //     let res = await vm.$axios.get(`https://osu.circles.fun/api/get_player_rank_history`, {
+        //         params: {
+        //             userid: vm.userid,
+        //             mode: vm.mode,
+        //             mods: vm.mods,
+        //         }
+        //     })
+        //     vm.data.ranking.history = `#${res.data.history}`;
+        // },
         LoadScores(sort) {
             var vm = this;
             let type;
