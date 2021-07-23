@@ -169,44 +169,52 @@ async def get_user_info():
         return b'missing parameters! (mods & modes)'
 
     sql_0 = utils.mode_mods_to_int(f"{mods}_{mode}")
-    
-    if not name and not id:
+
+    if not name or not id:
         return b'missing parameters! (id or name)'
 
+    # arguments
+    args0 = []
+    args1 = []
+
+    # append mode
+    args0.append(f"{sql_0}")
+
+    # get the user info from the db
     q = [
         "SELECT u.id user_id, u.name username, u.safe_name username_safe, u.country, u.priv privileges,",
         "u.silence_end, u.donor_end, u.creation_time, u.latest_activity, u.clan_id, u.clan_priv,",
         "tscore, rscore, pp, plays, playtime, acc, max_combo",
         "FROM stats JOIN users u ON stats.id = u.id",
-        f"WHERE mode={sql_0} AND u.priv >= 3 AND u.id = {id}"
     ]
 
     # achivement
-    q2 = ['''
-    SELECT userid, achid FROM user_achievements ua
-        INNER JOIN users u ON u.id = ua.userid
-    ''']
-
-    # argumnts
-    args = []
+    q2 = [
+        "SELECT userid, achid FROM user_achievements ua",
+        "INNER JOIN users u ON u.id = ua.userid",
+    ]
 
     # append request arguments (id or name)
     if id and type(id) == "int":
-        q.append(f'WHERE u.id = {id}')
-        q2.append(f'WHERE u.id = {id}')
+        q.append(f'WHERE u.id = %s')
+        q2.append(f'WHERE u.id = %s')
+        args0.append(id)
+        args1.append(id)
     elif name:
         q.append('WHERE u.safe_name = %s')
         q2.append('WHERE u.safe_name = %s')
-        args.append(name)
+        args0.append(name)
+        args1.append(name)
 
+    q.append('AND mode=%s AND u.priv >= 3')
     q2.append('ORDER BY ua.achid ASC')
 
     if glob.config.debug:
         log(' '.join(q), Ansi.LMAGENTA)
         log(' '.join(q2), Ansi.LMAGENTA)
 
-    res = await glob.db.fetch(' '.join(q), args)
-    res_ach = await glob.db.fetch(' '.join(q2), args)
+    res = await glob.db.fetch(' '.join(q), args0)
+    res_ach = await glob.db.fetch(' '.join(q2), args1)
 
     return jsonify(userdata=res, achivement=res_ach) if res else b'{}'
 
