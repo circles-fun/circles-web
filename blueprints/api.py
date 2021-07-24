@@ -131,12 +131,12 @@ async def get_leaderboard():
     response = {
         'status': 'success',
         'page': page,
-        'total_pages': int(len(output) / 50),
-        'results': []
+        'total_pages': (len(output) // 50) + 1,
+        'results': [],
     }
 
     # build the results
-    for i in range(len(output)):
+    for i in output:
         response['results'].append({
             'user_id': output[i]['user_id'],
             'username': output[i]['username'],
