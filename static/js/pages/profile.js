@@ -67,9 +67,9 @@ new Vue({
                     vm.data.grades = response.data;
                 });
         },
-        async getGlobalRank() {
+        getGlobalRank() {
             var vm = this;
-            let res = await vm.$axios.get(`${this.GettingUrl()}/gw_api/get_player_rank`, {
+            let res = vm.$axios.get(`${this.GettingUrl()}/gw_api/get_player_rank`, {
                 params: {
                     userid: vm.userid,
                     mode: vm.mode,
@@ -78,9 +78,9 @@ new Vue({
             })
             vm.data.ranking.global = `#${res.data.rank}`;
         },
-        async getCountryRank() {
+        getCountryRank() {
             var vm = this;
-            let res = await vm.$axios.get(`${this.GettingUrl()}/gw_api/get_player_rank`, {
+            let res = vm.$axios.get(`${this.GettingUrl()}/gw_api/get_player_rank`, {
                 params: {
                     userid: vm.userid,
                     mode: vm.mode,
@@ -90,17 +90,6 @@ new Vue({
             })
             vm.data.ranking.country = `#${res.data.rank}`;
         },
-        // async getRankHistory() {
-        //     var vm = this;
-        //     let res = await vm.$axios.get(`https://osu.circles.fun/api/get_player_rank_history`, {
-        //         params: {
-        //             userid: vm.userid,
-        //             mode: vm.mode,
-        //             mods: vm.mods,
-        //         }
-        //     })
-        //     vm.data.ranking.history = `#${res.data.history}`;
-        // },
         LoadScores(sort) {
             var vm = this;
             let type;
@@ -152,43 +141,24 @@ new Vue({
             }
             vm.mode = mode;
             vm.mods = mods;
-            vm.limit[0] = 5
-            vm.limit[1] = 5
-            vm.limit[2] = 5
+            vm.limit[0] = 5;
+            vm.limit[1] = 5;
+            vm.limit[2] = 5;
             vm.LoadProfileData(mode, mods)
             vm.LoadAllofdata()
         },
         ShowMore(sort) {
             var vm = this;
-            if (window.event) {
-                window.event.preventDefault();
-            }
-
-            switch (sort) {
-                case 'best':
-                    vm.limit[0] = vm.limit[0] + 5
-                    vm.LoadScores('best')
-                    break;
-
-                case 'recent':
-                    vm.limit[1] = vm.limit[1] + 5
-                    vm.LoadScores('recent')
-                    break;
-
-                case 'mostplayed':
-                    vm.limit[2] = vm.limit[2] + 5
-                    vm.LoadMostBeatmaps()
-                    break;
-
-                default:
-                    break;
-            }
+            var limit = vm.limit[sort];
+            limit += 5;
+            vm.limit[sort] = limit;
+            vm.LoadScores(sort);
         },
         addCommas(nStr) {
             nStr += '';
-            var x = nStr.split('.');
-            var x1 = x[0];
-            var x2 = x.length > 1 ? '.' + x[1] : '';
+            x = nStr.split('.');
+            x1 = x[0];
+            x2 = x.length > 1 ? '.' + x[1] : '';
             var rgx = /(\d+)(\d{3})/;
             while (rgx.test(x1)) {
                 x1 = x1.replace(rgx, '$1' + ',' + '$2');

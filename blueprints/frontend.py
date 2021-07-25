@@ -35,21 +35,6 @@ VALID_MODS = frozenset({'vn', 'rx', 'ap'})
 frontend = Blueprint('frontend', __name__)
 
 
-@frontend.route('/sitemap.xml')
-async def sitemap():
-    return await render_template('sitemap.xml')
-
-
-@frontend.route('/ads.txt')
-async def ads():
-    return await render_template('ads.txt')
-
-
-@frontend.route('/test')
-async def test():
-    return await render_template('test.html')
-
-
 @frontend.route('/home')
 @frontend.route('/')
 async def home():
@@ -595,7 +580,10 @@ async def logout():
     return await flash('success', 'Successfully logged out!', 'login')
 
 
-# docs
+@frontend.route('/callback/patreon')
+async def patreon_callback():
+    # return flash as this function is work in progress.
+    return await flash('error', 'This feature is a work in progress.', 'home')
 
 
 @frontend.route('/docs')  # GET
@@ -614,9 +602,6 @@ async def docs(doc):
         markdown = markdown2.markdown_path(f'docs/{doc.lower()}.md')
 
     return await render_template('doc.html', doc=markdown, doc_title=doc.lower().capitalize())
-
-
-# social media redirections
 
 
 @frontend.route('/github')
