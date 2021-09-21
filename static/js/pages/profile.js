@@ -4,161 +4,184 @@ new Vue({
     data() {
         return {
             data: {
-                ranking: {
-                    history: [],
-                    global: null,
-                    country: null,
+                stats: {
+                    out: [{}],
+                    load: true
                 },
-                stats: {},
                 grades: {},
                 scores: {
-                    recent: {},
-                    best: {},
-                    most: {},
-                    load: [false, false, false]
+                    recent: {
+                        out: [],
+                        load: true,
+                        more: {
+                            limit: 5,
+                            full: true
+                        }
+                    },
+                    best: {
+                        out: [],
+                        load: true,
+                        more: {
+                            limit: 5,
+                            full: true
+                        }
+                    }
                 },
+                maps: {
+                    most: {
+                        out: [],
+                        load: true,
+                        more: {
+                            limit: 5,
+                            full: true
+                        }
+                    }
+                },
+                status: {}
             },
-            mode: mode, // Getting from URL
-            mods: mods, // Getting from URL
-            userid: userid, // Getting from URL
-            limit: [5, 5, 5],
-        }
+            mode: mode,
+            mods: mods,
+            modegulag: 0,
+            userid: userid
+        };
     },
     created() {
         // starting a page
-        this.LoadProfileData("std", "vn");
+        this.modegulag = this.StrtoGulagInt();
+        this.LoadProfileData();
         this.LoadAllofdata();
+        this.LoadUserStatus();
     },
     methods: {
         LoadAllofdata() {
             this.LoadMostBeatmaps();
             this.LoadScores('best');
             this.LoadScores('recent');
-            this.LoadGrades();
-            this.getGlobalRank();
-            this.getCountryRank();
         },
-        GettingUrl() {
-            return `${window.location.protocol}//${window.location.hostname}:${window.location.port}`
-        },
-        LoadProfileData(mode, mods) {
-            var vm = this;
-            vm.$axios.get(`${this.GettingUrl()}/gw_api/get_user_info`, {
+        LoadProfileData() {
+            this.$set(this.data.stats, 'load', true);
+            this.$axios.get(`${window.location.protocol}//osu.${domain}/api/get_player_info`, {
                     params: {
-                        id: vm.userid,
-                        mode: mode,
-                        mods: mods,
+                        id: this.userid,
+                        scope: 'all'
                     }
                 })
-                .then(function (response) {
-                    vm.data.stats = response.data.userdata;
+                .then(res => {
+                    this.$set(this.data.stats, 'out', res.data.player.stats);
+                    this.data.stats.load = false;
                 });
-        },
-        LoadGrades() {
-            var vm = this;
-            vm.$axios.get(`${this.GettingUrl()}/gw_api/get_user_grade`, {
-                    params: {
-                        id: vm.userid,
-                        mode: vm.mode,
-                        mods: vm.mods,
-                    }
-                })
-                .then(function (response) {
-                    vm.data.grades = response.data;
-                });
-        },
-        getGlobalRank() {
-            var vm = this;
-            let res = vm.$axios.get(`${this.GettingUrl()}/gw_api/get_player_rank`, {
-                params: {
-                    userid: vm.userid,
-                    mode: vm.mode,
-                    mods: vm.mods,
-                }
-            })
-            vm.data.ranking.global = `#${res.data.rank}`;
-        },
-        getCountryRank() {
-            var vm = this;
-            let res = vm.$axios.get(`${this.GettingUrl()}/gw_api/get_player_rank`, {
-                params: {
-                    userid: vm.userid,
-                    mode: vm.mode,
-                    mods: vm.mods,
-                    country: vm.data.stats.country,
-                }
-            })
-            vm.data.ranking.country = `#${res.data.rank}`;
         },
         LoadScores(sort) {
-            var vm = this;
-            let type;
-            switch (sort) {
-                case 'best':
-                    type = 0
-                    break;
-                case 'recent':
-                    type = 1
-                    break;
-                default:
-            }
-            vm.data.scores.load[type] = true
-            vm.$axios.get(`${this.GettingUrl()}/gw_api/get_player_scores`, {
+            this.$set(this.data.scores[`${sort}`], 'load', true);
+            this.$axios.get(`${window.location.protocol}//osu.${domain}/api/get_player_scores`, {
                     params: {
-                        id: vm.userid,
-                        mode: vm.mode,
-                        mods: vm.mods,
-                        sort: sort,
-                        limit: vm.limit[type]
+                        id: this.userid,
+                        mode: this.StrtoGulagInt(),
+                        scope: sort,
+                        limit: this.data.scores[`${sort}`].more.limit
                     }
                 })
-                .then(function (response) {
-                    vm.data.scores[sort] = response.data.scores;
-                    vm.data.scores.load[type] = false
-                    console.log(vm.data.scores.load)
+                .then(res => {
+                    this.data.scores[`${sort}`].out = res.data.scores;
+                    this.data.scores[`${sort}`].load = false
+                    this.data.scores[`${sort}`].more.full = this.data.scores[`${sort}`].out.length != this.data.scores[`${sort}`].more.limit;
                 });
         },
         LoadMostBeatmaps() {
-            var vm = this;
-            vm.data.scores.load[2] = true
-            vm.$axios.get(`${this.GettingUrl()}/gw_api/get_player_most`, {
+            this.$set(this.data.maps.most, 'load', true);
+            this.$axios.get(`${window.location.protocol}//osu.${domain}/api/get_player_most_played`, {
                     params: {
-                        id: vm.userid,
-                        mode: vm.mode,
-                        mods: vm.mods,
-                        limit: vm.limit[2]
+                        id: this.userid,
+                        mode: this.StrtoGulagInt(),
+                        limit: this.data.maps.most.more.limit
                     }
                 })
-                .then(function (response) {
-                    vm.data.scores.most = response.data.maps;
-                    vm.data.scores.load[2] = false
+                .then(res => {
+                    this.data.maps.most.out = res.data.maps;
+                    this.data.maps.most.load = false;
+                    this.data.maps.most.more.full = this.data.maps.most.out.length != this.data.maps.most.more.limit;
                 });
         },
-        ChangeModeMods(mode, mods) {
-            var vm = this;
-            if (window.event) {
-                window.event.preventDefault();
-            }
-            vm.mode = mode;
-            vm.mods = mods;
-            vm.limit[0] = 5;
-            vm.limit[1] = 5;
-            vm.limit[2] = 5;
-            vm.LoadProfileData(mode, mods)
-            vm.LoadAllofdata()
+        LoadUserStatus() {
+            this.$axios.get(`${window.location.protocol}//osu.${domain}/api/get_player_status`, {
+                    params: {
+                        id: this.userid
+                    }
+                })
+                .then(res => {
+                    this.$set(this.data, 'status', res.data.player_status)
+                })
+                .catch(function (error) {
+                    clearTimeout(loop);
+                    console.log(error);
+                });
+            loop = setTimeout(this.LoadUserStatus, 5000);
         },
-        ShowMore(sort) {
-            var vm = this;
-            var limit = vm.limit[sort];
-            limit += 5;
-            vm.limit[sort] = limit;
-            vm.LoadScores(sort);
+        ChangeModeMods(mode, mods) {
+            if (window.event)
+                window.event.preventDefault();
+
+            this.mode = mode;
+            this.mods = mods;
+
+            this.modegulag = this.StrtoGulagInt();
+            this.data.scores.recent.more.limit = 5
+            this.data.scores.best.more.limit = 5
+            this.data.maps.most.more.limit = 6
+            this.LoadAllofdata();
+        },
+        AddLimit(which) {
+            if (window.event)
+                window.event.preventDefault();
+
+            if (which == 'bestscore') {
+                this.data.scores.best.more.limit += 5;
+                this.LoadScores('best');
+            } else if (which == 'recentscore') {
+                this.data.scores.recent.more.limit += 5;
+                this.LoadScores('recent');
+            } else if (which == 'mostplay') {
+                this.data.maps.most.more.limit += 4;
+                this.LoadMostBeatmaps();
+            }
+        },
+        actionIntToStr(d) {
+            switch (d.action) {
+                case 0:
+                    return 'Idle: 🔍 Song Select';
+                case 1:
+                    return '🌙 AFK';
+                case 2:
+                    return `Playing: 🎶 ${d.info_text}`;
+                case 3:
+                    return `Editing: 🔨 ${d.info_text}`;
+                case 4:
+                    return `Modding: 🔨 ${d.info_text}`;
+                case 5:
+                    return 'In Multiplayer: Song Select';
+                case 6:
+                    return `Watching: 👓 ${d.info_text}`;
+                    // 7 not used
+                case 8:
+                    return `Testing: 🎾 ${d.info_text}`;
+                case 9:
+                    return `Submitting: 🧼 ${d.info_text}`;
+                    // 10 paused, never used
+                case 11:
+                    return 'Idle: 🏢 In multiplayer lobby';
+                case 12:
+                    return `In Multiplayer: Playing 🌍 ${d.info_text} 🎶`;
+                case 13:
+                    return 'Idle: 🔍 Searching for beatmaps in osu!direct';
+                default:
+                    return 'Unknown: 🚔 not yet implemented!';
+            }
         },
         addCommas(nStr) {
             nStr += '';
-            x = nStr.split('.');
-            x1 = x[0];
-            x2 = x.length > 1 ? '.' + x[1] : '';
+            var x = nStr.split('.');
+            var x1 = x[0];
+            var x2 = x.length > 1 ? '.' + x[1] : '';
             var rgx = /(\d+)(\d{3})/;
             while (rgx.test(x1)) {
                 x1 = x1.replace(rgx, '$1' + ',' + '$2');
@@ -171,6 +194,40 @@ new Vue({
             var hDisplay = `${Math.floor(seconds % (3600 * 24) / 3600)}h `;
             var mDisplay = `${Math.floor(seconds % 3600 / 60)}m `;
             return dDisplay + hDisplay + mDisplay;
+        },
+        StrtoGulagInt() {
+            switch (this.mode + "|" + this.mods) {
+                case 'std|vn':
+                    return 0;
+                case 'taiko|vn':
+                    return 1;
+                case 'catch|vn':
+                    return 2;
+                case 'mania|vn':
+                    return 3;
+                case 'std|rx':
+                    return 4;
+                case 'taiko|rx':
+                    return 5;
+                case 'catch|rx':
+                    return 6;
+                case 'std|ap':
+                    return 7;
+                default:
+                    return -1;
+            }
+        },
+        StrtoModeInt() {
+            switch (this.mode) {
+                case 'std':
+                    return 0;
+                case 'taiko':
+                    return 1;
+                case 'catch':
+                    return 2;
+                case 'mania':
+                    return 3;
+            }
         },
     },
     computed: {}

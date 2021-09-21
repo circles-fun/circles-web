@@ -4,28 +4,28 @@
     padding: 20px;
 }
 
-.collumdis {
+.collumdis{
     flex-direction: column;
     padding: 21px 22px;
     position: relative;
     border-radius: 8px;
 }
 
-.title-block {
+.title-block{
     height: 125px;
     display: flex;
     align-items: center;
     place-content: center;
 }
 
-.icon-block {
+.icon-block{
     height: 125px;
     display: flex;
     align-items: center;
     place-content: center;
 }
 
-.selection-block {
+.selection-block{
     height: 175px;
     display: flex;
     align-items: center;

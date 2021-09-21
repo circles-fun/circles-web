@@ -14,6 +14,16 @@ import patreon
 
 from cmyui.logging import Ansi
 from cmyui.logging import log
+import bcrypt
+import hashlib
+import os
+import time
+
+from cmyui.logging import Ansi
+from cmyui.logging import log
+from functools import wraps
+from PIL import Image
+from pathlib import Path
 from quart import Blueprint
 from quart import redirect
 from quart import render_template
@@ -22,39 +32,46 @@ from quart import session
 
 from PIL import Image
 from resizeimage import resizeimage
+from quart import send_file
 
 from constants import regexes
 from objects import glob
 from objects import utils
 from objects.privileges import Privileges
 from objects.utils import flash
+from objects.utils import flash_with_customizations
 
 VALID_MODES = frozenset({'std', 'taiko', 'catch', 'mania'})
 VALID_MODS = frozenset({'vn', 'rx', 'ap'})
 
 frontend = Blueprint('frontend', __name__)
 
+def login_required(func):
+    @wraps(func)
+    async def wrapper(*args, **kwargs):
+        if not session:
+            return await flash('error', 'You must be logged in to access that page.', 'login')
+        return await func(*args, **kwargs)
+    return wrapper
 
 @frontend.route('/home')
 @frontend.route('/')
 async def home():
     return await render_template('home.html')
 
+@frontend.route('/home/account/edit')
+async def home_account_edit():
+    return redirect('/settings/profile')
 
 @frontend.route('/settings')
 @frontend.route('/settings/profile')
+@login_required
 async def settings_profile():
-    if 'authenticated' not in session:
-        return await flash('error', 'You must be logged in to access profile settings!', 'login')
-
     return await render_template('settings/profile.html')
 
-
-@frontend.route('/settings/profile', methods=['POST'])  # POST
+@frontend.route('/settings/profile', methods=['POST'])
+@login_required
 async def settings_profile_post():
-    if 'authenticated' not in session:
-        return await flash('error', 'You must be logged in to access profile settings!', 'login')
-
     form = await request.form
 
     new_name = form.get('username', type=str)
@@ -68,13 +85,13 @@ async def settings_profile_post():
 
     # no data has changed; deny post
     if (
-            new_name == old_name and
-            new_email == old_email
+        new_name == old_name and
+        new_email == old_email
     ):
         return await flash('error', 'No changes have been made.', 'settings/profile')
 
     if new_name != old_name:
-        if not session['user_data']['is_donator'] or session['user_data']['is_staff']:
+        if not session['user_data']['is_donator']:
             return await flash('error', 'Username changes are currently a supporter perk.', 'settings/profile')
 
         # Usernames must:
@@ -94,13 +111,14 @@ async def settings_profile_post():
         if await glob.db.fetch('SELECT 1 FROM users WHERE name = %s', [new_name]):
             return await flash('error', 'Your new username already taken by another user.', 'settings/profile')
 
+        safe_name = utils.get_safe_name(new_name)
+
         # username change successful
         await glob.db.execute(
             'UPDATE users '
             'SET name = %s, safe_name = %s '
             'WHERE id = %s',
-            [new_name, utils.get_safe_name(new_name),
-             session['user_data']['id']]
+            [new_name, safe_name, session['user_data']['id']]
         )
 
     if new_email != old_email:
@@ -126,114 +144,101 @@ async def settings_profile_post():
     session.pop('user_data', None)
     return await flash('success', 'Your username/email have been changed! Please login again.', 'login')
 
-
 @frontend.route('/settings/avatar')
+@login_required
 async def settings_avatar():
-    if 'authenticated' not in session:
-        return await flash('error', 'You must be logged in to access avatar settings!', 'login')
-
     return await render_template('settings/avatar.html')
 
-
-@frontend.route('/settings/avatar', methods=['POST'])  # POST
+@frontend.route('/settings/avatar', methods=['POST'])
+@login_required
 async def settings_avatar_post():
-    if 'authenticated' not in session:
-        return await flash('error', 'You must be logged in to access avatar settings!', 'login')
+    # constants
+    AVATARS_PATH = f'{glob.config.path_to_gulag}.data/avatars'
+    ALLOWED_EXTENSIONS = ['.jpeg', '.jpg', '.png']
 
-    APATH = f'{glob.config.path_to_gulag}.data/avatars'
-    EXTENSIONS = [".png", ".jpg", ".jpeg"]
+    avatar = (await request.files).get('avatar')
 
-    if session['user_data']['is_donator'] or session['user_data']['is_staff']:
-        EXTENSIONS.append(".gif")
+    # no file uploaded; deny post
+    if avatar is None or not avatar.filename:
+        return await flash('error', 'No image was selected!', 'settings/avatar')
 
-    files = await request.files
+    filename, file_extension = os.path.splitext(avatar.filename.lower())
 
-    avatar_file = (files.get('avatar'))
-    ava = (os.path.splitext(avatar_file.filename.lower()))[1]
-    avatar_dir = f"{APATH}/{session['user_data']['id']}{ava}"
+    # bad file extension; deny post
+    if not file_extension in ALLOWED_EXTENSIONS:
+        return await flash('error', 'The image you select must be either a .JPG, .JPEG, or .PNG file!', 'settings/avatar')
 
-    if ava not in EXTENSIONS:
-        return await flash('error', 'Please submit an image which is either a png, jpg, jpeg! Supporters can use gifs!',
-                           'settings/avatar')
+    # remove old avatars
+    for fx in ALLOWED_EXTENSIONS:
+        if os.path.isfile(f'{AVATARS_PATH}/{session["user_data"]["id"]}{fx}'): # Checking file e
+            os.remove(f'{AVATARS_PATH}/{session["user_data"]["id"]}{fx}')
 
-    for old_ava in EXTENSIONS:
-        old_dir = f"{APATH}/{session['user_data']['id']}{old_ava}"
-        if os.path.isfile(old_dir):
-            await aiofiles.os.remove(old_dir)
+    # avatar cropping to 1:1
+    pilavatar = Image.open(avatar.stream)
 
-    await avatar_file.save(avatar_dir)
-    # img = Image.open(avatar_dir)
-    # width, height = img.size
-    # if width > 256 or height > 256:
-    #    new = resizeimage.resize_cover(img, [256, 256])
-    #    new.save(avatar_dir, img.format)
-
+    # avatar change success
+    pilavatar = utils.crop_image(pilavatar)
+    pilavatar.save(os.path.join(AVATARS_PATH, f'{session["user_data"]["id"]}{file_extension.lower()}'))
     return await flash('success', 'Your avatar has been successfully changed!', 'settings/avatar')
 
+@frontend.route('/settings/custom')
+@login_required
+async def settings_custom():
+    profile_customizations = utils.has_profile_customizations(session['user_data']['id'])
+    return await render_template('settings/custom.html', customizations=profile_customizations)
 
-@frontend.route('/settings/banner')  # GET
-async def settings_banner():
-    if not 'authenticated' in session:
-        return await flash('error', 'You must be logged in to access banner settings!', 'login')
+@frontend.route('/settings/custom', methods=['POST'])
+@login_required
+async def settings_custom_post():
+    banner = (await request.files).get('banner')
+    background = (await request.files).get('background')
+    ALLOWED_EXTENSIONS = ['.jpeg', '.jpg', '.png', '.gif']
 
-    # Allow only donators and staff to access banner settings.
-    # Donators and staff can only change their own banner.
+    # no file uploaded; deny post
+    if banner is None and background is None:
+        return await flash_with_customizations('error', 'No image was selected!', 'settings/custom')
 
-    # donators and staff can change there profile banner.
-    if session['user_data']['is_donator'] or session['user_data']['is_staff']:
-        # render banner settings page
-        return await render_template('settings/banner.html')
-    else:
-        return await flash('error', 'You must be a donator to change your banner!', 'settings/banner')
+    if banner is not None and banner.filename:
+        filename, file_extension = os.path.splitext(banner.filename.lower())
+        if not file_extension in ALLOWED_EXTENSIONS:
+            return await flash_with_customizations('error', f'The banner you select must be either a .JPG, .JPEG, .PNG or .GIF file!', 'settings/custom')
 
+        banner_file_no_ext = os.path.join(f'.data/banners', f'{session["user_data"]["id"]}')
 
-@frontend.route('/settings/banner', methods=['POST'])  # POST
-async def settings_banner_post():
-    if 'authenticated' not in session:
-        return await flash('error', 'You must be logged in to access banner settings!', 'login')
+        # remove old picture
+        for ext in ALLOWED_EXTENSIONS:
+            banner_file_with_ext = f'{banner_file_no_ext}{ext}'
+            if os.path.isfile(banner_file_with_ext):
+                os.remove(banner_file_with_ext)
 
-    BPATH = f'{glob.config.path_to_gulag}.data/banners'
-    EXTENSIONS = [".gif", ".png", ".jpg", ".jpeg"]
+        await banner.save(f'{banner_file_no_ext}{file_extension}')
 
-    files = await request.files
-    banner_file = (files.get('banner'))
+    if background is not None and background.filename:
+        filename, file_extension = os.path.splitext(background.filename.lower())
+        if not file_extension in ALLOWED_EXTENSIONS:
+            return await flash_with_customizations('error', f'The background you select must be either a .JPG, .JPEG, .PNG or .GIF file!', 'settings/custom')
 
-    # construct banner file path and extension
-    banner = (os.path.splitext(banner_file.filename.lower()))[1]
+        background_file_no_ext = os.path.join(f'.data/backgrounds', f'{session["user_data"]["id"]}')
 
-    banner_dir = f"{BPATH}/{session['user_data']['id']}{banner}"
+        # remove old picture
+        for ext in ALLOWED_EXTENSIONS:
+            background_file_with_ext = f'{background_file_no_ext}{ext}'
+            if os.path.isfile(background_file_with_ext):
+                os.remove(background_file_with_ext)
 
-    if banner not in EXTENSIONS:
-        return await flash('error', 'Please submit an image which is either a png, jpg, or gif!', 'settings/banner')
+        await background.save(f'{background_file_no_ext}{file_extension}')
 
-    # remove any old banners
-    for old_banner in EXTENSIONS:
-        old_dir = f"{BPATH}/{session['user_data']['id']}{old_banner}"
-        if os.path.isfile(old_dir):
-            await aiofiles.os.remove(old_dir)  # remove old banner
-
-    await banner_file.save(banner_dir)
-    # img = Image.open(banner_dir)
-    # width, height = img.size
-    # if width > 1140 or height > 215:
-    #    new = resizeimage.resize_cover(img, [1140, 215])
-    #    new.save(banner_dir, img.format)
-    return await flash('success', 'Your banner has been successfully changed!', 'settings/banner')
+    return await flash_with_customizations('success', 'Your customisation has been successfully changed!', 'settings/custom')
 
 
 @frontend.route('/settings/password')
+@login_required
 async def settings_password():
-    if 'authenticated' not in session:
-        return await flash('error', 'You must be logged in to access password settings!', 'login')
-
     return await render_template('settings/password.html')
 
-
-@frontend.route('/settings/password', methods=["POST"])  # POST
+@frontend.route('/settings/password', methods=["POST"])
+@login_required
 async def settings_password_post():
-    if 'authenticated' not in session:
-        return await flash('error', 'You must be logged in to access password settings!', 'login')
-
     form = await request.form
     old_password = form.get('old_password')
     new_password = form.get('new_password')
@@ -274,11 +279,11 @@ async def settings_password_post():
     # check old password against db
     # intentionally slow, will cache to speed up
     if pw_bcrypt in bcrypt_cache:
-        if pw_md5 != bcrypt_cache[pw_bcrypt]:  # ~0.1ms
+        if pw_md5 != bcrypt_cache[pw_bcrypt]: # ~0.1ms
             if glob.config.debug:
                 log(f"{session['user_data']['name']}'s change pw failed - pw incorrect.", Ansi.LYELLOW)
             return await flash('error', 'Your old password is incorrect.', 'settings/password')
-    else:  # ~200ms
+    else: # ~200ms
         if not bcrypt.checkpw(pw_md5, pw_bcrypt):
             if glob.config.debug:
                 log(f"{session['user_data']['name']}'s change pw failed - pw incorrect.", Ansi.LYELLOW)
@@ -304,8 +309,7 @@ async def settings_password_post():
     # logout
     session.pop('authenticated', None)
     session.pop('user_data', None)
-    return await flash('success', 'Your password has been changed! Please login again.', 'login')
-
+    return await flash('success', 'Your password has been changed! Please log in again.', 'login')
 
 @frontend.route('/u/<id>')
 async def profile(id):
@@ -315,44 +319,38 @@ async def profile(id):
     # make sure mode & mods are valid args
     if mode is not None:
         if mode not in VALID_MODES:
-            return await render_template('404.html'), 404
+            return (await render_template('404.html'), 404)
     else:
         mode = 'std'
 
     if mods is not None:
         if mods not in VALID_MODS:
-            return await render_template('404.html'), 404
+            return (await render_template('404.html'), 404)
     else:
         mods = 'vn'
 
     user_data = await glob.db.fetch(
         'SELECT name, id, priv, country '
         'FROM users '
-        'WHERE id = %s OR safe_name = %s',
-        [id, utils.get_safe_name(id)]
-        # ^ allow lookup from both
-        #   id and username (safe)
+        'WHERE id = %s',
+        [id]
     )
 
     # user is banned and we're not staff; render 404
     is_staff = 'authenticated' in session and session['user_data']['is_staff']
     if not user_data or not (user_data['priv'] & Privileges.Normal or is_staff):
-        return await render_template('404.html'), 404
+        return (await render_template('404.html'), 404)
+
+    user_data['customisation'] = utils.has_profile_customizations(id)
 
     return await render_template('profile.html', user=user_data, mode=mode, mods=mods)
 
-
 @frontend.route('/leaderboard')
 @frontend.route('/lb')
-async def leaderboard_no_data():
-    return await render_template('leaderboard.html', mode='std', sort='pp', mods='vn')
-
-
 @frontend.route('/leaderboard/<mode>/<sort>/<mods>')
 @frontend.route('/lb/<mode>/<sort>/<mods>')
-async def leaderboard(mode, sort, mods):
+async def leaderboard(mode='std', sort='pp', mods='vn'):
     return await render_template('leaderboard.html', mode=mode, sort=sort, mods=mods)
-
 
 @frontend.route('/login')
 async def login():
@@ -361,13 +359,13 @@ async def login():
 
     return await render_template('login.html')
 
-
-@frontend.route('/login', methods=['POST'])  # POST
+@frontend.route('/login', methods=['POST'])
 async def login_post():
     if 'authenticated' in session:
         return await flash('error', "You're already logged in!", 'home')
 
-    login_time = time.time_ns() if glob.config.debug else 0
+    if glob.config.debug:
+        login_time = time.time_ns()
 
     form = await request.form
     username = form.get('username', type=str)
@@ -400,11 +398,11 @@ async def login_post():
     # check credentials (password) against db
     # intentionally slow, will cache to speed up
     if pw_bcrypt in bcrypt_cache:
-        if pw_md5 != bcrypt_cache[pw_bcrypt]:  # ~0.1ms
+        if pw_md5 != bcrypt_cache[pw_bcrypt]: # ~0.1ms
             if glob.config.debug:
                 log(f"{username}'s login failed - pw incorrect.", Ansi.LYELLOW)
             return await flash('error', 'Password is incorrect.', 'login')
-    else:  # ~200ms
+    else: # ~200ms
         if not bcrypt.checkpw(pw_md5, pw_bcrypt):
             if glob.config.debug:
                 log(f"{username}'s login failed - pw incorrect.", Ansi.LYELLOW)
@@ -423,11 +421,11 @@ async def login_post():
     if not user_info['priv'] & Privileges.Normal:
         if glob.config.debug:
             log(f"{username}'s login failed - banned.", Ansi.RED)
-        return await flash('error', 'You are banned!', 'login')
+        return await flash('error', 'Your account is restricted. You are not allowed to log in.', 'login')
 
     # login successful; store session data
     if glob.config.debug:
-        log(f"{username}'s login succeeded.", Ansi.LMAGENTA)
+        log(f"{username}'s login succeeded.", Ansi.LGREEN)
 
     session['authenticated'] = True
     session['user_data'] = {
@@ -436,8 +434,8 @@ async def login_post():
         'email': user_info['email'],
         'priv': user_info['priv'],
         'silence_end': user_info['silence_end'],
-        'is_staff': user_info['priv'] & Privileges.Staff,
-        'is_donator': user_info['priv'] & Privileges.Donator
+        'is_staff': user_info['priv'] & Privileges.Staff != 0,
+        'is_donator': user_info['priv'] & Privileges.Donator != 0
     }
 
     if glob.config.debug:
@@ -445,7 +443,6 @@ async def login_post():
         log(f'Login took {login_time:.2f}ms!', Ansi.LYELLOW)
 
     return await flash('success', f'Hey, welcome back {username}!', 'home')
-
 
 @frontend.route('/register')
 async def register():
@@ -457,8 +454,7 @@ async def register():
 
     return await render_template('register.html')
 
-
-@frontend.route('/register', methods=['POST'])  # POST
+@frontend.route('/register', methods=['POST'])
 async def register_post():
     if 'authenticated' in session:
         return await flash('error', "You're already logged in.", 'home')
@@ -477,8 +473,8 @@ async def register_post():
     if glob.config.hCaptcha_sitekey != 'changeme':
         captcha_data = form.get('h-captcha-response', type=str)
         if (
-                captcha_data is None or
-                not await utils.validate_captcha(captcha_data)
+            captcha_data is None or
+            not await utils.validate_captcha(captcha_data)
         ):
             return await flash('error', 'Captcha failed.', 'register')
 
@@ -526,16 +522,16 @@ async def register_post():
     # (start of lock)
     pw_md5 = hashlib.md5(passwd_txt.encode()).hexdigest().encode()
     pw_bcrypt = bcrypt.hashpw(pw_md5, bcrypt.gensalt())
-    glob.cache['bcrypt'][pw_bcrypt] = pw_md5  # cache pw
+    glob.cache['bcrypt'][pw_bcrypt] = pw_md5 # cache pw
 
     safe_name = utils.get_safe_name(username)
 
     # fetch the users' country
     if (
-            request.headers and
-            (co := request.headers.get('CF-IPCountry', type=str)) is not None
+        request.headers and
+        (ip := request.headers.get('X-Real-IP', type=str)) is not None
     ):
-        country = co
+        country = await utils.fetch_geoloc(ip)
     else:
         country = 'xx'
 
@@ -557,12 +553,13 @@ async def register_post():
                 [(user_id, mode) for mode in range(8)]
             )
 
+    # (end of lock)
+
     if glob.config.debug:
-        log(f'{username} has registered - awaiting verification.', Ansi.LMAGENTA)
+        log(f'{username} has registered - awaiting verification.', Ansi.LGREEN)
 
     # user has successfully registered
     return await render_template('verify.html')
-
 
 @frontend.route('/logout')
 async def logout():
@@ -570,7 +567,7 @@ async def logout():
         return await flash('error', "You can't logout if you aren't logged in!", 'login')
 
     if glob.config.debug:
-        log(f'{session["user_data"]["name"]} logged out.', Ansi.LMAGENTA)
+        log(f'{session["user_data"]["name"]} logged out.', Ansi.LGREEN)
 
     # clear session data
     session.pop('authenticated', None)
@@ -579,37 +576,51 @@ async def logout():
     # render login
     return await flash('success', 'Successfully logged out!', 'login')
 
-
-@frontend.route('/callback/patreon')
-async def patreon_callback():
-    # return flash as this function is work in progress.
-    return await flash('error', 'This feature is a work in progress.', 'home')
-
-
-@frontend.route('/docs')  # GET
-async def docs_no_data():
-    docs = []
-    async with asyncio.Lock():
-        for f in os.listdir('docs/'):
-            docs.append(os.path.splitext(f)[0])
-
-    return await render_template('docs.html', docs=docs)
-
-
-@frontend.route('/doc/<doc>')  # GET
-async def docs(doc):
-    async with asyncio.Lock():
-        markdown = markdown2.markdown_path(f'docs/{doc.lower()}.md')
-
-    return await render_template('doc.html', doc=markdown, doc_title=doc.lower().capitalize())
-
+# social media redirections
 
 @frontend.route('/github')
 @frontend.route('/gh')
 async def github_redirect():
     return redirect(glob.config.github)
 
-
 @frontend.route('/discord')
 async def discord_redirect():
     return redirect(glob.config.discord_server)
+
+@frontend.route('/youtube')
+@frontend.route('/yt')
+async def youtube_redirect():
+    return redirect(glob.config.youtube)
+
+@frontend.route('/twitter')
+async def twitter_redirect():
+    return redirect(glob.config.twitter)
+
+@frontend.route('/instagram')
+@frontend.route('/ig')
+async def instagram_redirect():
+    return redirect(glob.config.instagram)
+
+# profile customisation
+BANNERS_PATH = Path.cwd() / '.data/banners'
+BACKGROUND_PATH = Path.cwd() / '.data/backgrounds'
+@frontend.route('/banners/<user_id>')
+async def get_profile_banner(user_id: int):
+    # Check if avatar exists
+    for ext in ('jpg', 'jpeg', 'png', 'gif'):
+        path = BANNERS_PATH / f'{user_id}.{ext}'
+        if path.exists():
+            return await send_file(path)
+
+    return b'{"status":404}'
+
+
+@frontend.route('/backgrounds/<user_id>')
+async def get_profile_background(user_id: int):
+    # Check if avatar exists
+    for ext in ('jpg', 'jpeg', 'png', 'gif'):
+        path = BACKGROUND_PATH / f'{user_id}.{ext}'
+        if path.exists():
+            return await send_file(path)
+
+    return b'{"status":404}'

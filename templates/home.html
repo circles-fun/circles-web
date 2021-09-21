@@ -1,53 +1,36 @@
-<!DOCTYPE html>
+{% extends 'base.html' %}
+{% block title %} Home {% endblock %}
 
-{% extends 'base.html' %} {% block title %} Home {% endblock %} {% block content
-%}
+{% block header %}
+<link rel="stylesheet" href="/static/css/pages/home.css">
+{% endblock %}
 
-<meta charset="utf-8">
-
-<!-- Primary Meta Tags -->
-<title>Circles - Home</title>
-<meta name="title" content="Circles - Home">
-<meta name="description"
-  content="Welcome to Circles! We are a private server and community for osu. Circles gives all users free access to osu!direct and uses a unique PP formula for RX and AP">
-
-<!-- Open Graph / Facebook -->
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://circles.fun/">
-<meta property="og:title" content="Circles - Home">
-<meta property="og:description"
-  content="Welcome to Circles! We are a private server and community for osu. Circles gives all users free access to osu!direct and uses a unique PP formula for RX and AP">
-<meta property="og:image" content="https://circles.fun/static/images/logo.png">
-<meta content="#2c5690" data-react-helmet="true" name="theme-color">
-
-<!-- Twitter -->
-<meta property="twitter:card" content="summary_large_image">
-<meta property="twitter:url" content="https://circles.fun/">
-<meta property="twitter:title" content="Circles - Home">
-<meta property="twitter:description"
-  content="Welcome to Circles! We are a private server and community for osu. Circles gives all users free access to osu!direct and uses a unique PP formula for RX and AP">
-<meta property="twitter:image" content="https://circles.fun/static/images/logo.png">
-
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<link id="style" rel="stylesheet" href="/static/css/pages/home.css" />
+{% block content %}
 
 {% if flash %}
-<div class="noti-banner noti-banner-warning">
+<div class='noti-banner noti-banner-warning'>
   <div class="container">
     <div class="noti-column">
-      <div class="noti-col noti-col-icon"></div>
-      <div class="noti-col noti-col-label">
-        <div class="noti-bannertype">
-          {% if status=='error' %} Warning {% elif status=='success' %} Notice
+      <div class='noti-col noti-col-icon'></div>
+      <div class='noti-col noti-col-label'>
+        <div class='noti-bannertype'>
+          {% if status=='error' %}
+          Warning
+          {% elif status=='success' %}
+          Notice
           {% endif %}
         </div>
-        <div class="noti-bannertext">
-          {% if status=='error' %} Uh oh! Be careful! {% elif status=='success'
-          %} Alert {% endif %}
+        <div class='noti-bannertext'>
+          {% if status=='error' %}
+          Uh oh! Be careful!
+          {% elif status=='success' %}
+          Hey! Listen!
+          {% endif %}
         </div>
       </div>
-      <div class="noti-banner-text">{{ flash }}</div>
+      <div class='noti-banner-text'>
+        {{ flash }}
+      </div>
     </div>
   </div>
 </div>
@@ -56,36 +39,22 @@
 <div class="hero splash p-less is-fullheight-with-navbar" id="home-hero">
   <div class="container flex">
     <div class="columns flex-vcenter">
-      <div class="
-          column
-          flex-vcenter flex-lcenter
-          is-size-2-desktop is-size-1-fullhd
-        " id="title">
-        <h1 class="title is-spaced is-size-2-desktop is-size-1-fullhd">
-          {{ appName() }}
-        </h1>
+      <div class="column flex-vcenter flex-lcenter is-size-2-desktop is-size-1-fullhd" id="title">
+        <h1 class="title is-spaced is-size-2-desktop is-size-1-fullhd">{{ appName() }}</h1>
         <h2 class="subtitle">
-          Welcome to {{ appName() }}!<br />We are a private osu community.<br />
+          We are an osu! private server built from the ground up with many
+          unique features not seen elsewhere - for more information, check
+          out <a href="http://github.com/cmyui/gulag">gulag</a>
+          and <a href="https://github.com/Yo-ru/guweb">guweb</a>
+          on GitHub - we're fully open source!
         </h2>
-        {% if session.authenticated %}
-        <div class="buttons">
-          <a href="/discord">
-            <button type="button" class="button is-dark">
-              <img src="/static/images/discord.svg" />&nbsp;Discord
-            </button>
-          </a>
-        </div>
-        {% endif %}
         {% if not session.authenticated %}
         <div class="buttons">
-          <a class="button is-light" href="/register">
+          <a class="button is-primary" href="/register">
             <strong>Sign up</strong>
           </a>
-          <a class="button is-dark" href="/login"> <strong>Log in</strong> </a>
-          <a href="/discord">
-            <button type="button" class="button is-dark">
-              <img src="/static/images/discord.svg" />
-            </button>
+          <a class="button is-light" href="/login">
+            Log in
           </a>
         </div>
         {% endif %}
@@ -108,10 +77,9 @@
           </div>
           <div class="column is-10">
             <h4 class="title is-spaced is-4">PP for Relax and Autopilot</h4>
-            <p class="subtitle is-6">
-              Our server has unique pp formula for relax and autopilot. Good at
-              waving your cursor or just smashing your keyboard? Join {{
-              appName() }} and get a fair reward for your skills!
+            <p class="subtitle is-6">Our server has unique pp formula for relax and autopilot.
+              Good at waving your cursor or just smashing your keyboard? Join {{ appName() }} and get a fair reward for
+              your skills!
             </p>
           </div>
         </div>
@@ -123,12 +91,11 @@
           </div>
           <div class="column is-10">
             <h4 class="title is-spaced is-4">Free osu!direct</h4>
-            <p class="subtitle is-6">
-              You won't have to pay for osu!supporter to have a convenient
-              gameplay experience in the client - osu!direct is available for
-              everyone! Keep in mind supporting us still grants a huge set of
-              cool perks but absense of it doesn't affect your game sessions!
-            </p>
+            <p class="subtitle is-6">You won't have to pay for osu!supporter to have a convenient gameplay experience in
+              the
+              client - osu!direct is available for everyone! Keep in mind supporting us still grants a huge set of cool
+              perks but
+              absense of it doesn't affect your game sessions!</p>
           </div>
         </div>
       </div>
@@ -139,11 +106,8 @@
           </div>
           <div class="column is-10">
             <h4 class="title is-spaced is-4">Flexible library</h4>
-            <p class="subtitle is-6">
-              We're written on top of cmyui's multipurpose library allowing for
-              a fully asynchronous environment, both improving performance and
-              the user's experience in the long term!
-            </p>
+            <p class="subtitle is-6">We're written on top of cmyui's multipurpose library allowing for a fully
+              asynchronous environment, both improving performance and the user's experience in the long term!</p>
           </div>
         </div>
       </div>
@@ -156,16 +120,14 @@
   <div class="hero-body">
     <div class="container has-text-centered">
       <h1 class="title is-spaced">What are you waiting for?</h1>
-      <h2 class="subtitle">
-        Join {{ appName() }}! It's risk-free! You won't get your account banned
-        on official servers if you play here with us! And don't worry, as you
-        can always switch between the official servers and us at any time!
-      </h2>
-      <div class="buttons is-centered">
-        <a class="control button is-light" href="/register">Sign up for free</a><a class="control button is-dark"
-          href="/login">Login</a>
-      </div>
+      <h2 class="subtitle">Join {{ appName() }}! It's risk-free! You won't get your account banned on official servers
+        if
+        you play here with us! And don't worry, as you can always switch between the official servers and us at any time!</h2>
+      <div class="buttons is-centered"><a class="control button is-primary" href="/register">Sign up for free</a><a
+          class="control button is-light" href="/login">Login</a></div>
     </div>
   </div>
 </section>
-{% endif %} {% endblock %}
+{% endif %}
+
+{% endblock %}

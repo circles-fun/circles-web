@@ -61,11 +61,22 @@ Directory Structure
 
     .
     ├── blueprints   # Modular routes such as the API, Frontend, or Admin Panel.
-    ├── docs         # Markdown files used in circles-web's documentation system.
-    ├── ext          # External files from circles-web's primary operation.
+    ├── docs         # Markdown files used in guweb's documentation system.
+    ├── ext          # External files from guweb's primary operation.
     ├── objects      # Code for representing privileges, global objects, and more.
-    ├── static       # Code or content that is not modified or processed by circles-web itself.
+    ├── static       # Code or content that is not modified or processed by guweb itself.
     ├── templates    # HTML that contains content that is rendered after the page has loaded.
         ├── admin    # Templated content for the admin panel (/admin).
         ├── settings # Templated content for settings (/settings).
-        └ ...         # Templated content for all of circles-web (/).
+        └ ...         # Templated content for all of guweb (/).
+
+
+The team
+------
+- [Yoru](https://github.com/Yo-ru) | Backend, Grammar Checking [Deprecated]
+- [Varkaria](https://github.com/Varkaria) | Frontend, Backend?
+
+The End
+------
+
+Well know that you know everything, why not check out the original code guweb was based off of in [this](https://github.com/yo-ru/gulag-web) i think i should continue this work to finish work?

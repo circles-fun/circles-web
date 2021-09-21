@@ -79,15 +79,12 @@
     margin: 0 15px
 }
 
-.sidebar .nav li:focus:not(.active)>a i,
-.sidebar .nav li:focus:not(.active)>a p,
-.sidebar .nav li:hover:not(.active)>a i,
-.sidebar .nav li:hover:not(.active)>a p {
+.sidebar .nav li:focus:not(.active)>a i, .sidebar .nav li:focus:not(.active)>a p, .sidebar .nav li:hover:not(.active)>a i, .sidebar .nav li:hover:not(.active)>a p {
     color: #fff
 }
 
 .sidebar .nav li>a:hover {
-    background: #93ffff14;
+    background: #ff939314;
     transform: translateY(-2px)
 }
 
@@ -130,7 +127,7 @@
 .sidebar .logo p {
     float: left;
     font-size: 20px;
-    margin: 10px;
+    margin: 10px 10px;
     color: #fff;
     line-height: 20px;
     font-family: Helvetica Neue, Helvetica, Arial, sans-serif

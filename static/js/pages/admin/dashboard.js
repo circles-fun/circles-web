@@ -11,14 +11,11 @@ new Vue({
         vm.GetOnlineUsers()
     },
     methods: {
-        GettingApiUrl() {
-            return `${window.location.protocol}//osu.${window.location.hostname}:${window.location.port}/api`
-        },
         GetOnlineUsers() {
             var vm = this;
-            vm.$axios.get(`${this.GettingApiUrl()}/get_player_count`)
+            vm.$axios.get(`${window.location.protocol}//${window.location.hostname}:${window.location.port}/gw_api/get_online`)
                 .then(function (response) {
-                    vm.online_users = response.data.counts.online;
+                    vm.online_users = response.data.online;
                 });
         },
         addCommas(nStr) {

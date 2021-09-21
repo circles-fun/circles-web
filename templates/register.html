@@ -1,35 +1,11 @@
-<!DOCTYPE html>
-
 {% extends "base.html" %}
 {% block title %} Register {% endblock %}
 
+{% block header %}
+<link rel="stylesheet" href="/static/css/pages/auth.css">
+{% endblock %}
+
 {% block content %}
-<link id="style" rel="stylesheet" href="/static/css/pages/auth.css">
-
-<!-- Primary Meta Tags -->
-<title>Circles - Register</title>
-<meta name="title" content="Circles - Register">
-<meta name="description" content="Create an account onto the circles.fun private osu! server!">
-
-<!-- Open Graph / Facebook -->
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://circles.fun/">
-<meta property="og:title" content="Circles - Register">
-<meta property="og:description" content="Create an account onto the circles.fun private osu! server!">
-<meta property="og:image" content="https://circles.fun/static/images/logo.png">
-<meta content="#2c5690" data-react-helmet="true" name="theme-color">
-
-<!-- Twitter -->
-<meta property="twitter:url" content="https://circles.fun/">
-<meta property="twitter:title" content="Circles - Register">
-<meta property="twitter:description" content="Create an account onto the circles.fun private osu! server!">
-
-{% if flash %}
-<div class="paper-snackbar is-{{ status }}">
-  {{ flash }}
-</div>
-{% endif %}
-
 <div class="main-block is-marginless is-paddingless is-auth">
   <div class="columns pm-reset is-weeb">
     <div class="column title-block">
@@ -43,8 +19,7 @@
         <div class="field">
           <label for="user" class="label">Username</label>
           <div class="control has-icons-left">
-            <input id="user" type="text" name="username" placeholder="e.g. Aika" class="input" autocomplete="username"
-              required>
+            <input id="user" type="text" name="username" placeholder="e.g. Aika" class="input" autocomplete="username" required>
             <span class="icon is-small is-left">
               <i class="fa fa-envelope"></i>
             </span>
@@ -53,8 +28,7 @@
         <div class="field">
           <label for="email" class="label">Email</label>
           <div class="control has-icons-left">
-            <input id="email" type="email" name="email" placeholder="e.g. aika@gul.ag" class="input"
-              autocomplete="email" required>
+            <input id="email" type="email" name="email" placeholder="e.g. aika@gul.ag" class="input" autocomplete="email" required>
             <span class="icon is-small is-left">
               <i class="fa fa-lock"></i>
             </span>
@@ -63,8 +37,7 @@
         <div class="field">
           <label for="pass" class="label">Password</label>
           <div class="control has-icons-left">
-            <input id="pass" type="password" name="password" placeholder="*************" class="input"
-              autocomplete="new-password" required>
+            <input id="pass" type="password" name="password" placeholder="*************" class="input" autocomplete="new-password" required>
             <span class="icon is-small is-left">
               <i class="fa fa-lock"></i>
             </span>
@@ -76,12 +49,11 @@
         </div>
         {% if not captchaKey() == 'changeme' %}
         <div class="field">
-          <div class="h-captcha" data-sitekey="{{ captchaKey() }}" data-theme="dark"
-            style="display: flex; justify-content: center;"></div>
+          <div class="h-captcha" data-sitekey="{{ captchaKey() }}" data-theme="dark" style="display: flex; justify-content: center;"></div>
         </div>
         {% endif %}
         <div class="field">
-          <button type="submit" class="button is-light">
+          <button type="submit" class="button is-primary">
             Register
           </button>
         </div>
@@ -89,6 +61,12 @@
     </div>
   </div>
 </div>
+
+{% if flash %}
+<div class="paper-snackbar is-{{ status }}" style="opacity: 1;">
+  {{ flash }}
+</div>
+{% endif %}
 
 {% if not captchaKey() == 'changeme' %}
 <script src="https://hcaptcha.com/1/api.js" async defer></script>

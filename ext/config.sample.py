@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 
 # app name
-app_name = 'gulag-web'
+app_name = 'guweb'
 
 # secret key
 secret_key = 'changeme'
 
-# hCaptcha settings:
+#hCaptcha settings:
 hCaptcha_sitekey = 'changeme'
 hCaptcha_secret = 'changeme'
 

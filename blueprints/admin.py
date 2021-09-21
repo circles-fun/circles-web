@@ -14,12 +14,11 @@ from objects.utils import flash
 
 admin = Blueprint('admin', __name__)
 
-
 @admin.route('/')
 @admin.route('/home')
 @admin.route('/dashboard')
 async def home():
-    """Render the homepage of gulag-web's admin panel."""
+    """Render the homepage of guweb's admin panel."""
     if not 'authenticated' in session:
         return await flash('error', 'Please login first.', 'login')
 

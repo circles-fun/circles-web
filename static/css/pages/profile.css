@@ -164,7 +164,6 @@ td {
   display: block;
   margin-top: 8px;
 }
-
 .map-rank {
   font-size: 24px;
   font-weight: 600;
@@ -643,7 +642,6 @@ span.beatmap-mapper {
   .two-sides {
     display: contents !important;
   }
-
   .column.is-one-third,
   .column.is-one-third-tablet {
     flex: none;
@@ -688,7 +686,6 @@ span.beatmap-mapper {
     border-radius: 15px;
     object-fit: cover;
   }
-
   .info-block {
     display: flex;
     flex-direction: column;
